@@ -1,4 +1,5 @@
 using System.Net;
+using Features.Network.Client;
 using UnityEngine;
 
 namespace Features.Network
@@ -8,21 +9,16 @@ namespace Features.Network
         [SerializeField] private string ip;
         [SerializeField] private int port;
 
-        private BaseMessageHandler _messageHandler;
+        private ClientMessageHandler _messageHandler;
 
         private ConnectionManager _connectionManager;
-        // Start is called before the first frame update
+
         private void Awake()
         {
-            _messageHandler = new BaseMessageHandler();
             _connectionManager = ConnectionManager.Instance;
+            _messageHandler = new ClientMessageHandler(_connectionManager.Client);
             _connectionManager.ConnectWithLog(IPAddress.Parse(ip), port);
             _connectionManager.Client.MessageReceived += _messageHandler.MessageReceiver;
-        }
-
-        private void Start()
-        {
-            _messageHandler.SendTestData(Tags.TestTag, "TestData");
         }
     }
 }

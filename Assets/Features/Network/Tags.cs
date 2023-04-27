@@ -2,6 +2,6 @@
 {
     public enum Tags
     {
-        TestTag
+        SendClientMessage = 0
     }
 }
