@@ -6,6 +6,7 @@ namespace Features.Attack
     public class HeavyGirlAttack : MonoBehaviour//, BaseAttack
     {
         [SerializeField] private GameObject _attackCollider;
+        [SerializeField] private float delay;
         [SerializeField] private float duration;
         [SerializeField] private float cooldownDuration;
         
@@ -22,10 +23,13 @@ namespace Features.Attack
             _isHeavyAttack = Animator.StringToHash("StrangthAttack_idle");
         }
 
-        public void Attack()
+        public IEnumerator Attack()
         {
             _animator.SetTrigger(_isRunHeavyAttack);
             _animator.SetBool(_isHeavyAttack, true);
+
+            yield return new WaitForSeconds(delay);
+            
             _attackCollider.SetActive(true);
             _canAttack = false;
 

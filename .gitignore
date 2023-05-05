@@ -78,4 +78,14 @@ crashlytics-build.properties
 *.mp3
 *.dll
 *.png
+*.obj
+*.mat
+*.tga
+*.fbx
+*.prefab
+*.ttf
+*.psd
+*.txt
+/Assets/Scenes/*
+*.html
 ProjectSettings/*

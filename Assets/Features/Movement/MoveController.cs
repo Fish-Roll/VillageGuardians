@@ -17,10 +17,12 @@ namespace Features.Movement
         [SerializeField] private Animator animator;
         [SerializeField] private ParticleSystem _particleSystem;
         [SerializeField] private float healParticleDuration;
+        [SerializeField] private GameObject reviveZone;
+        
         private Health.Health _health;
         private InputSignatory _inputSignatory;
         private Rigidbody _rb;
-        private Movement _movement;
+        public Movement _movement;
         private Vector3 _moveDirection;
 
         private int _walkHash;
@@ -31,16 +33,24 @@ namespace Features.Movement
             _walkHash = Animator.StringToHash("RunAnimation");
             _isDead = Animator.StringToHash("IsDead");
             _isReviveing = Animator.StringToHash("IsRevival");
+            
             HealthPotion.OnHealByPotion += HealByPotion;
+            
             _health = GetComponent<Health.Health>();
-            _inputSignatory = GetComponent<InputSignatory>();
             _movement = GetComponent<Movement>();
             _rb = GetComponent<Rigidbody>();
             
+            reviveZone.SetActive(true);
+            
             _rb.freezeRotation = true;
             _health.Init(OnDeath, OnRevive);
+        }
+
+        private void Start()
+        {
+            _inputSignatory = GetComponent<InputSignatory>();
             _cameraMovement.Init(Camera.main);
-            _movement.Init(_rb, animator);
+            _movement.Init(_rb, animator, _inputSignatory);
         }
 
         private void HealByPotion()
@@ -73,7 +83,10 @@ namespace Features.Movement
         private void FixedUpdate()
         {
             _rb.velocity = new Vector3(_rb.velocity.x, -10, _rb.velocity.z);
-            _movement.Move(_moveDirection);
+            if (!_inputSignatory.IsDashing)
+            {
+                _movement.Move(_moveDirection);
+            }
         }
 
         private void RotatePlayer()
@@ -92,14 +105,16 @@ namespace Features.Movement
 
         private void OnDeath()
         {
+            reviveZone.SetActive(false);
             animator.SetTrigger(_isDead);
-            _movement.enabled = false;
+            this.enabled = false;
         }
 
         private void OnRevive()
         {
             animator.SetTrigger(_isReviveing);
-            _movement.enabled = true;
+            this.enabled = true;
+            reviveZone.SetActive(true);
         }
     }
 }

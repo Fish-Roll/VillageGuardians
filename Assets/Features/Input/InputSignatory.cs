@@ -1,4 +1,5 @@
 using Features.Attack;
+using Features.Movement;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -11,22 +12,28 @@ namespace Features.Input
         private Vector3 _moveDirection;
         private Vector2 _lookDirection;
 
+        private MoveController _moveController;
         private GirlAttackController _girlAttackController;
         private BoyAttackController _boyAttackController;
+        
         [SerializeField] private Animator animator;
         [SerializeField] private LayerMask layerMask;
+        [SerializeField] private Interaction.Interaction interaction;
+        
         public Vector3 MoveDirection
         {
             get => _moveDirection;
             set => _moveDirection = value;
         }
         public bool IsMoving { get; set; }
+        [field:SerializeField] public bool IsDashing { get; set; }
         public bool IsAiming { get; private set; }
         public Vector2 LookDirection => _lookDirection;
         
         private void Awake()
         {
-           
+            _moveController = GetComponent<MoveController>();
+            
             Cursor.lockState = CursorLockMode.Locked;
             if (!TryGetComponent(out _girlAttackController))
             {
@@ -36,21 +43,25 @@ namespace Features.Input
             if (_inputActions != null) return;
             
             _inputActions = new InputActions();
+            
+            SubscribeInput();
+        }
+
+        private void SubscribeInput()
+        {
             _inputActions.Controls.Walk.performed += OnWalk;
+            _inputActions.Controls.Dash.performed += OnDash;
+            
             _inputActions.Controls.Look.performed += OnLook;
             _inputActions.Controls.Look.canceled += OnLook;
             _inputActions.Controls.Aim.performed += OnAim;
 
-            _inputActions.Controls.LightAttack.started += OnLightAttack;
-            _inputActions.Controls.LightAttack.performed += OnLightAttack;
-            _inputActions.Controls.LightAttack.canceled += OnLightAttack;
+            _inputActions.Controls.Interact.performed += OnInteract;
             
-            _inputActions.Controls.HeavyAttack.started += OnHeavyAttack;
+            _inputActions.Controls.LightAttack.performed += OnLightAttack;
             _inputActions.Controls.HeavyAttack.performed += OnHeavyAttack;
-            _inputActions.Controls.HeavyAttack.canceled += OnHeavyAttack;
-
+            _inputActions.Controls.UltimateAttack.performed += OnUltimateAttack;
         }
-        
         private void OnEnable()
         {
             _inputActions.Controls.Enable();
@@ -59,19 +70,16 @@ namespace Features.Input
         private void OnDisable()
         {
             _inputActions.Controls.Walk.performed -= OnWalk;
+            _inputActions.Controls.Dash.performed -= OnDash;
+            
             _inputActions.Controls.Look.performed -= OnLook;
             _inputActions.Controls.Look.canceled -= OnLook;
             _inputActions.Controls.Aim.performed -= OnAim;
             
-            _inputActions.Controls.LightAttack.started -= OnLightAttack;
             _inputActions.Controls.LightAttack.performed -= OnLightAttack;
-            _inputActions.Controls.LightAttack.canceled -= OnLightAttack;
-            
-            _inputActions.Controls.HeavyAttack.started -= OnHeavyAttack;
             _inputActions.Controls.HeavyAttack.performed -= OnHeavyAttack;
-            _inputActions.Controls.HeavyAttack.canceled -= OnHeavyAttack;
+            _inputActions.Controls.UltimateAttack.performed -= OnUltimateAttack;
 
-            
             _inputActions.Controls.Disable();
         }
         
@@ -79,6 +87,13 @@ namespace Features.Input
         {
             ConvertInputDirectionToMove(obj.ReadValue<Vector2>());
             IsMoving = _moveDirection.x != 0 || _moveDirection.z != 0;
+        }
+
+        private void OnDash(InputAction.CallbackContext obj)
+        {
+            if (IsDashing) return;
+            IsDashing = true;
+            StartCoroutine(_moveController._movement.Dash(_moveDirection));
         }
         
         private void OnLook(InputAction.CallbackContext obj)
@@ -98,6 +113,16 @@ namespace Features.Input
                 animator.SetLayerWeight(1, 0);
                 IsAiming = false;
             }
+        }
+
+        private void OnInteract(InputAction.CallbackContext obj)
+        {
+            interaction.Interact();
+        }
+        
+        private void OnUltimateAttack(InputAction.CallbackContext obj)
+        {
+            
         }
         
         private void OnLightAttack(InputAction.CallbackContext obj)

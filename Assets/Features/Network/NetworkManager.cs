@@ -18,6 +18,7 @@ namespace Features.Network
             _connectionManager = ConnectionManager.Instance;
             _messageHandler = new ClientMessageHandler(_connectionManager.Client);
             _connectionManager.ConnectWithLog(IPAddress.Parse(ip), port);
+            
             _connectionManager.Client.MessageReceived += _messageHandler.MessageReceiver;
         }
     }

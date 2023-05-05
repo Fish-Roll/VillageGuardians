@@ -2,6 +2,7 @@
 using System.Collections;
 using DarkRift;
 using DarkRift.Client;
+using Features.Network.Messages;
 using UnityEngine;
 
 namespace Features.Network.Client
@@ -12,10 +13,8 @@ namespace Features.Network.Client
         
         private MovementMessage _movementMessage;
         private DarkRiftClient _client;
-        public ulong countSend;
         public void Awake()
         {
-            countSend = 0;
             _client = ConnectionManager.Instance.Client;
             _movementMessage = new MovementMessage();
         }
@@ -30,7 +29,6 @@ namespace Features.Network.Client
             while (_client.ConnectionState == ConnectionState.Connected)
             {
                 SendMessage();
-                countSend++;
                 yield return new WaitForSeconds(1 / sendFrequency);
             }
         }

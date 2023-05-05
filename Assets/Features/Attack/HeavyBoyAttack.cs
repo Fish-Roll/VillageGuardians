@@ -8,35 +8,37 @@ namespace Features.Attack
         [SerializeField] private GameObject _attackCollider;
         [SerializeField] private float duration;
         [SerializeField] private float cooldownDuration;
+        [SerializeField] private Transform newDashParent;
 
         public GameObject AttackCollider => _attackCollider;
         
         private bool _canAttack;
-        private int _heavyAttackHash;
         private Animator _animator;
         
         public void Init(ref bool canAttack, Animator animator)
         {
             _canAttack = canAttack;
             _animator = animator;
-            _heavyAttackHash = Animator.StringToHash("");
         }
 
         public void Attack()
         {
-            _animator.SetTrigger(_heavyAttackHash);
+            Transform oldDashParent = gameObject.transform;
+            newDashParent.SetParent(null);
+            gameObject.transform.SetParent(newDashParent);
+
             _attackCollider.SetActive(true);
             _canAttack = false;
             
-            StartCoroutine(ResetAttack());
+            StartCoroutine(ResetAttack(oldDashParent, newDashParent));
         }
 
-        private IEnumerator ResetAttack()
+        private IEnumerator ResetAttack(Transform oldDashParent, Transform newDashParent)
         {
             yield return new WaitForSeconds(duration);
             _attackCollider.SetActive(false);
-            _animator.SetBool(_heavyAttackHash, false);
-            
+            oldDashParent.SetParent(null);
+            newDashParent.SetParent(oldDashParent);
             yield return new WaitForSeconds(cooldownDuration);
             _canAttack = true;
         }

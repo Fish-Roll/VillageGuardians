@@ -34,7 +34,7 @@
                 },
                 {
                     "name": "LightAttack",
-                    "type": "PassThrough",
+                    "type": "Button",
                     "id": "6603d079-976a-4c80-9c8b-20e58153a657",
                     "expectedControlType": "Button",
                     "processors": "",
@@ -43,8 +43,26 @@
                 },
                 {
                     "name": "HeavyAttack",
-                    "type": "PassThrough",
+                    "type": "Button",
                     "id": "6ff96cd4-8284-496b-9c7a-30fcd9545960",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "UltimateAttack",
+                    "type": "Button",
+                    "id": "f054b54a-bfc0-4f75-b7a4-54de421e9875",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Interact",
+                    "type": "Button",
+                    "id": "f80129fa-3aab-4fdb-8add-21404f0ae6d6",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
@@ -168,6 +186,28 @@
                     "processors": "",
                     "groups": "",
                     "action": "Aim",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "5a19162b-2459-48dc-8d33-4366cdb855ad",
+                    "path": "<Keyboard>/q",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "UltimateAttack",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "5a237d9a-6791-4f68-99d0-4fb7628c6dc5",
+                    "path": "<Keyboard>/e",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Interact",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

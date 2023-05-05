@@ -10,25 +10,29 @@ namespace Features.Attack
         private Movement.Movement _movement;
 
         private bool _canAttack = true;
-        private int lightAttackTrigger;
-        private int heavyAttackTrigger;
-
+        
+        private int _lightAttackTrigger;
+        private int _heavyAttackTrigger;
+        private int _bustAttackTrigger;
+        
         private void Awake()
         {
             _movement = GetComponent<Movement.Movement>();
 
-            lightAttackTrigger = Animator.StringToHash("Standart_Attack");
-            heavyAttackTrigger = Animator.StringToHash("StrongAttack");
-
+            _lightAttackTrigger = Animator.StringToHash("StandardAttack");
+            _heavyAttackTrigger = Animator.StringToHash("StrongAttack");
+            _bustAttackTrigger = Animator.StringToHash("IsBoost");
+            
             lightAttack.Init(ref _canAttack, animator);
             heavyAttack.Init(ref _canAttack, animator);
+            
         }
 
         public void LightAttack(bool isAiming)
         {
             if (_canAttack && isAiming)
             {
-                animator.SetTrigger(lightAttackTrigger);
+                animator.SetTrigger(_lightAttackTrigger);
                 StartCoroutine(lightAttack.Attack());
             }
         }
@@ -38,8 +42,9 @@ namespace Features.Attack
             if (_canAttack)
             {
                 _movement.enabled = false;
+                
                 heavyAttack.Attack();
-                animator.SetTrigger(heavyAttackTrigger);
+                animator.SetTrigger(_heavyAttackTrigger);
             }
         }
     }

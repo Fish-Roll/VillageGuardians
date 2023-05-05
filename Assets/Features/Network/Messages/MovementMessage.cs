@@ -1,7 +1,7 @@
 ﻿using DarkRift;
 using UnityEngine;
 
-namespace Features.Network
+namespace Features.Network.Messages
 {
     public class MovementMessage
     {

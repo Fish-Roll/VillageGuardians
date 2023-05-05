@@ -56,7 +56,7 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": ""LightAttack"",
-                    ""type"": ""PassThrough"",
+                    ""type"": ""Button"",
                     ""id"": ""6603d079-976a-4c80-9c8b-20e58153a657"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
@@ -65,8 +65,26 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": ""HeavyAttack"",
-                    ""type"": ""PassThrough"",
+                    ""type"": ""Button"",
                     ""id"": ""6ff96cd4-8284-496b-9c7a-30fcd9545960"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""UltimateAttack"",
+                    ""type"": ""Button"",
+                    ""id"": ""f054b54a-bfc0-4f75-b7a4-54de421e9875"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Interact"",
+                    ""type"": ""Button"",
+                    ""id"": ""f80129fa-3aab-4fdb-8add-21404f0ae6d6"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """",
@@ -192,6 +210,28 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
                     ""action"": ""Aim"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""5a19162b-2459-48dc-8d33-4366cdb855ad"",
+                    ""path"": ""<Keyboard>/q"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""UltimateAttack"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""5a237d9a-6791-4f68-99d0-4fb7628c6dc5"",
+                    ""path"": ""<Keyboard>/e"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Interact"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -217,6 +257,8 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
         m_Controls_Dash = m_Controls.FindAction("Dash", throwIfNotFound: true);
         m_Controls_LightAttack = m_Controls.FindAction("LightAttack", throwIfNotFound: true);
         m_Controls_HeavyAttack = m_Controls.FindAction("HeavyAttack", throwIfNotFound: true);
+        m_Controls_UltimateAttack = m_Controls.FindAction("UltimateAttack", throwIfNotFound: true);
+        m_Controls_Interact = m_Controls.FindAction("Interact", throwIfNotFound: true);
         m_Controls_Aim = m_Controls.FindAction("Aim", throwIfNotFound: true);
     }
 
@@ -282,6 +324,8 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
     private readonly InputAction m_Controls_Dash;
     private readonly InputAction m_Controls_LightAttack;
     private readonly InputAction m_Controls_HeavyAttack;
+    private readonly InputAction m_Controls_UltimateAttack;
+    private readonly InputAction m_Controls_Interact;
     private readonly InputAction m_Controls_Aim;
     public struct ControlsActions
     {
@@ -292,6 +336,8 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
         public InputAction @Dash => m_Wrapper.m_Controls_Dash;
         public InputAction @LightAttack => m_Wrapper.m_Controls_LightAttack;
         public InputAction @HeavyAttack => m_Wrapper.m_Controls_HeavyAttack;
+        public InputAction @UltimateAttack => m_Wrapper.m_Controls_UltimateAttack;
+        public InputAction @Interact => m_Wrapper.m_Controls_Interact;
         public InputAction @Aim => m_Wrapper.m_Controls_Aim;
         public InputActionMap Get() { return m_Wrapper.m_Controls; }
         public void Enable() { Get().Enable(); }
@@ -317,6 +363,12 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
                 @HeavyAttack.started -= m_Wrapper.m_ControlsActionsCallbackInterface.OnHeavyAttack;
                 @HeavyAttack.performed -= m_Wrapper.m_ControlsActionsCallbackInterface.OnHeavyAttack;
                 @HeavyAttack.canceled -= m_Wrapper.m_ControlsActionsCallbackInterface.OnHeavyAttack;
+                @UltimateAttack.started -= m_Wrapper.m_ControlsActionsCallbackInterface.OnUltimateAttack;
+                @UltimateAttack.performed -= m_Wrapper.m_ControlsActionsCallbackInterface.OnUltimateAttack;
+                @UltimateAttack.canceled -= m_Wrapper.m_ControlsActionsCallbackInterface.OnUltimateAttack;
+                @Interact.started -= m_Wrapper.m_ControlsActionsCallbackInterface.OnInteract;
+                @Interact.performed -= m_Wrapper.m_ControlsActionsCallbackInterface.OnInteract;
+                @Interact.canceled -= m_Wrapper.m_ControlsActionsCallbackInterface.OnInteract;
                 @Aim.started -= m_Wrapper.m_ControlsActionsCallbackInterface.OnAim;
                 @Aim.performed -= m_Wrapper.m_ControlsActionsCallbackInterface.OnAim;
                 @Aim.canceled -= m_Wrapper.m_ControlsActionsCallbackInterface.OnAim;
@@ -339,6 +391,12 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
                 @HeavyAttack.started += instance.OnHeavyAttack;
                 @HeavyAttack.performed += instance.OnHeavyAttack;
                 @HeavyAttack.canceled += instance.OnHeavyAttack;
+                @UltimateAttack.started += instance.OnUltimateAttack;
+                @UltimateAttack.performed += instance.OnUltimateAttack;
+                @UltimateAttack.canceled += instance.OnUltimateAttack;
+                @Interact.started += instance.OnInteract;
+                @Interact.performed += instance.OnInteract;
+                @Interact.canceled += instance.OnInteract;
                 @Aim.started += instance.OnAim;
                 @Aim.performed += instance.OnAim;
                 @Aim.canceled += instance.OnAim;
@@ -362,6 +420,8 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
         void OnDash(InputAction.CallbackContext context);
         void OnLightAttack(InputAction.CallbackContext context);
         void OnHeavyAttack(InputAction.CallbackContext context);
+        void OnUltimateAttack(InputAction.CallbackContext context);
+        void OnInteract(InputAction.CallbackContext context);
         void OnAim(InputAction.CallbackContext context);
     }
 }

@@ -36,7 +36,7 @@ namespace Features.Attack
             if (_canAttack)
             {
                 _movement.enabled = false;
-                heavyAttack.Attack();
+                StartCoroutine(heavyAttack.Attack());
                 _animator.SetTrigger(heavyAttackTrigger);
             }
         }
