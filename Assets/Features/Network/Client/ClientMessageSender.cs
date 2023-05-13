@@ -35,14 +35,7 @@ namespace Features.Network.Client
 
         private void SendMessage()
         {
-            using (var writer = DarkRiftWriter.Create())
-            {
-                _movementMessage.WriteMessage(writer);
-                using (var message = Message.Create((ushort)Tags.SendClientMessage, writer))
-                {
-                    _client.SendMessage(message, SendMode.Unreliable);
-                }
-            }
+            
         }
     }
 }

@@ -9,9 +9,21 @@ namespace Features.Network.Host
         {
             
         }
-        public override void MessageReceiver(object sender, MessageReceivedEventArgs e)
+        
+        public override void MessageReceiver(object sender, MessageReceivedEventArgs messageReceiver)
         {
-            
+            switch (messageReceiver.Tag)
+            {
+                case (ushort)Tags.CreateLobby:
+                    
+                    break;
+                case (ushort)Tags.ExitLobby:
+                    
+                    break;
+                case (ushort)Tags.JoinLobby:
+                    
+                    break;
+            }
         }
     }
 }

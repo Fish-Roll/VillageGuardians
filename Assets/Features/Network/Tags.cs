@@ -2,6 +2,9 @@
 {
     public enum Tags
     {
-        SendClientMessage = 0
+        CreateLobby = 0,
+        JoinLobby = 1,
+        ExitLobby = 2,
+        
     }
 }

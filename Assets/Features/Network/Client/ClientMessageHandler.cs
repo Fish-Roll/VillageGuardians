@@ -1,19 +1,22 @@
 ﻿using DarkRift;
 using DarkRift.Client;
+using Features.Network.Abstract;
 using UnityEngine;
 
 namespace Features.Network.Client
 {
-    public class ClientMessageHandler
+    public class ClientMessageHandler : AbstractMessageHandler
     {
-        private readonly DarkRiftClient _client;
-        public ClientMessageHandler(DarkRiftClient client)
-        {
-            _client = client;
-        }
-        public virtual void MessageReceiver(object sender, MessageReceivedEventArgs messageReceived)
+        public ClientMessageHandler(DarkRiftClient client) : base(client)
         {
             
+        }
+        public override void MessageReceiver(object sender, MessageReceivedEventArgs messageReceived)
+        {
+            switch (messageReceived.Tag)
+            {
+                
+            }
         }
     }
 }
