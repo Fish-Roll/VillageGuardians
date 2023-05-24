@@ -1,4 +1,5 @@
 using Features.Attack;
+using Features.Attack.Abstract;
 using Features.Movement;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -13,8 +14,7 @@ namespace Features.Input
         private Vector2 _lookDirection;
 
         private MoveController _moveController;
-        private GirlAttackController _girlAttackController;
-        private BoyAttackController _boyAttackController;
+        private BaseAttackController _attackController;
         
         [SerializeField] private Animator animator;
         [SerializeField] private LayerMask layerMask;
@@ -33,12 +33,9 @@ namespace Features.Input
         private void Awake()
         {
             _moveController = GetComponent<MoveController>();
-            
+            _attackController = GetComponent<BaseAttackController>();            
+
             Cursor.lockState = CursorLockMode.Locked;
-            if (!TryGetComponent(out _girlAttackController))
-            {
-                _boyAttackController = GetComponent<BoyAttackController>();
-            }
             
             if (_inputActions != null) return;
             
@@ -127,26 +124,12 @@ namespace Features.Input
         
         private void OnLightAttack(InputAction.CallbackContext obj)
         {
-            if (_girlAttackController != null)
-            {
-                _girlAttackController.LightAttack(GetMouseHitVector(), IsAiming);
-            }
-            else
-            {
-                _boyAttackController.LightAttack(IsAiming);
-            }
+            _attackController.HandleAttack((int)AttackType.LightAttack);
         }
 
         private void OnHeavyAttack(InputAction.CallbackContext obj)
         {
-            if (_girlAttackController != null)
-            {
-                _girlAttackController.HeavyAttack(IsAiming);
-            }
-            else
-            {
-                _boyAttackController.HeavyAttack();
-            }
+            _attackController.HandleAttack((int)AttackType.HeavyAttack);
         }
         
         private void ConvertInputDirectionToMove(Vector2 inputMoveDirection)
