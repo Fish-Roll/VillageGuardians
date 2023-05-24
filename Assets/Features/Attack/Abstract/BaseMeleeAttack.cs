@@ -5,6 +5,6 @@ namespace Features.Attack.Abstract
 {
     public abstract class BaseMeleeAttack : BaseAttack
     {
-        [SerializeField] protected Collider weapon;
+        [SerializeField] protected GameObject weapon;
     }
 }

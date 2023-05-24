@@ -2,11 +2,12 @@
 using Features.Attack.Abstract;
 using UnityEngine;
 
-namespace Features.Attack.Boy
+namespace Features.Attack.Girl
 {
-    public class BoyLightMeleeAttack : BaseMeleeAttack
+    public class GirlLightRangeAttack : BaseRangeAttack
     {
-        [SerializeField] private float duration;
+        [SerializeField] private float delay;
+        [SerializeField] private float delayReset;
         
         private Animator _animator;
         private int _attackHash;
@@ -14,23 +15,24 @@ namespace Features.Attack.Boy
         public override void Init(Animator animator)
         {
             _animator = animator;
-            _attackHash = Animator.StringToHash("StandardAttack");
+            _attackHash = Animator.StringToHash("Standart_Attack");
         }
 
         public override IEnumerator Attack()
         {
-            var wait = new WaitForSeconds(duration);
+            var waitDelay = new WaitForSeconds(delay);
             BaseAttackController.canAttack = false;
+            
             _animator.SetTrigger(_attackHash);
-            weapon.SetActive(true);
-            yield return wait;
+            yield return waitDelay;
+            Instantiate(projectile, spawnPosition.position, Quaternion.identity);
+            yield return new WaitForSeconds(delayReset);
             
             ResetAttack();
         }
-        
+
         protected override void ResetAttack()
         {
-            weapon.SetActive(false);
             BaseAttackController.canAttack = true;
         }
     }

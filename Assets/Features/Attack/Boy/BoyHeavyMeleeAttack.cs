@@ -29,7 +29,7 @@ namespace Features.Attack.Boy
             _animator.SetTrigger(_attackHash);
             yield return waitDelay;
             
-            weapon.enabled = true;
+            weapon.SetActive(true);
             yield return waitDuration;
             
             ResetAttack();
@@ -37,7 +37,7 @@ namespace Features.Attack.Boy
 
         protected override void ResetAttack()
         {
-            weapon.enabled = false;
+            weapon.SetActive(false);
             BaseAttackController.canAttack = true;
         }
     }
