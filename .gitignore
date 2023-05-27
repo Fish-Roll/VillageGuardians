@@ -85,7 +85,9 @@ crashlytics-build.properties
 *.prefab
 *.ttf
 *.psd
+*.pdf
 *.txt
 /Assets/Scenes/*
+/[Aa]ssets/[Ee]nvironment/*
 *.html
 ProjectSettings/*
