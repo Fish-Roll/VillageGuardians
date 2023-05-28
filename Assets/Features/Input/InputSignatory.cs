@@ -1,5 +1,6 @@
 using Features.Attack;
 using Features.Attack.Abstract;
+using Features.Interaction;
 using Features.Movement;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -18,8 +19,8 @@ namespace Features.Input
         
         [SerializeField] private Animator animator;
         [SerializeField] private LayerMask layerMask;
-        [SerializeField] private Interaction.Interaction interaction;
         
+        [SerializeField] private InteractionController interactionController;
         public Vector3 MoveDirection
         {
             get => _moveDirection;
@@ -114,7 +115,7 @@ namespace Features.Input
 
         private void OnInteract(InputAction.CallbackContext obj)
         {
-            interaction.Interact();
+            interactionController.HandleInteraction();
         }
         
         private void OnUltimateAttack(InputAction.CallbackContext obj)

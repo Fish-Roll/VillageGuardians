@@ -23,11 +23,11 @@ namespace Features.Health
         {
             _currentHealth = maxHealth;
             
-            leftHealth.maxValue = maxHealth;
-            rightHealth.maxValue = maxHealth;
+            // leftHealth.maxValue = maxHealth;
+            // rightHealth.maxValue = maxHealth;
             
-            leftHealth.value = maxHealth;
-            rightHealth.value = maxHealth;
+            // leftHealth.value = maxHealth;
+            // rightHealth.value = maxHealth;
             
         }
 
@@ -40,8 +40,8 @@ namespace Features.Health
         public void Damage(float value)
         {
             _currentHealth = Mathf.Clamp(_currentHealth - value, 0, maxHealth);
-            leftHealth.value = _currentHealth;
-            rightHealth.value = _currentHealth;
+            // leftHealth.value = _currentHealth;
+            // rightHealth.value = _currentHealth;
             if (_currentHealth == 0 && !_isDead)
             {
                 _isDead = true;
@@ -53,8 +53,8 @@ namespace Features.Health
         {
             if (_currentHealth == 0) return;
 
-            leftHealth.value = _currentHealth;
-            rightHealth.value = _currentHealth;
+            // leftHealth.value = _currentHealth;
+            // rightHealth.value = _currentHealth;
 
             _currentHealth = Mathf.Clamp(_currentHealth + value, 0, maxHealth);
         }
@@ -63,9 +63,9 @@ namespace Features.Health
         {
             if (!_isDead) return;
             
-            _currentHealth = Mathf.Clamp(revivedHealth, 0, maxHealth);
-            leftHealth.value = _currentHealth;
-            rightHealth.value = _currentHealth;
+            _currentHealth = revivedHealth;
+            // leftHealth.value = _currentHealth;
+            // rightHealth.value = _currentHealth;
 
             _isDead = false;
             _onRevive.Invoke();
