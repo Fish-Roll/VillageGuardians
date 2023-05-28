@@ -1,7 +1,6 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 
-namespace Features.PickingUp
+namespace Features.Interaction
 {
     public class Gates : MonoBehaviour
     {

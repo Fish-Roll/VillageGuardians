@@ -91,7 +91,7 @@ namespace Features.Input
         {
             if (IsDashing) return;
             IsDashing = true;
-            StartCoroutine(_moveController._movement.Dash(_moveDirection));
+            StartCoroutine(_moveController.movement.Dash(_moveDirection));
         }
         
         private void OnLook(InputAction.CallbackContext obj)

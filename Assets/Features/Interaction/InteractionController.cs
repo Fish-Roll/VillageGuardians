@@ -12,8 +12,8 @@ namespace Features.Interaction
         
         public void Awake()
         {
-            _reviveHash = Animator.StringToHash("IsSupport");
-            _leverHash = Animator.StringToHash("IsLever");
+            _reviveHash = Animator.StringToHash("Support");
+            _leverHash = Animator.StringToHash("Lever");
         }
 
         public void HandleInteraction()

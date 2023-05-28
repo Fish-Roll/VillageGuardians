@@ -1,4 +1,5 @@
 ﻿using System;
+using Features.Interaction;
 using UnityEngine;
 
 namespace Features.PickingUp

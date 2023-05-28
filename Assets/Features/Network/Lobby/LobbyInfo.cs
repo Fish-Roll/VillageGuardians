@@ -16,7 +16,7 @@ namespace Features.Network.Lobby
             _client = client;
         }
 
-        public LobbyInfo Create()
+        public void Create()
         {
             
         }

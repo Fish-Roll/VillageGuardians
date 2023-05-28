@@ -21,7 +21,7 @@ namespace Features.Network
             _messageHandler = new ClientMessageHandler(_connectionManager.Client);
             _connectionManager.ConnectWithLog(IPAddress.Parse(ip), port);
 
-            _connectionManager.Client.MessageReceived += _lobbyController.;
+            _connectionManager.Client.MessageReceived += _lobbyController.LobbyReceiver;
             _connectionManager.Client.MessageReceived += _messageHandler.MessageReceiver;
         }
     }

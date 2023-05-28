@@ -29,7 +29,7 @@ namespace Features.Network.Lobby
 
         private void Create()
         {
-            view.Lobby = new LobbyInfo();
+            //view.Lobby = new LobbyInfo();
         }
 
         private void Join()
