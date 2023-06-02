@@ -9,6 +9,10 @@ namespace Features.Attack.Weapon
         
         private void OnTriggerEnter(Collider other)
         {
+            if (other.CompareTag("Wall"))
+            {
+                other.gameObject.SetActive(false);
+            }
             //if (!_hasAlreadyDamaged)
             {
                 //_hasAlreadyDamaged = true;

@@ -6,6 +6,8 @@ namespace Features.Interaction
     [RequireComponent(typeof(Lever))]
     public class LeverHandler: MonoBehaviour, IInteractable
     {
+        [SerializeField] private LeverGates leverGates;
+        
         private bool _isActivated;
         
         public void Interact()
@@ -14,6 +16,7 @@ namespace Features.Interaction
             {
                 _isActivated = true;
                 GetComponent<Lever>().enabled = true;
+                leverGates.Open();
             }
         }
 

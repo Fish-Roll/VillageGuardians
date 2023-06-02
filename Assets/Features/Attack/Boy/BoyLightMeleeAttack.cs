@@ -7,6 +7,7 @@ namespace Features.Attack.Boy
     public class BoyLightMeleeAttack : BaseMeleeAttack
     {
         [SerializeField] private float duration;
+        [SerializeField] private ParticleSystem attackEffect;
         
         private Animator _animator;
         private int _attackHash;
@@ -14,7 +15,7 @@ namespace Features.Attack.Boy
         public override void Init(Animator animator)
         {
             _animator = animator;
-            _attackHash = Animator.StringToHash("StandardAttack");
+            _attackHash = Animator.StringToHash("LightAttack");
         }
 
         public override IEnumerator Attack()
@@ -22,14 +23,15 @@ namespace Features.Attack.Boy
             var wait = new WaitForSeconds(duration);
             BaseAttackController.canAttack = false;
             _animator.SetTrigger(_attackHash);
+            attackEffect.Play();
             weapon.SetActive(true);
             yield return wait;
-            
             ResetAttack();
         }
         
         protected override void ResetAttack()
         {
+            attackEffect.Stop();
             weapon.SetActive(false);
             BaseAttackController.canAttack = true;
         }

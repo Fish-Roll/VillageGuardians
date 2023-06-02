@@ -25,23 +25,23 @@ namespace Features.Movement
         private Vector3 _moveDirection;
 
         private int _walkHash;
-        // private int _isDead;
-        // private int _isReviveing;
+        private int _isDead;
+        private int _isReviveing;
         
         private void Awake()
         {
             _walkHash = Animator.StringToHash("RunAnimation");
-            // _isDead = Animator.StringToHash("IsDead");
-            // _isReviveing = Animator.StringToHash("IsRevival");
+            _isDead = Animator.StringToHash("IsDead");
+            _isReviveing = Animator.StringToHash("IsRevival");
             
-            HealthPotion.OnHealByPotion += HealByPotion;
+            // HealthPotion.OnHealByPotion += HealByPotion;
             
-            //_health = GetComponent<Health.Health>();
+            _health = GetComponent<Health.Health>();
             movement = GetComponent<BasePlayerMovement>();
             _rb = GetComponent<Rigidbody>();
             
             _rb.freezeRotation = true;
-            //_health.Init(OnDeath, OnRevive);
+            _health.Init(OnDeath, OnRevive);
         }
 
         private void Start()
@@ -104,18 +104,16 @@ namespace Features.Movement
             }
         }
 
-        // private void OnDeath()
-        // {
-        //     reviveZone.SetActive(false);
-        //     animator.SetTrigger(_isDead);
-        //     this.enabled = false;
-        // }
-        //
-        // private void OnRevive()
-        // {
-        //     animator.SetTrigger(_isReviveing);
-        //     this.enabled = true;
-        //     reviveZone.SetActive(true);
-        // }
+        private void OnDeath()
+        {
+            animator.SetTrigger(_isDead);
+            this.enabled = false;
+        }
+        
+        private void OnRevive()
+        {
+            animator.SetTrigger(_isReviveing);
+            this.enabled = true;
+        }
     }
 }

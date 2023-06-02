@@ -13,7 +13,7 @@ namespace Features.Input
         
         private Vector3 _moveDirection;
         private Vector2 _lookDirection;
-
+        private bool _isBool;
         private MoveController _moveController;
         private BaseAttackController _attackController;
         
@@ -120,17 +120,20 @@ namespace Features.Input
         
         private void OnUltimateAttack(InputAction.CallbackContext obj)
         {
-            
+            if(!_isBool)
+                animator.SetTrigger("IsBoust");
         }
         
         private void OnLightAttack(InputAction.CallbackContext obj)
         {
-            _attackController.HandleAttack((int)AttackType.LightAttack);
+            if(IsAiming)
+                _attackController.HandleAttack((int)AttackType.LightAttack);
         }
 
         private void OnHeavyAttack(InputAction.CallbackContext obj)
         {
-            _attackController.HandleAttack((int)AttackType.HeavyAttack);
+            if(!IsAiming)
+                _attackController.HandleAttack((int)AttackType.HeavyAttack);
         }
         
         private void ConvertInputDirectionToMove(Vector2 inputMoveDirection)
