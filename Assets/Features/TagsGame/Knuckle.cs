@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using Features.Interaction;
 using Features.PickingUp;
 using UnityEngine;
@@ -8,18 +9,27 @@ namespace Features.TagsGame
     public class Knuckle : MonoBehaviour, ILifted, IInteractable
     {
         [SerializeField] private ushort id;
-        private Vector3 _position;
+        [SerializeField] private float time;
 
-        private Action _onInteract;
-
+        
+        public int Id => id;
+        
+        private Action<Knuckle> _onInteract;
+        private Action<GameObject> _onLift;
+        public bool lifted;
+        
         private void Start()
         {
-            _position = transform.position;
+            
         }
         
-        public void Init(Action onInteract)
+        public void InitInteract(Action<Knuckle> onInteract)
         {
             _onInteract = onInteract;
+        }
+        public void InitLift(Action<GameObject> onLift)
+        {
+            _onLift = onLift;
         }
         
         /// <summary>
@@ -27,13 +37,31 @@ namespace Features.TagsGame
         /// </summary>
         public void Lift()
         {
-            
+            if (!lifted)
+            {
+                lifted = true;
+                _onLift.Invoke(gameObject);
+            }
         }
 
         public void Interact()
         {
-            _onInteract.Invoke();
+            _onInteract.Invoke(this);
         }
-        
+
+        public IEnumerator Move(TagsPoint targetPoint)
+        {
+            var targetPosition = targetPoint.transform;
+            targetPoint.Knuckle = this;
+            
+            float currTime = 0;
+            while (Vector3.Distance(transform.position, targetPosition.position) >= 0.05f)
+            {
+                transform.position = Vector3.Lerp(transform.position, targetPosition.position, currTime / time);
+                currTime += Time.deltaTime;
+                yield return null;
+            }
+            transform.position = targetPosition.position;
+        }
     }
 }

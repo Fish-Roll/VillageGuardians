@@ -1,4 +1,5 @@
 ﻿using System;
+using Features.TagsGame;
 using UnityEngine;
 
 namespace Features.Interaction
@@ -9,11 +10,13 @@ namespace Features.Interaction
         private IInteractable _interactable;
         private int _reviveHash;
         private int _leverHash;
+        private int _knuckleHash;
         
         public void Awake()
         {
             _reviveHash = Animator.StringToHash("Support");
             _leverHash = Animator.StringToHash("Lever");
+            _knuckleHash = Animator.StringToHash("Push");
         }
 
         public void HandleInteraction()
@@ -23,7 +26,9 @@ namespace Features.Interaction
                 if (_interactable.GetType() == typeof(Reviver))
                     animator.SetTrigger(_reviveHash);
                 else if(_interactable.GetType() == typeof(LeverHandler))
-                    animator.SetTrigger(_leverHash);    
+                    animator.SetTrigger(_leverHash);
+                else if(_interactable.GetType() == typeof(Knuckle))
+                    animator.SetTrigger(_knuckleHash);
                 _interactable.Interact();
             }
         }
@@ -40,11 +45,6 @@ namespace Features.Interaction
         {
             if (other.TryGetComponent<IInteractable>(out var interactable))
                 _interactable = null;
-        }
-
-        private void OnDestroyInteractable()
-        {
-            _interactable = null;
         }
     }
 }

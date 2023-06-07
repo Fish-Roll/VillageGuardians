@@ -8,10 +8,10 @@ namespace Features.TagsGame
     {
         [SerializeField] private TagsField tagsField;
         
-        // private IEnumerator Move()
-        // {
-        //     var emptyPoint = tagsField.GetEmptyPoint();
-        //     
-        // }
+        private void Start()
+        {
+        }
+        
+        
     }
 }
