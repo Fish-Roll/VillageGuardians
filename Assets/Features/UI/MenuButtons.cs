@@ -8,7 +8,6 @@ public class MenuButtons : MonoBehaviour
     [SerializeField] private string levelName;
     
     [Header("Windows")]
-    [SerializeField] private GameObject createLobby;
     [SerializeField] private GameObject findLobby;
     [SerializeField] private GameObject control;
     [SerializeField] private GameObject mainMenu;
@@ -17,13 +16,7 @@ public class MenuButtons : MonoBehaviour
     {
         SceneManager.LoadScene(levelName);
     }
-
-    public void CreateLobby()
-    {
-        mainMenu.SetActive(false);
-        createLobby.SetActive(true);
-    }
-
+    
     public void FindLobby()
     {
         mainMenu.SetActive(false);
@@ -38,7 +31,7 @@ public class MenuButtons : MonoBehaviour
 
     public void Exit()
     {
-        Debug.Log("Exit");
+        Application.Quit();
     }
 
     public void Close(GameObject window)

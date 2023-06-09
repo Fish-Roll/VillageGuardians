@@ -407,7 +407,7 @@ AnimatorStateTransition:
   m_Name: 
   m_Conditions:
   - m_ConditionMode: 1
-    m_ConditionEvent: LightAttack
+    m_ConditionEvent: StandartAttack
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 1304313673818688322}
@@ -534,7 +534,7 @@ AnimatorController:
     m_DefaultInt: 0
     m_DefaultBool: 0
     m_Controller: {fileID: 9100000}
-  - m_Name: LightAttack
+  - m_Name: StandartAttack
     m_Type: 9
     m_DefaultFloat: 0
     m_DefaultInt: 0
@@ -659,7 +659,7 @@ AnimatorState:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: metarig|standart_attack_right
-  m_Speed: 0.75
+  m_Speed: 1
   m_CycleOffset: 0
   m_Transitions:
   - {fileID: -8057806407296425862}
@@ -1114,8 +1114,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: 2720663197771208307, guid: 0c7c2ebb4911548c9ab6e9fd4698e63b,
-    type: 3}
+  m_Motion: {fileID: 7400000, guid: f1a4f6465f8a443ce8fa854c8b187a49, type: 2}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 

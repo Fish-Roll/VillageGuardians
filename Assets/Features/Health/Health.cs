@@ -8,8 +8,8 @@ namespace Features.Health
     {
         [SerializeField] private float maxHealth;
         [SerializeField] private float revivedHealth;
-
-        [SerializeField] private float _currentHealth;
+        [SerializeField] private ParticleSystem particleSystem;
+            [SerializeField] private float _currentHealth;
         
         [SerializeField] private Slider leftHealth;
         [SerializeField] private Slider rightHealth;
@@ -23,10 +23,10 @@ namespace Features.Health
         {
             _currentHealth = maxHealth;
             
-            // leftHealth.maxValue = maxHealth;
+            leftHealth.maxValue = maxHealth;
             // rightHealth.maxValue = maxHealth;
             
-            // leftHealth.value = maxHealth;
+            leftHealth.value = maxHealth;
             // rightHealth.value = maxHealth;
             
         }
@@ -40,8 +40,8 @@ namespace Features.Health
         public void Damage(float value)
         {
             _currentHealth = Mathf.Clamp(_currentHealth - value, 0, maxHealth);
-            // leftHealth.value = _currentHealth;
-            // rightHealth.value = _currentHealth;
+            if(leftHealth != null)
+                leftHealth.value = _currentHealth;
             if (_currentHealth == 0 && !_isDead)
             {
                 _isDead = true;
@@ -51,22 +51,18 @@ namespace Features.Health
 
         public void Heal(float value)
         {
+            particleSystem.Play();
+            leftHealth.value = _currentHealth;
             if (_currentHealth == 0) return;
-
-            // leftHealth.value = _currentHealth;
-            // rightHealth.value = _currentHealth;
-
             _currentHealth = Mathf.Clamp(_currentHealth + value, 0, maxHealth);
         }
 
         public void Revive()
         {
             if (!_isDead) return;
-            
+            leftHealth.value = _currentHealth;
             _currentHealth = revivedHealth;
-            // leftHealth.value = _currentHealth;
-            // rightHealth.value = _currentHealth;
-
+            particleSystem.Play();
             _isDead = false;
             _onRevive.Invoke();
         }

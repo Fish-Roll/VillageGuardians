@@ -17,12 +17,7 @@ namespace Features.TagsGame
         private Action<Knuckle> _onInteract;
         private Action<GameObject> _onLift;
         public bool lifted;
-        
-        private void Start()
-        {
-            
-        }
-        
+
         public void InitInteract(Action<Knuckle> onInteract)
         {
             _onInteract = onInteract;

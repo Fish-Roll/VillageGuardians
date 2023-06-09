@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using Features.Attack.Abstract;
+using Features.Attack.Weapon;
 using Features.Input;
 using UnityEngine;
 
@@ -27,15 +28,14 @@ namespace Features.Attack.Girl
 
         public override IEnumerator Attack()
         {
-            Quaternion direction = new Quaternion();
-            direction.eulerAngles = _inputSignatory.GetMouseHitVector();
-            
             var waitDelay = new WaitForSeconds(delay);
             BaseAttackController.canAttack = false;
             
             _animator.SetTrigger(_attackHash);
             yield return waitDelay;
-            Instantiate(projectile, spawnPosition.position, direction);
+            var GO = Instantiate(projectile, spawnPosition.position, Quaternion.identity);
+            var moveDirection = _inputSignatory.GetMouseHitVector();
+            GO.GetComponent<Fireball>().Init(moveDirection);
             yield return new WaitForSeconds(delayReset);
             
             ResetAttack();

@@ -31,8 +31,8 @@ namespace Features.Movement
         private void Awake()
         {
             _walkHash = Animator.StringToHash("RunAnimation");
-            _isDead = Animator.StringToHash("IsDead");
-            _isReviveing = Animator.StringToHash("IsRevival");
+            _isDead = Animator.StringToHash("Death");
+            _isReviveing = Animator.StringToHash("Revival");
             
             // HealthPotion.OnHealByPotion += HealByPotion;
             
@@ -108,6 +108,7 @@ namespace Features.Movement
         {
             animator.SetTrigger(_isDead);
             this.enabled = false;
+            _inputSignatory.enabled = false;
         }
         
         private void OnRevive()

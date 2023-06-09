@@ -1,3 +1,4 @@
+using Cinemachine;
 using Features.Attack;
 using Features.Attack.Abstract;
 using Features.Interaction;
@@ -9,6 +10,13 @@ namespace Features.Input
 {
     public class InputSignatory : MonoBehaviour
     {
+        [SerializeField] private GameObject girlPlayer;
+        [SerializeField] private CinemachineVirtualCamera girlCamera;
+
+        [SerializeField] private GameObject boyPlayer;
+        [SerializeField] private CinemachineVirtualCamera boyCamera;
+        
+        [Space(5)]
         private InputActions _inputActions;
         
         private Vector3 _moveDirection;
@@ -42,7 +50,6 @@ namespace Features.Input
             
             _inputActions = new InputActions();
             
-            SubscribeInput();
         }
 
         private void SubscribeInput()
@@ -55,13 +62,16 @@ namespace Features.Input
             _inputActions.Controls.Aim.performed += OnAim;
 
             _inputActions.Controls.Interact.performed += OnInteract;
-            
+            _inputActions.Controls.ChangePlayer.performed += OnChangePlayer;
+
             _inputActions.Controls.LightAttack.performed += OnLightAttack;
             _inputActions.Controls.HeavyAttack.performed += OnHeavyAttack;
             _inputActions.Controls.UltimateAttack.performed += OnUltimateAttack;
         }
         private void OnEnable()
         {
+            SubscribeInput();
+
             _inputActions.Controls.Enable();
         }
 
@@ -77,8 +87,28 @@ namespace Features.Input
             _inputActions.Controls.LightAttack.performed -= OnLightAttack;
             _inputActions.Controls.HeavyAttack.performed -= OnHeavyAttack;
             _inputActions.Controls.UltimateAttack.performed -= OnUltimateAttack;
-
+            _inputActions.Controls.ChangePlayer.performed -= OnChangePlayer;
             _inputActions.Controls.Disable();
+        }
+
+        private void OnChangePlayer(InputAction.CallbackContext obj)
+        {
+            if (girlCamera.enabled)
+            {
+                boyPlayer.SetActive(true);
+                boyCamera.enabled = true;
+
+                girlCamera.enabled = false;
+                girlPlayer.SetActive(false);
+            }
+            else if (boyCamera.enabled)
+            {
+                girlPlayer.SetActive(true);
+                girlCamera.enabled = true;
+                
+                boyCamera.enabled = false;
+                boyPlayer.SetActive(false);
+            }
         }
         
         private void OnWalk(InputAction.CallbackContext obj)
@@ -144,9 +174,10 @@ namespace Features.Input
         
         public Vector3 GetMouseHitVector()
         {
-            Ray ray = Camera.main.ScreenPointToRay(Mouse.current.position.ReadValue());
-            Physics.Raycast(ray, out RaycastHit hit, layerMask);
-            return hit.point;
+            var ray = Camera.main.ScreenPointToRay(Mouse.current.position.ReadValue());
+            //Physics.Raycast(ray, out RaycastHit hit, layerMask);
+            //Vector3 vec = new Vector3(-ray.direction.x, ray.direction.y, -ray.direction.z);
+            return ray.direction;
         }
     }
 }

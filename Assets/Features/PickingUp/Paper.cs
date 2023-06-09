@@ -9,7 +9,7 @@ namespace Features.PickingUp
         
         public void Lift()
         {
-            paperWindow.SetActive(true);
+            //paperWindow.SetActive(true);
             Destroy(gameObject);
         }
     }

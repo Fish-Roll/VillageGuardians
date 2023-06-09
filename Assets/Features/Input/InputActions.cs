@@ -98,6 +98,15 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""ChangePlayer"",
+                    ""type"": ""Button"",
+                    ""id"": ""1381a9f5-64f1-4732-aa3d-29d878940fb1"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -232,6 +241,17 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
                     ""action"": ""Interact"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""faa60c97-015d-43c5-87dc-6f0d57a2becd"",
+                    ""path"": ""<Keyboard>/z"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ChangePlayer"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -260,6 +280,7 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
         m_Controls_UltimateAttack = m_Controls.FindAction("UltimateAttack", throwIfNotFound: true);
         m_Controls_Interact = m_Controls.FindAction("Interact", throwIfNotFound: true);
         m_Controls_Aim = m_Controls.FindAction("Aim", throwIfNotFound: true);
+        m_Controls_ChangePlayer = m_Controls.FindAction("ChangePlayer", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -327,6 +348,7 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
     private readonly InputAction m_Controls_UltimateAttack;
     private readonly InputAction m_Controls_Interact;
     private readonly InputAction m_Controls_Aim;
+    private readonly InputAction m_Controls_ChangePlayer;
     public struct ControlsActions
     {
         private @InputActions m_Wrapper;
@@ -339,6 +361,7 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
         public InputAction @UltimateAttack => m_Wrapper.m_Controls_UltimateAttack;
         public InputAction @Interact => m_Wrapper.m_Controls_Interact;
         public InputAction @Aim => m_Wrapper.m_Controls_Aim;
+        public InputAction @ChangePlayer => m_Wrapper.m_Controls_ChangePlayer;
         public InputActionMap Get() { return m_Wrapper.m_Controls; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -372,6 +395,9 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
                 @Aim.started -= m_Wrapper.m_ControlsActionsCallbackInterface.OnAim;
                 @Aim.performed -= m_Wrapper.m_ControlsActionsCallbackInterface.OnAim;
                 @Aim.canceled -= m_Wrapper.m_ControlsActionsCallbackInterface.OnAim;
+                @ChangePlayer.started -= m_Wrapper.m_ControlsActionsCallbackInterface.OnChangePlayer;
+                @ChangePlayer.performed -= m_Wrapper.m_ControlsActionsCallbackInterface.OnChangePlayer;
+                @ChangePlayer.canceled -= m_Wrapper.m_ControlsActionsCallbackInterface.OnChangePlayer;
             }
             m_Wrapper.m_ControlsActionsCallbackInterface = instance;
             if (instance != null)
@@ -400,6 +426,9 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
                 @Aim.started += instance.OnAim;
                 @Aim.performed += instance.OnAim;
                 @Aim.canceled += instance.OnAim;
+                @ChangePlayer.started += instance.OnChangePlayer;
+                @ChangePlayer.performed += instance.OnChangePlayer;
+                @ChangePlayer.canceled += instance.OnChangePlayer;
             }
         }
     }
@@ -423,5 +452,6 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
         void OnUltimateAttack(InputAction.CallbackContext context);
         void OnInteract(InputAction.CallbackContext context);
         void OnAim(InputAction.CallbackContext context);
+        void OnChangePlayer(InputAction.CallbackContext context);
     }
 }

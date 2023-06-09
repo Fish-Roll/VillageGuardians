@@ -10,6 +10,7 @@ namespace Features.Attack.Weapon
         [SerializeField] private float damage;
         [SerializeField] private float lifetime;
         private Rigidbody _rb;
+        private Vector3 _moveDirection;
         private bool _hasDamage;
         private void Start()
         {
@@ -17,6 +18,10 @@ namespace Features.Attack.Weapon
             StartCoroutine(KillObject());
         }
 
+        public void Init(Vector3 moveDirection)
+        {
+            _moveDirection = moveDirection;
+        }
         private void Update()
         {
             Move();
@@ -24,7 +29,7 @@ namespace Features.Attack.Weapon
 
         private void Move()
         {
-            transform.Translate(Vector3.forward * Time.deltaTime * speed, Space.Self);
+            transform.Translate(_moveDirection * Time.deltaTime * speed, Space.Self);
         }
     
         private void OnTriggerEnter(Collider other)

@@ -8,6 +8,7 @@ namespace Features.Movement.Boy
     public class BoyMovement : BasePlayerMovement
     {
         [SerializeField] private Transform newDashParent;
+        [SerializeField] private MoveController moveController;
         
         private int _dodgeHash;
 
@@ -32,6 +33,7 @@ namespace Features.Movement.Boy
 
         public override IEnumerator Dash(Vector3 direction)
         {
+            moveController.enabled = false;
             Transform oldDashParent = gameObject.transform;
             newDashParent.SetParent(null);
             gameObject.transform.SetParent(newDashParent);
@@ -40,10 +42,13 @@ namespace Features.Movement.Boy
             yield return new WaitForSeconds(dashDuration);
             
             inputSignatory.IsDashing = false;
+
             oldDashParent.SetParent(null);
             newDashParent.SetParent(oldDashParent);
 
-            newDashParent.transform.position = oldDashParent.transform.position;
+            Vector3 poss = oldDashParent.transform.position;
+            newDashParent.transform.position = new Vector3(poss.x, 0f, poss.z);
+            moveController.enabled = true;
         }
     }
 }

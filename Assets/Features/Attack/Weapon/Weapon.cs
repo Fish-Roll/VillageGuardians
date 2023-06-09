@@ -6,27 +6,21 @@ namespace Features.Attack.Weapon
     {
         [SerializeField] private float damage;
         //private bool _hasAlreadyDamaged;
-        
+
         private void OnTriggerEnter(Collider other)
         {
             if (other.CompareTag("Wall"))
-            {
                 other.gameObject.SetActive(false);
-            }
-            //if (!_hasAlreadyDamaged)
-            {
-                //_hasAlreadyDamaged = true;
-                if(other.TryGetComponent(out Health.Health health))
-                    health.Damage(damage);
-            }
+            if (other.TryGetComponent(out Health.Health health))
+                health.Damage(damage);
         }
 
-        private void OnTriggerStay(Collider other)
-        {
-            if(other.TryGetComponent(out Health.Health health))
-                health.Damage(damage);
-        
-            //_hasAlreadyDamaged = false;
-        }
+        // private void OnTriggerStay(Collider other)
+        // {
+        //     if(other.TryGetComponent(out Health.Health health))
+        //         health.Damage(damage);
+        //
+        //     _hasAlreadyDamaged = false;
+        // }
     }
 }
