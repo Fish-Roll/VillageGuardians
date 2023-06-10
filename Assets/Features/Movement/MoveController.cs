@@ -19,7 +19,7 @@ namespace Features.Movement
         public BasePlayerMovement movement;
 
         
-        private Health.Health _health;
+        //private Health.Health _health;
         private InputSignatory _inputSignatory;
         private Rigidbody _rb;
         private Vector3 _moveDirection;
@@ -36,12 +36,12 @@ namespace Features.Movement
             
             // HealthPotion.OnHealByPotion += HealByPotion;
             
-            _health = GetComponent<Health.Health>();
+            //_health = GetComponent<Health.Health>();
             movement = GetComponent<BasePlayerMovement>();
             _rb = GetComponent<Rigidbody>();
             
             _rb.freezeRotation = true;
-            _health.Init(OnDeath, OnRevive);
+            //_health.Init(OnDeath, OnRevive);
         }
 
         private void Start()

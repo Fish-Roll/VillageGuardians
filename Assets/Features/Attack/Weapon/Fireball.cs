@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using Features.Health;
 using UnityEngine;
 
 namespace Features.Attack.Weapon
@@ -35,7 +36,7 @@ namespace Features.Attack.Weapon
         private void OnTriggerEnter(Collider other)
         {
             if (!other.CompareTag("Player") 
-                && TryGetComponent(out Health.Health health) && !_hasDamage)
+                && TryGetComponent(out PlayerHealthController health) && !_hasDamage)
             {
                 health.Damage(damage);
                 _hasDamage = true;

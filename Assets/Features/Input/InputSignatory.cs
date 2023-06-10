@@ -3,6 +3,7 @@ using Features.Attack;
 using Features.Attack.Abstract;
 using Features.Interaction;
 using Features.Movement;
+using Features.Rage;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -16,6 +17,8 @@ namespace Features.Input
         [SerializeField] private GameObject boyPlayer;
         [SerializeField] private CinemachineVirtualCamera boyCamera;
         
+        [SerializeField] private RageController _rageController;
+
         [Space(5)]
         private InputActions _inputActions;
         
@@ -24,8 +27,8 @@ namespace Features.Input
         private bool _isBool;
         private MoveController _moveController;
         private BaseAttackController _attackController;
-        
-        [SerializeField] private Animator animator;
+
+            [SerializeField] private Animator animator;
         [SerializeField] private LayerMask layerMask;
         
         [SerializeField] private InteractionController interactionController;
@@ -150,8 +153,8 @@ namespace Features.Input
         
         public void OnUltimateAttack(InputAction.CallbackContext obj)
         {
-            if(!_isBool)
-                animator.SetTrigger("IsBoust");
+            if (_rageController != null) 
+                _rageController.TryActivate();
         }
         
         public void OnLightAttack(InputAction.CallbackContext obj)

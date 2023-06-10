@@ -39,7 +39,7 @@ namespace Features.Attack.Boy
             gameObject.transform.SetParent(_newParent.transform);
             
             _animator.SetTrigger(_attackHash);
-            
+
             yield return waitDelay;
             particleSystem.SetActive(true);
             weapon.SetActive(true);
