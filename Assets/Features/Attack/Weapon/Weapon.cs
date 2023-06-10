@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Features.Health;
+using UnityEngine;
 
 namespace Features.Attack.Weapon
 {
@@ -11,7 +12,7 @@ namespace Features.Attack.Weapon
         {
             if (other.CompareTag("Wall"))
                 other.gameObject.SetActive(false);
-            if (other.TryGetComponent(out Health.Health health))
+            if (other.TryGetComponent(out PlayerHealthController health))
                 health.Damage(damage);
         }
 

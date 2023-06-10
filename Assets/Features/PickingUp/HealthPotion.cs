@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections;
+using Features.Health;
 using UnityEngine;
 
 namespace Features.PickingUp
@@ -8,11 +9,11 @@ namespace Features.PickingUp
     {
         [SerializeField] private float healValue;
         
-        private Health.Health _playerHealth;
+        private PlayerHealthController _playerHealth;
         
         private void OnTriggerEnter(Collider other)
         {
-            if (other.TryGetComponent(out Health.Health health))
+            if (other.TryGetComponent(out PlayerHealthController health))
             {
                 _playerHealth = health;
             }
