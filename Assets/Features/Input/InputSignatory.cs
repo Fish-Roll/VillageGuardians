@@ -39,7 +39,7 @@ namespace Features.Input
         public bool IsAiming { get; private set; }
         public Vector2 LookDirection => _lookDirection;
         
-        private void Awake()
+        public void Awake()
         {
             _moveController = GetComponent<MoveController>();
             _attackController = GetComponent<BaseAttackController>();            
@@ -52,46 +52,46 @@ namespace Features.Input
             
         }
 
-        private void SubscribeInput()
-        {
-            _inputActions.Controls.Walk.performed += OnWalk;
-            _inputActions.Controls.Dash.performed += OnDash;
-            
-            _inputActions.Controls.Look.performed += OnLook;
-            _inputActions.Controls.Look.canceled += OnLook;
-            _inputActions.Controls.Aim.performed += OnAim;
+        // public void SubscribeInput()
+        // {
+        //     _inputActions.Controls.Walk.performed += OnWalk;
+        //     _inputActions.Controls.Dash.performed += OnDash;
+        //     
+        //     _inputActions.Controls.Look.performed += OnLook;
+        //     _inputActions.Controls.Look.canceled += OnLook;
+        //     _inputActions.Controls.Aim.performed += OnAim;
+        //
+        //     _inputActions.Controls.Interact.performed += OnInteract;
+        //     _inputActions.Controls.ChangePlayer.performed += OnChangePlayer;
+        //
+        //     _inputActions.Controls.LightAttack.performed += OnLightAttack;
+        //     _inputActions.Controls.HeavyAttack.performed += OnHeavyAttack;
+        //     _inputActions.Controls.UltimateAttack.performed += OnUltimateAttack;
+        // }
+        // public void OnEnable()
+        // {
+        //     SubscribeInput();
+        //
+        //     _inputActions.Controls.Enable();
+        // }
+        //
+        // public void OnDisable()
+        // {
+        //     _inputActions.Controls.Walk.performed -= OnWalk;
+        //     _inputActions.Controls.Dash.performed -= OnDash;
+        //     
+        //     _inputActions.Controls.Look.performed -= OnLook;
+        //     _inputActions.Controls.Look.canceled -= OnLook;
+        //     _inputActions.Controls.Aim.performed -= OnAim;
+        //     
+        //     _inputActions.Controls.LightAttack.performed -= OnLightAttack;
+        //     _inputActions.Controls.HeavyAttack.performed -= OnHeavyAttack;
+        //     _inputActions.Controls.UltimateAttack.performed -= OnUltimateAttack;
+        //     _inputActions.Controls.ChangePlayer.performed -= OnChangePlayer;
+        //     _inputActions.Controls.Disable();
+        // }
 
-            _inputActions.Controls.Interact.performed += OnInteract;
-            _inputActions.Controls.ChangePlayer.performed += OnChangePlayer;
-
-            _inputActions.Controls.LightAttack.performed += OnLightAttack;
-            _inputActions.Controls.HeavyAttack.performed += OnHeavyAttack;
-            _inputActions.Controls.UltimateAttack.performed += OnUltimateAttack;
-        }
-        private void OnEnable()
-        {
-            SubscribeInput();
-
-            _inputActions.Controls.Enable();
-        }
-
-        private void OnDisable()
-        {
-            _inputActions.Controls.Walk.performed -= OnWalk;
-            _inputActions.Controls.Dash.performed -= OnDash;
-            
-            _inputActions.Controls.Look.performed -= OnLook;
-            _inputActions.Controls.Look.canceled -= OnLook;
-            _inputActions.Controls.Aim.performed -= OnAim;
-            
-            _inputActions.Controls.LightAttack.performed -= OnLightAttack;
-            _inputActions.Controls.HeavyAttack.performed -= OnHeavyAttack;
-            _inputActions.Controls.UltimateAttack.performed -= OnUltimateAttack;
-            _inputActions.Controls.ChangePlayer.performed -= OnChangePlayer;
-            _inputActions.Controls.Disable();
-        }
-
-        private void OnChangePlayer(InputAction.CallbackContext obj)
+        public void OnChangePlayer(InputAction.CallbackContext obj)
         {
             if (girlCamera.enabled)
             {
@@ -111,25 +111,25 @@ namespace Features.Input
             }
         }
         
-        private void OnWalk(InputAction.CallbackContext obj)
+        public void OnWalk(InputAction.CallbackContext obj)
         {
             ConvertInputDirectionToMove(obj.ReadValue<Vector2>());
             IsMoving = _moveDirection.x != 0 || _moveDirection.z != 0;
         }
 
-        private void OnDash(InputAction.CallbackContext obj)
+        public void OnDash(InputAction.CallbackContext obj)
         {
             if (IsDashing) return;
             IsDashing = true;
             StartCoroutine(_moveController.movement.Dash(_moveDirection));
         }
         
-        private void OnLook(InputAction.CallbackContext obj)
+        public void OnLook(InputAction.CallbackContext obj)
         {
             _lookDirection = obj.ReadValue<Vector2>();
         }
 
-        private void OnAim(InputAction.CallbackContext obj)
+        public void OnAim(InputAction.CallbackContext obj)
         {
             if (!IsAiming)
             {
@@ -143,30 +143,30 @@ namespace Features.Input
             }
         }
 
-        private void OnInteract(InputAction.CallbackContext obj)
+        public void OnInteract(InputAction.CallbackContext obj)
         {
             interactionController.HandleInteraction();
         }
         
-        private void OnUltimateAttack(InputAction.CallbackContext obj)
+        public void OnUltimateAttack(InputAction.CallbackContext obj)
         {
             if(!_isBool)
                 animator.SetTrigger("IsBoust");
         }
         
-        private void OnLightAttack(InputAction.CallbackContext obj)
+        public void OnLightAttack(InputAction.CallbackContext obj)
         {
             if(IsAiming)
                 _attackController.HandleAttack((int)AttackType.LightAttack);
         }
 
-        private void OnHeavyAttack(InputAction.CallbackContext obj)
+        public void OnHeavyAttack(InputAction.CallbackContext obj)
         {
             if(!IsAiming)
                 _attackController.HandleAttack((int)AttackType.HeavyAttack);
         }
         
-        private void ConvertInputDirectionToMove(Vector2 inputMoveDirection)
+        public void ConvertInputDirectionToMove(Vector2 inputMoveDirection)
         {
             _moveDirection.x = inputMoveDirection.normalized.x;
             _moveDirection.z = inputMoveDirection.normalized.y;
