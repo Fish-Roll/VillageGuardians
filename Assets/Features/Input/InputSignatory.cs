@@ -18,9 +18,11 @@ namespace Features.Input
         [SerializeField] private CinemachineVirtualCamera boyCamera;
         
         [SerializeField] private RageController _rageController;
-
-        [Space(5)]
-        private InputActions _inputActions;
+        [SerializeField] private string controlScheme;
+        
+        [Space(5)] 
+        private PlayerInput _playerInput;
+        //private InputActions _inputActions;
         
         private Vector3 _moveDirection;
         private Vector2 _lookDirection;
@@ -44,55 +46,51 @@ namespace Features.Input
         
         public void Awake()
         {
+            _playerInput = GetComponent<PlayerInput>();
             _moveController = GetComponent<MoveController>();
             _attackController = GetComponent<BaseAttackController>();            
 
             Cursor.lockState = CursorLockMode.Locked;
+        }
+        
+        public void OnEnable()
+        {
+            SubscribeInput();
+        }
+        
+        public void SubscribeInput()
+        {
+            _playerInput.actions["Walk"].performed += OnWalk;
+            _playerInput.actions["Dash"].performed += OnDash;
             
-            if (_inputActions != null) return;
-            
-            _inputActions = new InputActions();
-            
+            _playerInput.actions["Look"].performed += OnLook;
+            _playerInput.actions["Look"].canceled += OnLook;
+            _playerInput.actions["Aim"].performed += OnAim;
+        
+            _playerInput.actions["Interact"].performed += OnInteract;
+            _playerInput.actions["ChangePlayer"].performed += OnChangePlayer;
+        
+            _playerInput.actions["LightAttack"].performed += OnLightAttack;
+            _playerInput.actions["HeavyAttack"].performed += OnHeavyAttack;
+            _playerInput.actions["UltimateAttack"].performed += OnUltimateAttack;
         }
 
-        // public void SubscribeInput()
-        // {
-        //     _inputActions.Controls.Walk.performed += OnWalk;
-        //     _inputActions.Controls.Dash.performed += OnDash;
-        //     
-        //     _inputActions.Controls.Look.performed += OnLook;
-        //     _inputActions.Controls.Look.canceled += OnLook;
-        //     _inputActions.Controls.Aim.performed += OnAim;
-        //
-        //     _inputActions.Controls.Interact.performed += OnInteract;
-        //     _inputActions.Controls.ChangePlayer.performed += OnChangePlayer;
-        //
-        //     _inputActions.Controls.LightAttack.performed += OnLightAttack;
-        //     _inputActions.Controls.HeavyAttack.performed += OnHeavyAttack;
-        //     _inputActions.Controls.UltimateAttack.performed += OnUltimateAttack;
-        // }
-        // public void OnEnable()
-        // {
-        //     SubscribeInput();
-        //
-        //     _inputActions.Controls.Enable();
-        // }
-        //
-        // public void OnDisable()
-        // {
-        //     _inputActions.Controls.Walk.performed -= OnWalk;
-        //     _inputActions.Controls.Dash.performed -= OnDash;
-        //     
-        //     _inputActions.Controls.Look.performed -= OnLook;
-        //     _inputActions.Controls.Look.canceled -= OnLook;
-        //     _inputActions.Controls.Aim.performed -= OnAim;
-        //     
-        //     _inputActions.Controls.LightAttack.performed -= OnLightAttack;
-        //     _inputActions.Controls.HeavyAttack.performed -= OnHeavyAttack;
-        //     _inputActions.Controls.UltimateAttack.performed -= OnUltimateAttack;
-        //     _inputActions.Controls.ChangePlayer.performed -= OnChangePlayer;
-        //     _inputActions.Controls.Disable();
-        // }
+        public void OnDisable()
+        {
+            _playerInput.actions["Walk"].performed -= OnWalk;
+            _playerInput.actions["Dash"].performed -= OnDash;
+            
+            _playerInput.actions["Look"].performed -= OnLook;
+            _playerInput.actions["Look"].canceled -= OnLook;
+            _playerInput.actions["Aim"].performed -= OnAim;
+        
+            _playerInput.actions["Interact"].performed -= OnInteract;
+            _playerInput.actions["ChangePlayer"].performed -= OnChangePlayer;
+        
+            _playerInput.actions["LightAttack"].performed -= OnLightAttack;
+            _playerInput.actions["HeavyAttack"].performed -= OnHeavyAttack;
+            _playerInput.actions["UltimateAttack"].performed -= OnUltimateAttack;
+        }
 
         public void OnChangePlayer(InputAction.CallbackContext obj)
         {
@@ -178,8 +176,6 @@ namespace Features.Input
         public Vector3 GetMouseHitVector()
         {
             var ray = Camera.main.ScreenPointToRay(Mouse.current.position.ReadValue());
-            //Physics.Raycast(ray, out RaycastHit hit, layerMask);
-            //Vector3 vec = new Vector3(-ray.direction.x, ray.direction.y, -ray.direction.z);
             return ray.direction;
         }
     }

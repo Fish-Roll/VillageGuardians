@@ -1,4 +1,5 @@
-﻿using System;
+﻿    using System;
+using Features.Health;
 using UnityEngine;
 
 namespace Features.Interaction
@@ -8,10 +9,16 @@ namespace Features.Interaction
     /// </summary>
     public class Reviver : MonoBehaviour, IInteractable
     {
-        [SerializeField] private Health.Health health;
+        private PlayerHealthController _healthController;
+
+        private void Start()
+        {
+            _healthController = GetComponent<PlayerHealthController>();
+        }
+        
         public void Interact()
         {
-            health.Revive();
+            _healthController.Revive();
         }
 
     }

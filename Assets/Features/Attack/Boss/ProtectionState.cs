@@ -6,7 +6,7 @@ namespace Features.Attack.Boss
     public class ProtectionState : MonoBehaviour
     {
         [SerializeField] private Animator animator;
-        [SerializeField] private Health.Health health;
+        //[SerializeField] private Health.Health health;
 
         private int _protectionHash;
         private void Start()
@@ -20,7 +20,7 @@ namespace Features.Attack.Boss
         public void Protect()
         {
             animator.SetTrigger(_protectionHash);
-            health.enabled = false;
+            //health.enabled = false;
             
         }
         /// <summary>
@@ -28,7 +28,7 @@ namespace Features.Attack.Boss
         /// </summary>
         public void StopProtect()
         {
-            health.enabled = true;
+            //health.enabled = true;
             
         }
     }

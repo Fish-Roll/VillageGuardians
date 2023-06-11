@@ -20,7 +20,7 @@ public class EnemyMeleeBrain : MonoBehaviour
     [SerializeField] private LayerMask playerMask;
     [SerializeField] private Transform player;
     [SerializeField] private EnemyMeleeAttack attack;
-    [SerializeField] private Health health;
+    //[SerializeField] private Health health;
     [SerializeField] private Animator animator;
     [SerializeField] private GameObject weapon;
     [SerializeField] private DisolveEnemy disolve;
@@ -41,8 +41,8 @@ public class EnemyMeleeBrain : MonoBehaviour
         _agent = GetComponent<NavMeshAgent>();
         _agent.speed = speed;
         _moveHash = Animator.StringToHash("Walk");
-        health = GetComponent<Health>();
-        health.Init(OnDeath);
+        //health = GetComponent<Health>();
+        //health.Init(OnDeath);
         attack.Init(animator);
         player = GameObject.Find("Player").transform;
         _deathHash = Animator.StringToHash("Is_Dead");

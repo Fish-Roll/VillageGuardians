@@ -101,7 +101,7 @@
                 },
                 {
                     "name": "",
-                    "id": "4c61faed-7592-468f-a67b-e4c0df556ec1",
+                    "id": "3b8c526d-2136-4ae8-a7e9-1805aa20a917",
                     "path": "<Gamepad>/rightStick",
                     "interactions": "",
                     "processors": "",
@@ -167,7 +167,7 @@
                 },
                 {
                     "name": "",
-                    "id": "0b5a02ed-6257-492c-828e-9a9b29f37269",
+                    "id": "2dfb13d5-3f19-4cc5-a248-e26c5eebfaa4",
                     "path": "<Gamepad>/leftStick",
                     "interactions": "",
                     "processors": "",
@@ -189,7 +189,7 @@
                 },
                 {
                     "name": "",
-                    "id": "552c272a-1f21-4d5e-b8b6-12997c9daa1b",
+                    "id": "ec57d513-dc08-4b68-90b6-7764441bd142",
                     "path": "<Gamepad>/buttonEast",
                     "interactions": "",
                     "processors": "",
@@ -211,8 +211,8 @@
                 },
                 {
                     "name": "",
-                    "id": "cd5d0466-6d77-4fe2-807e-2b789133f6b0",
-                    "path": "<Gamepad>/rightShoulder",
+                    "id": "44aff0a9-11d5-43db-bf3a-1b811b23de45",
+                    "path": "<Gamepad>/leftShoulder",
                     "interactions": "",
                     "processors": "",
                     "groups": "Gamepad",
@@ -233,8 +233,8 @@
                 },
                 {
                     "name": "",
-                    "id": "8243b941-6e04-4687-a97c-79ace4cfdf31",
-                    "path": "<Gamepad>/leftShoulder",
+                    "id": "6a2ac90e-9d85-4725-bb99-4cc6034000af",
+                    "path": "<Gamepad>/rightShoulder",
                     "interactions": "",
                     "processors": "",
                     "groups": "Gamepad",
@@ -255,7 +255,7 @@
                 },
                 {
                     "name": "",
-                    "id": "1fd55e68-4382-47b4-aa71-f38e828acc68",
+                    "id": "10ff1444-4c28-4008-afb9-2d7f3682376d",
                     "path": "<Gamepad>/leftTrigger",
                     "interactions": "",
                     "processors": "",
@@ -277,7 +277,7 @@
                 },
                 {
                     "name": "",
-                    "id": "684ab6cc-ae0b-41c2-aaaa-1e78ebce1b36",
+                    "id": "5acdb8c7-e575-4f37-9c3b-ee3fa88a1a08",
                     "path": "<Gamepad>/rightTrigger",
                     "interactions": "",
                     "processors": "",
@@ -299,7 +299,7 @@
                 },
                 {
                     "name": "",
-                    "id": "1b9b410b-98c9-4466-a2b4-f3116b583b0c",
+                    "id": "fdf4ba66-867c-484a-a552-b4aca9e566b5",
                     "path": "<Gamepad>/buttonNorth",
                     "interactions": "",
                     "processors": "",
@@ -329,6 +329,11 @@
             "devices": [
                 {
                     "devicePath": "<Keyboard>",
+                    "isOptional": false,
+                    "isOR": false
+                },
+                {
+                    "devicePath": "<Mouse>",
                     "isOptional": false,
                     "isOR": false
                 }
