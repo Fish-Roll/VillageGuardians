@@ -15,6 +15,7 @@ namespace Features.Movement
         [SerializeField] private float rotationSpeed;
         [SerializeField] private CameraMovement _cameraMovement;
         [SerializeField] private Animator animator;
+        [SerializeField] private Camera camera;
         
         public BasePlayerMovement movement;
 
@@ -47,7 +48,7 @@ namespace Features.Movement
         private void Start()
         {
             _inputSignatory = GetComponent<InputSignatory>();
-            _cameraMovement.Init(Camera.main);
+            _cameraMovement.Init(camera);
             movement.Init(_rb, animator, _inputSignatory);
         }
 

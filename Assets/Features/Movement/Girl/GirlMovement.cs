@@ -27,15 +27,15 @@ namespace Features.Movement.Girl
         
         public override IEnumerator Dash(Vector3 direction)
         {
-            //float currentTime = 0;
-            // playerModel.SetActive(false);
-            // rb.AddForce(playerModel.transform.forward * dashSpeed, ForceMode.Impulse);
+            float currentTime = 0;
+            //playerModel.SetActive(false);
+            rb.AddForce(playerModel.transform.forward * dashSpeed, ForceMode.Impulse);
             Material materials = oldMaterials[0].material;
             for (int i = 0; i < oldMaterials.Length; i++)
             {
                 oldMaterials[i].material = newMaterials;
             }
-            yield return new WaitForSeconds(2.5f);
+            yield return new WaitForSeconds(dashDuration);
             for (int i = 0; i < oldMaterials.Length; i++)
             {
                 oldMaterials[i].material = materials;

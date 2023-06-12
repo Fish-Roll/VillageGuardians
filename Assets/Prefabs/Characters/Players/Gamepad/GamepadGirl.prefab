@@ -66,9 +66,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cinemachineCamera: {fileID: 0}
   _rageController: {fileID: 0}
-  controlScheme: Keyboard
-  follow: {fileID: 0}
-  lookAt: {fileID: 0}
+  controlScheme: Gamepad
+  follow: {fileID: 769258633354008276}
+  lookAt: {fileID: 769258633502696018}
   animator: {fileID: 6613079821439719538}
   layerMask:
     serializedVersion: 2
@@ -109,6 +109,7 @@ MonoBehaviour:
     targetRotation: {fileID: 769258633354008276}
     mouseSensitivity: 35
   animator: {fileID: 6613079821439719538}
+  camera: {fileID: 0}
   movement: {fileID: 0}
 --- !u!114 &6525917042290602225
 MonoBehaviour:
@@ -123,9 +124,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 10
-  dashDuration: 2
+  dashDuration: 0.25
   playerModel: {fileID: 463199472256178354}
-  dashSpeed: 10
+  dashSpeed: 45
   newMaterials: {fileID: 2100000, guid: 550c690c97a1643f4802ff3d9138fc0e, type: 2}
   oldMaterials:
   - {fileID: 3259103818046177878}

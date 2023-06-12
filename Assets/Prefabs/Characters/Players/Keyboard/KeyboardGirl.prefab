@@ -221,12 +221,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 99ef736aed070f24a98d92251aa77946, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  girlPlayer: {fileID: 0}
-  girlCamera: {fileID: 0}
-  boyPlayer: {fileID: 0}
-  boyCamera: {fileID: 0}
+  cinemachineCamera: {fileID: 0}
   _rageController: {fileID: 0}
   controlScheme: Keyboard
+  follow: {fileID: 6356877195854304075}
+  lookAt: {fileID: 6356877196741453773}
   animator: {fileID: 671809888538418669}
   layerMask:
     serializedVersion: 2
