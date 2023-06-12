@@ -9,8 +9,17 @@ public class StashPlane : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            gates[0].enabled = true;
-            gates[1].enabled = true;
+            gates[0].Open();
+            gates[1].Open();
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            gates[0].Close();
+            gates[1].Close();
         }
     }
 }
