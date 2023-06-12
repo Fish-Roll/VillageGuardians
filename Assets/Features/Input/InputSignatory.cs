@@ -11,14 +11,13 @@ namespace Features.Input
 {
     public class InputSignatory : MonoBehaviour
     {
-        [SerializeField] private GameObject girlPlayer;
-        [SerializeField] private CinemachineVirtualCamera girlCamera;
-
-        [SerializeField] private GameObject boyPlayer;
-        [SerializeField] private CinemachineVirtualCamera boyCamera;
-        
+        [SerializeField] private CinemachineVirtualCamera cinemachineCamera;       
         [SerializeField] private RageController _rageController;
         [SerializeField] private string controlScheme;
+
+        [SerializeField] private Transform follow;
+        [SerializeField] private Transform lookAt;
+        
         
         [Space(5)] 
         private PlayerInput _playerInput;
@@ -30,7 +29,7 @@ namespace Features.Input
         private MoveController _moveController;
         private BaseAttackController _attackController;
 
-            [SerializeField] private Animator animator;
+        [SerializeField] private Animator animator;
         [SerializeField] private LayerMask layerMask;
         
         [SerializeField] private InteractionController interactionController;
@@ -48,7 +47,10 @@ namespace Features.Input
         {
             _playerInput = GetComponent<PlayerInput>();
             _moveController = GetComponent<MoveController>();
-            _attackController = GetComponent<BaseAttackController>();            
+            _attackController = GetComponent<BaseAttackController>();
+
+            cinemachineCamera.Follow = follow;
+            cinemachineCamera.LookAt = lookAt;
 
             Cursor.lockState = CursorLockMode.Locked;
         }
@@ -68,7 +70,6 @@ namespace Features.Input
             _playerInput.actions["Aim"].performed += OnAim;
         
             _playerInput.actions["Interact"].performed += OnInteract;
-            _playerInput.actions["ChangePlayer"].performed += OnChangePlayer;
         
             _playerInput.actions["LightAttack"].performed += OnLightAttack;
             _playerInput.actions["HeavyAttack"].performed += OnHeavyAttack;
@@ -85,31 +86,10 @@ namespace Features.Input
             _playerInput.actions["Aim"].performed -= OnAim;
         
             _playerInput.actions["Interact"].performed -= OnInteract;
-            _playerInput.actions["ChangePlayer"].performed -= OnChangePlayer;
         
             _playerInput.actions["LightAttack"].performed -= OnLightAttack;
             _playerInput.actions["HeavyAttack"].performed -= OnHeavyAttack;
             _playerInput.actions["UltimateAttack"].performed -= OnUltimateAttack;
-        }
-
-        public void OnChangePlayer(InputAction.CallbackContext obj)
-        {
-            if (girlCamera.enabled)
-            {
-                boyPlayer.SetActive(true);
-                boyCamera.enabled = true;
-
-                girlCamera.enabled = false;
-                girlPlayer.SetActive(false);
-            }
-            else if (boyCamera.enabled)
-            {
-                girlPlayer.SetActive(true);
-                girlCamera.enabled = true;
-                
-                boyCamera.enabled = false;
-                boyPlayer.SetActive(false);
-            }
         }
         
         public void OnWalk(InputAction.CallbackContext obj)
