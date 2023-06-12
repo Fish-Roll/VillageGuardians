@@ -21,10 +21,10 @@ namespace Features.Attack
         
         public override IEnumerator Attack()
         {
-            // _animator.SetTrigger(_hashAttack);
-            // weapon.SetActive(true);
+            _animator.SetTrigger(_hashAttack);
+            weapon.SetActive(true);
             yield return new WaitForSeconds(attackCooldown);
-            // ResetAttack();
+            ResetAttack();
         }
 
         protected override void ResetAttack()
