@@ -1,6 +1,7 @@
 using Cinemachine;
 using Features.Attack;
 using Features.Attack.Abstract;
+using Features.Health;
 using Features.Interaction;
 using Features.Movement;
 using Features.Rage;
@@ -13,26 +14,28 @@ namespace Features.Input
     {
         [SerializeField] private CinemachineVirtualCamera cinemachineCamera;       
         [SerializeField] private RageController _rageController;
-        [SerializeField] private string controlScheme;
-    
+        [SerializeField] private Camera camera;
+        
         [SerializeField] private Transform follow;
         [SerializeField] private Transform lookAt;
         
-        
+        [SerializeField] private Animator animator;
+        [SerializeField] private InteractionController interactionController;
+
         [Space(5)] 
         private PlayerInput _playerInput;
         //private InputActions _inputActions;
         
         private Vector3 _moveDirection;
         private Vector2 _lookDirection;
-        private bool _isBool;
         private MoveController _moveController;
         private BaseAttackController _attackController;
-
-        [SerializeField] private Animator animator;
-        [SerializeField] private LayerMask layerMask;
+        //private PlayerHealthController _healthController;
         
-        [SerializeField] private InteractionController interactionController;
+        public MoveController MoveController => _moveController;
+        public BaseAttackController AttackController => _attackController;
+
+        
         public Vector3 MoveDirection
         {
             get => _moveDirection;
@@ -40,7 +43,7 @@ namespace Features.Input
         }
         public bool IsMoving { get; set; }
         [field:SerializeField] public bool IsDashing { get; set; }
-        public bool IsAiming { get; private set; }
+        public bool IsAiming { get; set; }
         public Vector2 LookDirection => _lookDirection;
         
         public void Awake()
@@ -48,7 +51,8 @@ namespace Features.Input
             _playerInput = GetComponent<PlayerInput>();
             _moveController = GetComponent<MoveController>();
             _attackController = GetComponent<BaseAttackController>();
-
+            //_healthController = GetComponent<PlayerHealthController>();
+            
             cinemachineCamera.Follow = follow;
             cinemachineCamera.LookAt = lookAt;
 
@@ -94,6 +98,7 @@ namespace Features.Input
         
         public void OnWalk(InputAction.CallbackContext obj)
         {
+            if (IsDashing) return;
             ConvertInputDirectionToMove(obj.ReadValue<Vector2>());
             IsMoving = _moveDirection.x != 0 || _moveDirection.z != 0;
         }
@@ -112,6 +117,8 @@ namespace Features.Input
 
         public void OnAim(InputAction.CallbackContext obj)
         {
+            if (IsDashing) return;
+
             if (!IsAiming)
             {
                 animator.SetLayerWeight(1, 1);
@@ -126,24 +133,26 @@ namespace Features.Input
 
         public void OnInteract(InputAction.CallbackContext obj)
         {
+            if (IsDashing) return;
+
             interactionController.HandleInteraction();
         }
         
         public void OnUltimateAttack(InputAction.CallbackContext obj)
         {
-            if (_rageController != null) 
+            if (_rageController != null && !IsAiming && !IsDashing) 
                 _rageController.TryActivate();
         }
         
         public void OnLightAttack(InputAction.CallbackContext obj)
         {
-            if(IsAiming)
+            if(IsAiming && !IsDashing)
                 _attackController.HandleAttack((int)AttackType.LightAttack);
         }
 
         public void OnHeavyAttack(InputAction.CallbackContext obj)
         {
-            if(!IsAiming)
+            if(!IsAiming && !IsDashing && !IsMoving)
                 _attackController.HandleAttack((int)AttackType.HeavyAttack);
         }
         
@@ -155,8 +164,9 @@ namespace Features.Input
         
         public Vector3 GetMouseHitVector()
         {
-            var ray = Camera.main.ScreenPointToRay(Mouse.current.position.ReadValue());
-            return ray.direction;
+            camera.ViewportToWorldPoint(camera.rect.center);
+            var ray = camera.rect.center; //camera.ViewportPointToRay(Mouse.current.position.ReadValue());
+            return camera.ViewportToWorldPoint(camera.rect.center); //ray;
         }
     }
 }
