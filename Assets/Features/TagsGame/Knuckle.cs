@@ -10,14 +10,14 @@ namespace Features.TagsGame
     {
         [SerializeField] private ushort id;
         [SerializeField] private float time;
-        [SerializeField] private ParticleSystem particle;
+        [SerializeField] private GameObject particle;
         
         public int Id => id;
         
         private Action<Knuckle> _onInteract;
         private Action<GameObject> _onLift;
         public bool lifted;
-        public ParticleSystem Particle { get; set; }
+        public GameObject Particle => particle; 
 
         public void InitInteract(Action<Knuckle> onInteract)
         {
@@ -36,7 +36,7 @@ namespace Features.TagsGame
             if (!lifted)
             {
                 lifted = true;
-                particle.Stop();
+                particle.SetActive(false);
                 _onLift.Invoke(gameObject);
             }
         }
