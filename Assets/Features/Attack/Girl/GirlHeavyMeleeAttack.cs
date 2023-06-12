@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using Features.Attack.Abstract;
+using Features.Stamina;
 using UnityEngine;
 
 namespace Features.Attack.Girl
@@ -8,7 +9,9 @@ namespace Features.Attack.Girl
     {
         [SerializeField] private float duration;
         [SerializeField] private float delay;
-
+        [SerializeField] private float staminaSub;
+        [SerializeField] private StaminaController staminaController;
+        
         private Animator _animator;
         private int _attackHash;
         private int _idleAttackHash;
@@ -26,6 +29,7 @@ namespace Features.Attack.Girl
             var waitDelay = new WaitForSeconds(delay);
             BaseAttackController.canAttack = false;
             
+            staminaController.Subtract(staminaSub);
             _animator.SetTrigger(_attackHash);
             yield return waitDelay;
             

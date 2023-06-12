@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using Features.Health;
+using Features.Stamina;
 using UnityEngine;
 
 namespace Features.PickingUp
@@ -8,8 +9,10 @@ namespace Features.PickingUp
     public class HealthPotion : MonoBehaviour, ILifted
     {
         [SerializeField] private float healValue;
+        [SerializeField] private float staminaValue;
         
         private PlayerHealthController _playerHealth;
+        private StaminaController _staminaController;
         
         private void OnTriggerEnter(Collider other)
         {
@@ -17,11 +20,17 @@ namespace Features.PickingUp
             {
                 _playerHealth = health;
             }
+            if (other.TryGetComponent(out StaminaController stamina))
+            {
+                _staminaController = stamina;
+            }
+            
         }
 
         public void Lift()
         {
             _playerHealth.Heal(healValue);
+            _staminaController.Accumulate(staminaValue);
             Destroy(gameObject);
         }
     }
