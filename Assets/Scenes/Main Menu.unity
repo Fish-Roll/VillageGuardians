@@ -923,10 +923,20 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: FindLobby
       objectReference: {fileID: 0}
+    - target: {fileID: 1083472315116487293, guid: 9fd0e0de87b523d42a6fd15bd8eeec67,
+        type: 3}
+      propertyPath: m_Name
+      value: NewGame
+      objectReference: {fileID: 0}
     - target: {fileID: 1083472315260418546, guid: 9fd0e0de87b523d42a6fd15bd8eeec67,
         type: 3}
       propertyPath: m_Name
       value: Menu
+      objectReference: {fileID: 0}
+    - target: {fileID: 1083472315260418546, guid: 9fd0e0de87b523d42a6fd15bd8eeec67,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1083472315260418547, guid: 9fd0e0de87b523d42a6fd15bd8eeec67,
         type: 3}
@@ -1062,6 +1072,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Exit
+      objectReference: {fileID: 0}
+    - target: {fileID: 1083472316489295582, guid: 9fd0e0de87b523d42a6fd15bd8eeec67,
+        type: 3}
+      propertyPath: m_Text
+      value: "\u041D\u041E\u0412\u0410\u042F \u0418\u0413\u0420\u0410"
       objectReference: {fileID: 0}
     - target: {fileID: 1083472316995571889, guid: 9fd0e0de87b523d42a6fd15bd8eeec67,
         type: 3}
