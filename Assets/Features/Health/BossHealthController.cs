@@ -12,6 +12,9 @@ namespace Features.Health
         private int _deathHash;
         private int _protectHash;
         private int _spawnEnemyHash;
+
+        private bool _isDead;
+        public bool IsDead => _isDead;
         
         public void Start()
         {
@@ -24,30 +27,34 @@ namespace Features.Health
 
         public void Damage(float value)
         {
+            if (_isDead) return;
             _bossHealth.Damage(value);
         }
 
         private void OnDeath()
         {
+            _isDead = true;
             animator.SetTrigger(_deathHash);
         }
         
         private void OnProtect()
         {
+            if (_isDead) return;
             animator.SetBool(_protectHash, true);
-            _bossHealth.enabled = false;
             //TODO:Protect
         }
 
         private void OnStopProtect()
         {
             animator.SetBool(_protectHash, false);
-            _bossHealth.enabled = true;
+            enabled = true;
         }
         
         private void OnSpawnEnemy()
         {
+            if (_isDead) return;
             animator.SetTrigger(_spawnEnemyHash);
+            enabled = false;
             //TODO:Spawn state
         }
     }
