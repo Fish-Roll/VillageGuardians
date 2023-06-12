@@ -4,7 +4,7 @@ namespace Features
 {
     public class LeverGates : MonoBehaviour
     {
-        [SerializeField] private Gate[] gates;
+        [SerializeField] private Gatee[] gates;
         
         public void Open()
         {

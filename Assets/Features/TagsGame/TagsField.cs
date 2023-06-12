@@ -24,6 +24,7 @@ namespace Features.TagsGame
                 if (points[i].Knuckle != null)
                 {
                     points[i].Knuckle.lifted = true;
+                    points[i].Knuckle.Particle.Stop();
                     points[i].Knuckle.InitInteract(TryMove);
                 }
             }
