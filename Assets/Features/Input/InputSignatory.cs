@@ -164,9 +164,10 @@ namespace Features.Input
         
         public Vector3 GetMouseHitVector()
         {
-            camera.ViewportToWorldPoint(camera.rect.center);
-            var ray = camera.rect.center; //camera.ViewportPointToRay(Mouse.current.position.ReadValue());
-            return camera.ViewportToWorldPoint(camera.rect.center); //ray;
+            //camera.ViewportToWorldPoint(camera.rect.center);
+            var ray = camera.ScreenPointToRay(Mouse.current.position.ReadValue());
+            Vector3 vec = new Vector3(ray.direction.x / 10, ray.direction.y, ray.direction.z / 10);
+            return vec; //ray;
         }
     }
 }

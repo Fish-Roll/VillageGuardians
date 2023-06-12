@@ -2157,13 +2157,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cinemachineCamera: {fileID: 0}
   _rageController: {fileID: 6896746210042782286}
-  controlScheme: 
+  camera: {fileID: 0}
   follow: {fileID: 6813775178683504417}
   lookAt: {fileID: 6813775179865866352}
   animator: {fileID: 2280481051388934192}
-  layerMask:
-    serializedVersion: 2
-    m_Bits: 2147483647
   interactionController: {fileID: 4301573222103351493}
   <IsDashing>k__BackingField: 0
 --- !u!114 &3952544497475026154
@@ -2233,6 +2230,7 @@ MonoBehaviour:
     targetRotation: {fileID: 6813775178683504417}
     mouseSensitivity: 3
   animator: {fileID: 2280481051388934192}
+  camera: {fileID: 0}
   movement: {fileID: 0}
 --- !u!114 &4588168604866888663
 MonoBehaviour:
@@ -2349,6 +2347,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   animator: {fileID: 2280481051388934192}
+  modelTransform: {fileID: 5279847945514394186}
 --- !u!114 &4611535049408809165
 MonoBehaviour:
   m_ObjectHideFlags: 0

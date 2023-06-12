@@ -7,6 +7,9 @@ namespace Features.Interaction
     public class InteractionController : MonoBehaviour
     {
         [SerializeField] private Animator animator;
+        [SerializeField] private Transform modelTransform;
+        [SerializeField] private float duration;
+        
         private IInteractable _interactable;
         private int _reviveHash;
         private int _leverHash;
@@ -27,8 +30,20 @@ namespace Features.Interaction
                     animator.SetTrigger(_reviveHash);
                 else if(_interactable.GetType() == typeof(LeverHandler))
                     animator.SetTrigger(_leverHash);
-                else if(_interactable.GetType() == typeof(Knuckle))
+                else if (_interactable.GetType() == typeof(Knuckle))
+                {
+                    Transform parent = transform;
+                    modelTransform.SetParent(null);
+                    transform.SetParent(modelTransform);
+
                     animator.SetTrigger(_knuckleHash);
+                    
+                    transform.SetParent(null);
+                    modelTransform.SetParent(transform);
+                    Vector3 poss = transform.transform.position;
+                    modelTransform.position = new Vector3(poss.x, 0f, poss.z);
+                }
+
                 _interactable.Interact();
             }
         }
@@ -46,5 +61,7 @@ namespace Features.Interaction
             if (other.TryGetComponent<IInteractable>(out var interactable))
                 _interactable = null;
         }
+        
+        
     }
 }
