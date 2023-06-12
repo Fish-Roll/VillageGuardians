@@ -14,7 +14,7 @@ namespace Features.Input
         [SerializeField] private CinemachineVirtualCamera cinemachineCamera;       
         [SerializeField] private RageController _rageController;
         [SerializeField] private string controlScheme;
-
+    
         [SerializeField] private Transform follow;
         [SerializeField] private Transform lookAt;
         

@@ -64,12 +64,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 99ef736aed070f24a98d92251aa77946, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  girlPlayer: {fileID: 0}
-  girlCamera: {fileID: 0}
-  boyPlayer: {fileID: 0}
-  boyCamera: {fileID: 0}
+  cinemachineCamera: {fileID: 0}
   _rageController: {fileID: 0}
   controlScheme: Keyboard
+  follow: {fileID: 0}
+  lookAt: {fileID: 0}
   animator: {fileID: 6613079821439719538}
   layerMask:
     serializedVersion: 2
@@ -108,7 +107,7 @@ MonoBehaviour:
   rotationSpeed: 10
   _cameraMovement:
     targetRotation: {fileID: 769258633354008276}
-    mouseSensitivity: 3
+    mouseSensitivity: 35
   animator: {fileID: 6613079821439719538}
   movement: {fileID: 0}
 --- !u!114 &6525917042290602225

@@ -17,11 +17,19 @@ namespace Features.UI
             _controlController = FindObjectOfType<ControlController>();
             if (_controlController.IsGirlKeyboard)
             {
-                keyboardGirl.SetActive(true);
-                keyboardBoy.SetActive(false);
-                
                 gamepadGirl.SetActive(false);
                 gamepadBoy.SetActive(true);
+
+                keyboardGirl.SetActive(true);
+                keyboardBoy.SetActive(false);
+            }
+            else
+            {
+                keyboardGirl.SetActive(false);
+                keyboardBoy.SetActive(true);
+                
+                gamepadGirl.SetActive(true);
+                gamepadBoy.SetActive(false);
             }
         }
     }
