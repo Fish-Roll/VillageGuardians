@@ -1,17 +1,16 @@
-using System.Collections;
-using Features.Health.Abstract;
+﻿using System.Collections;
+using Features.Health;
 using UnityEngine;
 
 namespace Features.Attack.Weapon
 {
-    public class Fireball : MonoBehaviour
+    public class EnemyFireball : MonoBehaviour
     {
         [SerializeField] private float speed;
         [SerializeField] private float damage;
         [SerializeField] private float lifetime;
         
         private Vector3 _moveDirection;
-        private bool _hasDamage;
         
         private void Start()
         {
@@ -22,6 +21,7 @@ namespace Features.Attack.Weapon
         {
             _moveDirection = moveDirection;
         }
+        
         private void Update()
         {
             Move();
@@ -29,23 +29,21 @@ namespace Features.Attack.Weapon
 
         private void Move()
         {
-            transform.Translate(_moveDirection * Time.deltaTime * speed, Space.Self);
+            transform.position += _moveDirection.normalized * speed * Time.deltaTime;
+            //transform.Translate(_moveDirection * Time.deltaTime * speed);
         }
     
         private void OnTriggerEnter(Collider other)
         {
-            if (TryGetComponent(out EnemyBaseHealthController health) && !_hasDamage)
-            {
+            if (TryGetComponent(out PlayerHealthController health))
                 health.Damage(damage);
-                _hasDamage = true;
-            }
             Destroy(gameObject);
         }
 
         private IEnumerator KillObject()
         {
             yield return new WaitForSeconds(lifetime);
-            Destroy(this.gameObject);
+            Destroy(gameObject);
         }
     }
 }

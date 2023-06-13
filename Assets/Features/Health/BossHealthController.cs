@@ -30,7 +30,7 @@ namespace Features.Health
             _maxCountSpawns = countSpawns;
         }
         
-        public void Damage(float value)
+        public override void Damage(float value)
         {
             if (_isDead) return;
             _bossHealth.Damage(value);

@@ -24,7 +24,7 @@ namespace Features.Health
             _enemyHealth.Init(onDeath);
         }
         
-        public void Damage(float value)
+        public override void Damage(float value)
         {
             if (_isDead) return;
             _enemyHealth.Damage(value);
