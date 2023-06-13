@@ -12,6 +12,8 @@ GameObject:
   - component: {fileID: 7200927917086425554}
   - component: {fileID: 7200927917087392530}
   - component: {fileID: 7200927917085466067}
+  - component: {fileID: 2256252761500196424}
+  - component: {fileID: 8315298282222354963}
   m_Layer: 0
   m_Name: Potion_Red
   m_TagString: Untagged
@@ -99,3 +101,30 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 4300000, guid: c6179e854b44e2541a9956947c806de0, type: 3}
+--- !u!114 &2256252761500196424
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7200927917085466066}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bc9049270f6bba94087d88068a4fc82a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  healValue: 30
+  staminaValue: 30
+--- !u!135 &8315298282222354963
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7200927917085466066}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.122091874
+  m_Center: {x: 0, y: 0.12209192, z: 0}
