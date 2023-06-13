@@ -22,8 +22,8 @@ TagManager:
   - heal
   - Player1_CameraLayer
   - Player2_CameraLayer
-  - 
-  - 
+  - Boss
+  - PlayerDetectionCollider
   - 
   - 
   - 

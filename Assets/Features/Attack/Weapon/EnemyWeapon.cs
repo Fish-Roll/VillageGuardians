@@ -1,22 +1,17 @@
 ﻿using Features.Health;
-using Features.Health.Abstract;
 using UnityEngine;
 
 namespace Features.Attack.Weapon
 {
-    public class Weapon : MonoBehaviour
+    public class EnemyWeapon : MonoBehaviour
     {
         [SerializeField] private float damage;
         //private bool _hasAlreadyDamaged;
 
         private void OnTriggerEnter(Collider other)
         {
-            if (other.CompareTag("Wall"))
-                other.gameObject.SetActive(false);
-            if (other.TryGetComponent(out EnemyHealthController health))
+            if (other.TryGetComponent(out PlayerHealthController health))
                 health.Damage(damage);
-            if(other.TryGetComponent(out BossHealthController healthController))
-                healthController.Damage(damage);
         }
 
         // private void OnTriggerStay(Collider other)

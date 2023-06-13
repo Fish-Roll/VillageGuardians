@@ -20,7 +20,7 @@ public class EnemyMeleeBrain : MonoBehaviour
     [SerializeField] private LayerMask playerMask;
     [SerializeField] private Transform player;
     [SerializeField] private EnemyMeleeAttack attack;
-    //[SerializeField] private Health health;
+    [SerializeField] private EnemyHealthController health;
     [SerializeField] private Animator animator;
     [SerializeField] private GameObject weapon;
     [SerializeField] private DisolveEnemy disolve;
@@ -44,7 +44,7 @@ public class EnemyMeleeBrain : MonoBehaviour
         //health = GetComponent<Health>();
         //health.Init(OnDeath);
         attack.Init(animator);
-        player = GameObject.Find("Player").transform;
+        health = GetComponent<EnemyHealthController>();
         _deathHash = Animator.StringToHash("Is_Dead");
         _hashAttack = Animator.StringToHash("Melee_attack");
     }
@@ -59,7 +59,15 @@ public class EnemyMeleeBrain : MonoBehaviour
     
     private void FixedUpdate()
     {
+        RaycastHit _hit;
+        
         _playerInSightRange = Physics.CheckSphere(transform.position, sightRange, playerMask);
+        if (Physics.SphereCast(transform.position, sightRange, Vector3.zero, out _hit, 10))
+        {
+            if(_hit.transform.gameObject.CompareTag("Player"))
+                player = _hit.transform;
+        }
+
         _playerInAttackRange = Physics.CheckSphere(transform.position, attackRange, playerMask);
         _agent.enabled = true;
         
