@@ -8,6 +8,7 @@ namespace Features.AI.Enemy
 {
     public class MeleeBrain : MonoBehaviour
     {
+        [SerializeField] private Animator animator;
         [Header("Health")]
         [SerializeField] private EnemyHealthController enemyHealthController;
         [SerializeField] private GameObject droppedHealthPotion;
@@ -30,7 +31,8 @@ namespace Features.AI.Enemy
         public bool alreadyAttacked;
         
         [Header("Patrol")]
-        [SerializeField] private Vector3 patrolRange;
+        [SerializeField] private Transform leftDownPoint;
+        [SerializeField] private Transform rightUpPoint;
         [SerializeField] private float distanceToPoint;
 
         [SerializeField] private EnemyDestroyer destroyer;
@@ -39,9 +41,18 @@ namespace Features.AI.Enemy
         public Vector3 walkPoint;
 
         public NavMeshAgent _navMeshAgent;
+        private Rigidbody _rb;
+        private int _walkHash;
+        private int _attackHash;
 
         private void Start()
         {
+            _rb = GetComponent<Rigidbody>();
+            _rb.freezeRotation = true;
+            
+            _walkHash= Animator.StringToHash("Walk");
+            _attackHash= Animator.StringToHash("Melee_attack");
+            
             _navMeshAgent = GetComponent<NavMeshAgent>();
             detectionCollider.Init(TriggerEnter, TriggerExit);
             enemyHealthController.Init(OnDeath);
@@ -82,32 +93,38 @@ namespace Features.AI.Enemy
         private void Patrol()
         {
             if(!isWalkPointSet)
-                GetWalkPoint();
+                StartCoroutine(GetWalkPoint());
 
             if (isWalkPointSet)
             {
+                animator.SetBool(_walkHash, true);
                 transform.LookAt(walkPoint);
                 _navMeshAgent.SetDestination(walkPoint);
             }
 
             Vector3 distanceToWalk = transform.position - walkPoint;
-            
+            distanceToWalk.y = 0;
             if (distanceToWalk.magnitude < distanceToPoint)
                 isWalkPointSet = false;
         }
 
+
         private void Chase()
         {
+            if(!animator.GetBool(_walkHash))
+                animator.SetBool(_walkHash, true);
             transform.LookAt(player);
             _navMeshAgent.SetDestination(player.position);
         }
 
         private void Attack()
         {
+            animator.SetBool(_walkHash, false);
             transform.LookAt(player);
             _navMeshAgent.SetDestination(transform.position);
             if (!alreadyAttacked)
             {
+                animator.SetTrigger(_attackHash);
                 weapon.SetActive(true);
                 Invoke(nameof(ResetAttack), attackCooldown);
             }
@@ -119,18 +136,30 @@ namespace Features.AI.Enemy
             alreadyAttacked = false;
         }
 
-        private void GetWalkPoint()
+        private IEnumerator GetWalkPoint()
         {
-            float randomX = Random.Range(-patrolRange.x, patrolRange.x);
-            float randomZ = Random.Range(-patrolRange.z, patrolRange.z);
+            while (true)
+            {
+                float randomX = Random.Range(leftDownPoint.position.x, rightUpPoint.position.x);
+                float randomZ = Random.Range(leftDownPoint.position.z, rightUpPoint.position.z);
 
-            walkPoint = new Vector3(transform.position.x + randomX, 0, transform.position.z + randomZ);
+                walkPoint = new Vector3(randomX, 0, randomZ);
+                if (walkPoint.x >= leftDownPoint.position.x 
+                    && walkPoint.x <= rightUpPoint.position.x
+                    && walkPoint.z >= leftDownPoint.position.z
+                    && walkPoint.z <= rightUpPoint.position.z)
+                    break;
+
+                yield return null;
+            }
+
             isWalkPointSet = true;
         }
 
         private void OnDeath()
         {
             Destroy(weapon);
+            animator.SetBool(_walkHash, false);
             detectionCollider.enabled = false;
             TrySpawnHeal();
             destroyer.Activate();

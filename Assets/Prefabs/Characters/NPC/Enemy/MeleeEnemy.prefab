@@ -1077,7 +1077,7 @@ NavMeshAgent:
   m_GameObject: {fileID: 7900000046363243297}
   m_Enabled: 1
   m_AgentTypeID: 0
-  m_Radius: 0.5
+  m_Radius: 1.25
   m_Speed: 2.5
   m_Acceleration: 8
   avoidancePriority: 50
@@ -1118,6 +1118,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e46334d99de84b888ab04ac84be719ee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  animator: {fileID: 7900000045710497128}
   enemyHealthController: {fileID: 1622292249694419345}
   droppedHealthPotion: {fileID: 7200927917085466066, guid: a84a636a35a83fe408bd4b3d8c2b8058,
     type: 3}
@@ -1133,7 +1134,8 @@ MonoBehaviour:
   attackCooldown: 2
   playerOnAttackDistance: 0
   alreadyAttacked: 0
-  patrolRange: {x: 10, y: 0, z: 10}
+  leftDownPoint: {fileID: 0}
+  rightUpPoint: {fileID: 0}
   distanceToPoint: 0.5
   destroyer: {fileID: 1619970840226834360}
   isWalkPointSet: 0
@@ -1150,8 +1152,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 2.175759, y: 1.374702, z: 1.837331}
-  m_Center: {x: 0, y: 0.712105, z: 0}
+  m_Size: {x: 1.8147886, y: 1.374702, z: 1.4920646}
+  m_Center: {x: 0.036346674, y: 0.71210504, z: -0.005276501}
 --- !u!114 &2995665538852716212
 MonoBehaviour:
   m_ObjectHideFlags: 0
