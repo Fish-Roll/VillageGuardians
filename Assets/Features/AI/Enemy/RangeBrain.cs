@@ -11,6 +11,12 @@ namespace Features.AI.Enemy
     public class RangeBrain : MonoBehaviour
     {
         [SerializeField] private Animator animator;
+        
+        [Header("Sounds")]
+        [SerializeField] private AudioSource attackSound;
+        [SerializeField] private AudioSource idleSound;
+        [SerializeField] private AudioSource walkSound;
+        
         [Header("Health")]
         [SerializeField] private EnemyHealthController enemyHealthController;
         [SerializeField] private GameObject droppedHealthPotion;
@@ -104,6 +110,10 @@ namespace Features.AI.Enemy
             if (isWalkPointSet)
             {
                 animator.SetBool(_walkHash, true);
+                
+                if (!walkSound.isPlaying)
+                    walkSound.Play();
+                
                 transform.LookAt(walkPoint);
                 _navMeshAgent.SetDestination(walkPoint);
             }
@@ -117,19 +127,23 @@ namespace Features.AI.Enemy
         private void Chase()
         {
             if(!animator.GetBool(_walkHash))
-                animator.SetBool(_walkHash, true); 
+                animator.SetBool(_walkHash, true);
+            if(!walkSound.isPlaying)
+                walkSound.Play();
             transform.LookAt(player);
             _navMeshAgent.SetDestination(player.position);
         }
 
         private IEnumerator Attack()
         {
+            walkSound.Stop();
             animator.SetBool(_walkHash, false);
             transform.LookAt(player);
             _navMeshAgent.SetDestination(transform.position);
             if (!alreadyAttacked)
             {
                 alreadyAttacked = true;
+                attackSound.Play();
                 animator.SetTrigger(_attackHash);
                 yield return new WaitForSeconds(attackDelay);
                 

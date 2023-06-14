@@ -8,6 +8,7 @@ namespace Features.AI.Enemy
     {
         [SerializeField] private GameObject modelParent;
         [SerializeField] private float waitAnim;
+        [SerializeField] private AudioSource deathSound;
         
         private DisolveEnemy _disolve;
         private Animator _animator;
@@ -32,6 +33,7 @@ namespace Features.AI.Enemy
             Destroy(modelParent);
             
             _animator.SetTrigger(_deathHash);
+            deathSound.Play();
             yield return new WaitForSeconds(waitAnim);
             StartCoroutine(_disolve.DisolveCo());
         }

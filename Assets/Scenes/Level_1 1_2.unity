@@ -16731,11 +16731,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: RangeEnemy
       objectReference: {fileID: 0}
-    - target: {fileID: 6636437424836734309, guid: 3b2a1eece6eab5c428a7e3995516c51a,
+    - target: {fileID: 396439270041502746, guid: 3b2a1eece6eab5c428a7e3995516c51a,
         type: 3}
-      propertyPath: animator
-      value: 
-      objectReference: {fileID: 780342264}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6636437424836734309, guid: 3b2a1eece6eab5c428a7e3995516c51a,
         type: 3}
       propertyPath: rightUpPoint
@@ -16746,11 +16746,6 @@ PrefabInstance:
       propertyPath: leftDownPoint
       value: 
       objectReference: {fileID: 27536410}
-    - target: {fileID: 6636437424836734309, guid: 3b2a1eece6eab5c428a7e3995516c51a,
-        type: 3}
-      propertyPath: attackCooldown
-      value: 4
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3b2a1eece6eab5c428a7e3995516c51a, type: 3}
 --- !u!1 &478964496
@@ -27591,12 +27586,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 1002039313208531687, guid: 944bff624466e4242a3377fba75ddaf3,
     type: 3}
   m_PrefabInstance: {fileID: 779844282}
-  m_PrefabAsset: {fileID: 0}
---- !u!95 &780342264 stripped
-Animator:
-  m_CorrespondingSourceObject: {fileID: 396439269389820499, guid: 3b2a1eece6eab5c428a7e3995516c51a,
-    type: 3}
-  m_PrefabInstance: {fileID: 478807333}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &782424792
 PrefabInstance:
@@ -53037,7 +53026,12 @@ PrefabInstance:
     - target: {fileID: 7108336664899513033, guid: a6e2108305be2294bb85dc07433569a6,
         type: 3}
       propertyPath: attackCooldown
-      value: 4
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7108336664899513033, guid: a6e2108305be2294bb85dc07433569a6,
+        type: 3}
+      propertyPath: attackDuration
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7900000046363243297, guid: a6e2108305be2294bb85dc07433569a6,
         type: 3}
