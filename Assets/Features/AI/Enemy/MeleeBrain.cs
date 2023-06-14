@@ -26,6 +26,7 @@ namespace Features.AI.Enemy
         [SerializeField] private float attackPlayerRadius;
         [SerializeField] private GameObject weapon;
         [SerializeField] private float attackCooldown;
+        [SerializeField] private float attackDuration;
         public bool playerOnAttackDistance;
 
         public bool alreadyAttacked;
@@ -87,7 +88,7 @@ namespace Features.AI.Enemy
             if(playerDetected && !playerOnAttackDistance)
                 Chase();
             if(playerDetected && playerOnAttackDistance)
-                Attack();
+                StartCoroutine(Attack());
         }
 
         private void Patrol()
@@ -117,22 +118,25 @@ namespace Features.AI.Enemy
             _navMeshAgent.SetDestination(player.position);
         }
 
-        private void Attack()
+        private IEnumerator Attack()
         {
             animator.SetBool(_walkHash, false);
             transform.LookAt(player);
             _navMeshAgent.SetDestination(transform.position);
             if (!alreadyAttacked)
             {
+                alreadyAttacked = true;
                 animator.SetTrigger(_attackHash);
                 weapon.SetActive(true);
-                Invoke(nameof(ResetAttack), attackCooldown);
+                yield return new WaitForSeconds(attackDuration);
+                weapon.SetActive(false);
+                yield return new WaitForSeconds(attackCooldown);
+                ResetAttack();
             }
         }
 
         private void ResetAttack()
         {
-            weapon.SetActive(false);
             alreadyAttacked = false;
         }
 

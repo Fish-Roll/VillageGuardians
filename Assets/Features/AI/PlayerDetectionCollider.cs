@@ -21,7 +21,7 @@ namespace Features.AI
         
         private void OnTriggerExit(Collider other)
         {
-            _triggerEnter.Invoke(other.gameObject);
+            _triggerExit.Invoke(other.gameObject);
         }
     }
 }

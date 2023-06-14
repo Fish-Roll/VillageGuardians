@@ -66,13 +66,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cinemachineCamera: {fileID: 0}
   _rageController: {fileID: 0}
-  controlScheme: Gamepad
+  camera: {fileID: 0}
   follow: {fileID: 769258633354008276}
   lookAt: {fileID: 769258633502696018}
   animator: {fileID: 6613079821439719538}
-  layerMask:
-    serializedVersion: 2
-    m_Bits: 2147483647
   interactionController: {fileID: 2734657180083425423}
   <IsDashing>k__BackingField: 0
 --- !u!54 &769258632875063051
@@ -255,6 +252,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   animator: {fileID: 6613079821439719538}
+  modelTransform: {fileID: 0}
+  duration: 0
 --- !u!114 &605438731887946142
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -343,10 +342,10 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 1
   m_Enabled: 1
-  m_Radius: 0.5
-  m_Height: 2
+  m_Radius: 0.42
+  m_Height: 1.6
   m_Direction: 1
-  m_Center: {x: 0, y: 0.75, z: 0.7}
+  m_Center: {x: 0, y: 0.75, z: 0}
 --- !u!1 &769258633354008277
 GameObject:
   m_ObjectHideFlags: 0

@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using System.Timers;
 using Features.Health;
 using UnityEngine;
 
@@ -29,8 +30,8 @@ namespace Features.Attack.Weapon
 
         private void Move()
         {
-            transform.position += _moveDirection.normalized * speed * Time.deltaTime;
-            //transform.Translate(_moveDirection * Time.deltaTime * speed);
+            //transform.position = _moveDirection.normalized * speed * Time.deltaTime;
+            transform.Translate(Vector3.forward * speed * Time.deltaTime);
         }
     
         private void OnTriggerEnter(Collider other)

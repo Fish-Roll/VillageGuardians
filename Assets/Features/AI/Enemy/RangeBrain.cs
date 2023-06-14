@@ -29,6 +29,7 @@ namespace Features.AI.Enemy
         [SerializeField] private Transform spawnPosition;
         [SerializeField] private float attackCooldown;
         [SerializeField] private float attackPlayerRadius;
+        [SerializeField] private float attackDelay;
         
         public bool playerOnAttackDistance;
 
@@ -92,7 +93,7 @@ namespace Features.AI.Enemy
             if(playerDetected && !playerOnAttackDistance)
                 Chase();
             if(playerDetected && playerOnAttackDistance)
-                Attack();
+                StartCoroutine(Attack());
         }
 
         private void Patrol()
@@ -121,18 +122,22 @@ namespace Features.AI.Enemy
             _navMeshAgent.SetDestination(player.position);
         }
 
-        private void Attack()
+        private IEnumerator Attack()
         {
             animator.SetBool(_walkHash, false);
             transform.LookAt(player);
             _navMeshAgent.SetDestination(transform.position);
             if (!alreadyAttacked)
             {
+                alreadyAttacked = true;
                 animator.SetTrigger(_attackHash);
-                var gm = Instantiate(projectile, spawnPosition.position, Quaternion.identity);
+                yield return new WaitForSeconds(attackDelay);
+                
+                var gm = Instantiate(projectile, spawnPosition.position, transform.rotation);
                 gm.GetComponent<EnemyFireball>().Init(player.position);
                 
-                Invoke(nameof(ResetAttack), attackCooldown);
+                yield return new WaitForSeconds(attackCooldown);
+                ResetAttack();
             }
         }
 
@@ -181,7 +186,7 @@ namespace Features.AI.Enemy
             }
 
             return false;
-        }
+        }    
         
         private void OnDrawGizmosSelected()
         {
@@ -189,7 +194,6 @@ namespace Features.AI.Enemy
             Gizmos.DrawWireSphere(transform.position, findPlayerRadius);
             Gizmos.color = Color.red;
             Gizmos.DrawWireSphere(transform.position, attackPlayerRadius);
-
         }
     }
 }
