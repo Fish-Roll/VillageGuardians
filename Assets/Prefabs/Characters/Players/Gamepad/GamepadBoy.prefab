@@ -2651,6 +2651,8 @@ MonoBehaviour:
   lookAt: {fileID: 7769057981789415099}
   animator: {fileID: 3097275952727858939}
   interactionController: {fileID: 1075264581744616974}
+  isHeavyAttacked: 0
+  isInteracting: 0
   <IsDashing>k__BackingField: 0
 --- !u!114 &253357413994043937
 MonoBehaviour:
@@ -2701,6 +2703,9 @@ MonoBehaviour:
   particleSystem: {fileID: 0}
   staminaSub: 40
   staminaController: {fileID: 3350500873423675057}
+  attackCollider: {fileID: 0}
+  spawnPosition: {fileID: 0}
+  _inputSignatory: {fileID: 0}
 --- !u!114 &4620958709464463703
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2736,7 +2741,6 @@ MonoBehaviour:
   moveSpeed: 10
   dashDuration: 2
   newDashParent: {fileID: 8942900661407302785}
-  moveController: {fileID: 4620958709464463703}
 --- !u!114 &5548444283759753393
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2837,7 +2841,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   animator: {fileID: 3097275952727858939}
   modelTransform: {fileID: 8942900661407302785}
-  duration: 0
+  leverDuration: 0.7
+  supportDuration: 0.5
+  pushDuration: 0.5
 --- !u!114 &765945979445276166
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -2292,7 +2292,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   animator: {fileID: 2280481051388934192}
   modelTransform: {fileID: 5279847945514394186}
-  duration: 0
+  leverDuration: 0.7
+  supportDuration: 0.5
+  pushDuration: 0.5
 --- !u!114 &4611535049408809165
 MonoBehaviour:
   m_ObjectHideFlags: 0

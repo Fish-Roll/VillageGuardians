@@ -71,6 +71,8 @@ MonoBehaviour:
   lookAt: {fileID: 769258633502696018}
   animator: {fileID: 6613079821439719538}
   interactionController: {fileID: 2734657180083425423}
+  isHeavyAttacked: 0
+  isInteracting: 0
   <IsDashing>k__BackingField: 0
 --- !u!54 &769258632875063051
 Rigidbody:
@@ -104,7 +106,7 @@ MonoBehaviour:
   rotationSpeed: 10
   _cameraMovement:
     targetRotation: {fileID: 769258633354008276}
-    mouseSensitivity: 35
+    mouseSensitivity: 3
   animator: {fileID: 6613079821439719538}
   camera: {fileID: 0}
   movement: {fileID: 0}
@@ -179,6 +181,7 @@ MonoBehaviour:
   spawnPosition: {fileID: 4826891385455928993}
   delay: 1
   delayReset: 1
+  targetRotation: {fileID: 769258633354008276}
 --- !u!114 &444858171300650010
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -253,7 +256,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   animator: {fileID: 6613079821439719538}
   modelTransform: {fileID: 0}
-  duration: 0
+  leverDuration: 0.7
+  supportDuration: 0.5
+  pushDuration: 0.5
 --- !u!114 &605438731887946142
 MonoBehaviour:
   m_ObjectHideFlags: 0
