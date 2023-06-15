@@ -17,9 +17,6 @@ namespace Features.Attack.Boy
         [SerializeField] private float staminaSub;
         [SerializeField] private StaminaController staminaController;
         
-        [SerializeField] private GameObject attackCollider;
-        [SerializeField] private Transform spawnPosition;
-        
         [SerializeField] private InputSignatory _inputSignatory;
         private GameObject _oldParent;
         private Animator _animator;

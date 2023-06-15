@@ -8,14 +8,20 @@ namespace Features.Health
     public class EnemyHealthController : EnemyBaseHealthController
     {
         private EnemyHealth _enemyHealth;
-        
+        private HealthView _healthView;
         private bool _isDead;
         public bool IsDead => _isDead;
 
         public void Awake()
         {
             _enemyHealth = GetComponent<EnemyHealth>();
+            _healthView = GetComponent<HealthView>();
+
             _enemyHealth.currentHealth = _enemyHealth.MaxHealth;
+            
+            _healthView.HealthSlider.maxValue = _enemyHealth.MaxHealth;
+            _healthView.HealthSlider.value = _enemyHealth.CurrentHealth;
+            
             //_enemyHealth.Init(OnDeath);
         }
 
@@ -28,6 +34,7 @@ namespace Features.Health
         {
             if (_isDead) return;
             _enemyHealth.Damage(value);
+            _healthView.HealthSlider.value = _enemyHealth.CurrentHealth;
         }
     }
 }

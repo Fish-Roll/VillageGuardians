@@ -13,10 +13,8 @@ namespace Features.Attack.Weapon
         {
             if (other.CompareTag("Wall"))
                 other.gameObject.SetActive(false);
-            if (other.TryGetComponent(out EnemyHealthController health))
+            if (other.TryGetComponent(out EnemyBaseHealthController health))
                 health.Damage(damage);
-            if(other.TryGetComponent(out BossHealthController healthController))
-                healthController.Damage(damage);
         }
 
         // private void OnTriggerStay(Collider other)

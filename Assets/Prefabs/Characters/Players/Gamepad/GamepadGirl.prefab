@@ -164,6 +164,7 @@ MonoBehaviour:
   delay: 1
   staminaSub: 15
   staminaController: {fileID: 3471681356638385053}
+  inputSignatory: {fileID: 0}
 --- !u!114 &4160616851747582423
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -646,6 +647,16 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 6
       objectReference: {fileID: 0}
+    - target: {fileID: -6491575492936490932, guid: 5d6c4efdb75c6f14197164721ef87401,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: ca0d6d17445731c44a52d02eb47fbec9, type: 2}
+    - target: {fileID: -6370802363603327051, guid: 5d6c4efdb75c6f14197164721ef87401,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: ca0d6d17445731c44a52d02eb47fbec9, type: 2}
     - target: {fileID: -6272215494073746597, guid: 5d6c4efdb75c6f14197164721ef87401,
         type: 3}
       propertyPath: m_Layer
@@ -1011,6 +1022,11 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 6
       objectReference: {fileID: 0}
+    - target: {fileID: 7377094774130323180, guid: 5d6c4efdb75c6f14197164721ef87401,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: ca0d6d17445731c44a52d02eb47fbec9, type: 2}
     - target: {fileID: 7732131601650465306, guid: 5d6c4efdb75c6f14197164721ef87401,
         type: 3}
       propertyPath: m_Layer

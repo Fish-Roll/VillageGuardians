@@ -33,6 +33,8 @@ namespace Features.Attack.Weapon
 
         private void OnTriggerEnter(Collider other)
         {
+            if(other.CompareTag("Wall"))
+                other.gameObject.SetActive(false);
             if (other.TryGetComponent(out EnemyBaseHealthController health))
                 health.Damage(damage);
             Destroy(gameObject);
