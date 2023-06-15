@@ -136,7 +136,7 @@ namespace Features.Input
         {
             if (IsDashing) return;
 
-            interactionController.HandleInteraction();
+            StartCoroutine(interactionController.HandleInteraction());
         }
         
         public void OnUltimateAttack(InputAction.CallbackContext obj)

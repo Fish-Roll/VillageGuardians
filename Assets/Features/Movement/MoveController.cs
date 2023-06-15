@@ -63,7 +63,8 @@ namespace Features.Movement
             
             if (!_inputSignatory.IsDashing && _inputSignatory.IsMoving &&
                 (_moveDirection.x != 0 || _moveDirection.z != 0)
-                && !_inputSignatory.isHeavyAttacked)
+                && !_inputSignatory.isHeavyAttacked
+                && !_inputSignatory.isInteracting)
                 RotatePlayer();
         }
 
@@ -83,7 +84,8 @@ namespace Features.Movement
             
             if (!_inputSignatory.IsDashing && _inputSignatory.IsMoving &&
                 (_moveDirection.x != 0 || _moveDirection.z != 0)
-                && !_inputSignatory.isHeavyAttacked)
+                && !_inputSignatory.isHeavyAttacked
+                && !_inputSignatory.isInteracting)
             {
                 animator.SetBool(_walkHash, true);
                 movement.Move(_moveDirection);
