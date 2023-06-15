@@ -1,5 +1,4 @@
-﻿    using System;
-using Features.Health;
+﻿using Features.Health;
 using UnityEngine;
 
 namespace Features.Interaction
@@ -18,7 +17,8 @@ namespace Features.Interaction
         
         public void Interact()
         {
-            _healthController.Revive();
+            if(_healthController.IsDead)
+                _healthController.Revive();
         }
 
     }

@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using Features.Attack.Abstract;
+using Features.Input;
 using Features.Stamina;
 using UnityEngine;
 
@@ -11,7 +12,8 @@ namespace Features.Attack.Girl
         [SerializeField] private float delay;
         [SerializeField] private float staminaSub;
         [SerializeField] private StaminaController staminaController;
-        
+        [SerializeField] private InputSignatory inputSignatory;
+
         private Animator _animator;
         private int _attackHash;
         private int _idleAttackHash;
@@ -30,6 +32,9 @@ namespace Features.Attack.Girl
             BaseAttackController.canAttack = false;
             
             staminaController.Subtract(staminaSub);
+            inputSignatory.IsMoving = false;
+            inputSignatory.IsDashing = false;
+
             _animator.SetTrigger(_attackHash);
             yield return waitDelay;
             
@@ -37,6 +42,7 @@ namespace Features.Attack.Girl
             weapon.SetActive(true);
             
             yield return waitDuration;
+            inputSignatory.isHeavyAttacked = false;
             ResetAttack();
         }
 
@@ -44,6 +50,7 @@ namespace Features.Attack.Girl
         {
             weapon.SetActive(false);
             _animator.SetBool(_idleAttackHash, false);
+            
             BaseAttackController.canAttack = true;
         }
 
