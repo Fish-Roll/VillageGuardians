@@ -1,7 +1,6 @@
 ﻿using System.Collections;
 using Features.Attack.Weapon;
 using Features.Health;
-using UnityEditor.Search;
 using UnityEngine;
 using UnityEngine.AI;
 using Random = UnityEngine.Random;
@@ -76,6 +75,8 @@ namespace Features.AI.Enemy
             {
                 float distanceGM = (transform.position - gm.transform.position).magnitude;
                 float distancePlayer = (transform.position - player.transform.position).magnitude;
+                // float distanceGM = Vector3.Distance(transform.position, gm.transform.position);
+                // float distancePlayer = Vector3.Distance(transform.position, player.transform.position);;
                 if (distancePlayer > distanceGM)
                     player = gm.transform;
             }

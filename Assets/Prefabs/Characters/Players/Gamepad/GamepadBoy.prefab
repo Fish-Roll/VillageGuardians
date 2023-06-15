@@ -2765,7 +2765,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 71baa8745f534cee96cfef7bc3883737, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 200
+  maxHealth: 800
   rageController: {fileID: 7703534008556110981}
 --- !u!114 &5612555826301540201
 MonoBehaviour:
@@ -2837,6 +2837,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   animator: {fileID: 3097275952727858939}
   modelTransform: {fileID: 8942900661407302785}
+  duration: 0
 --- !u!114 &765945979445276166
 MonoBehaviour:
   m_ObjectHideFlags: 0

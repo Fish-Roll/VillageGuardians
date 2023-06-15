@@ -191,7 +191,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4973bf6a60ac46df9e1ac629c5adfd8e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 200
+  maxHealth: 800
 --- !u!114 &4294803270373716535
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -207,7 +207,7 @@ MonoBehaviour:
   health: {fileID: 444858171300650010}
   healParticle: {fileID: 6648603027523235290}
   animator: {fileID: 6613079821439719538}
-  reviveHealth: 100
+  reviveHealth: 400
 --- !u!114 &2959964997604770024
 MonoBehaviour:
   m_ObjectHideFlags: 0

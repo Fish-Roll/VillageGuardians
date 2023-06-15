@@ -7,6 +7,10 @@ namespace Features.Health
 {
     public class BossHealth : BaseHealth
     {
+        private void Start()
+        {
+            currentHealth = MaxHealth;
+        }
 
         public void Init(Action onDeath)
         {

@@ -14,7 +14,7 @@ namespace Features.AI
             _triggerExit = triggerExit;
         }
 
-        private void OnTriggerEnter(Collider other)
+        private void OnTriggerStay(Collider other)
         {
             _triggerEnter.Invoke(other.gameObject);
         }

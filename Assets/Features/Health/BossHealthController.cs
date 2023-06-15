@@ -10,37 +10,41 @@ namespace Features.Health
         private BossHealth _bossHealth;
         [SerializeField] private Animator animator;
 
-        private int _maxCountSpawns;
-        private int _countSpawns = 1;
         private int _deathHash;
         private int _protectHash;
         private int _spawnEnemyHash;
-        private Func<IEnumerator> onProtect;
-        private bool _isDead;
-        public bool IsDead => _isDead;
+        private Action onProtect;
+        private bool _isProtected;
+        public bool _isDead;
         
         public void Awake()
         {
             _bossHealth = GetComponent<BossHealth>();
         }
 
-        public void Init(Action onDeath, Func<IEnumerator> onProtect, int countSpawns)
+        public void Init(Action onDeath, Action onProtect)
         {
             _bossHealth.Init(onDeath);
-            _maxCountSpawns = countSpawns;
+            this.onProtect = onProtect;
         }
-        
+
+        private bool _alreadyProtected;
         public override void Damage(float value)
         {
-            if (_isDead) return;
+            if (_isDead || _isProtected) return;
             _bossHealth.Damage(value);
-            if (_bossHealth.MaxHealth / _countSpawns < _bossHealth.CurrentHealth)
+            if (_bossHealth.CurrentHealth <= _bossHealth.MaxHealth/2 && !_alreadyProtected)
             {
-                _countSpawns++;
+                _alreadyProtected = true;
                 onProtect.Invoke();
             }
         }
 
+        public void OnProtect(bool isProtected)
+        {
+            _isProtected = isProtected;
+        }
+        
         private void OnDeath()
         {
             _isDead = true;

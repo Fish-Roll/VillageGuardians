@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using Features.AI.Enemy;
 using Features.Health;
 using UnityEngine;
 using UnityEngine.AI;
@@ -15,48 +16,49 @@ namespace Features.AI.Boss
 
         [Header("LightAttack")] 
         [SerializeField] private float lightAttackDuration;
-        [SerializeField] private float lightAttackDelay;
+        [SerializeField] private float lightAttackCooldown;
         [SerializeField] private GameObject weapon;
-        
+        [SerializeField] private AudioSource lightAttackSound;
+
         [Header("HeavyAttack")]
         [SerializeField] private float heavyAttackTimer;
         [SerializeField] private float heavyAttackWaitAfterSpawn;
         [SerializeField] private float heavyAttackDelay;
         [SerializeField] private GameObject heavyAttack;
-        [SerializeField] private AudioSource _audio;
+        [SerializeField] private AudioSource heavyAttackSound;
         
         [Header("Movement")]
         [SerializeField] private float speed;
-
+        [SerializeField] private AudioSource moveSound;
+        [SerializeField] private EnemyDestroyer enemyDestroyer;
+        
         private int _targetPlayer;
 
         [Header("SpawnEnemy")] 
-        [SerializeField] private int countSpawns;
         [SerializeField] private float spawnDelay;
         [SerializeField] private GameObject meleeEnemy;
         [SerializeField] private GameObject rangeEnemy;
         [SerializeField] private List<Transform> meleeSpawnPoint;
         [SerializeField] private List<Transform> rangeSpawnPoint;
+        //[SerializeField] private AudioSource spawnEnemySound;
         
         /// <summary>
         /// Need to check when leave from protect
         /// </summary>
         private List<GameObject> enemyList;
+        private NavMeshAgent _navMeshAgent;
         
         [Header("Other")]
-        private NavMeshAgent _navMeshAgent;
         [SerializeField] private GameObject[] players;
-        [SerializeField] private float deathDuration;
-        
-        private bool _isDead;
-        private bool _canMove = true;
-        private bool _canHeavyAttack = true;
-        private bool _canAttack = true;
-        private bool _isProtect;
+        [SerializeField] private float endProtectTime;
 
+        public bool _canAttack;
+        public bool alreadyAttacked;
+        public bool heavyAttacked;
+        public bool isProtected;
+        
         private BossHealthController _healthController;
         private Animator _animator;
-        private bool _isMove;
         
         private int _moveHash;
         private int _lightAttackHash;
@@ -68,6 +70,8 @@ namespace Features.AI.Boss
         
         private void Start()
         {
+            enemyList = new List<GameObject>();
+            
             _animator = GetComponentInChildren<Animator>();
             _navMeshAgent = GetComponent<NavMeshAgent>();
             
@@ -75,7 +79,7 @@ namespace Features.AI.Boss
             players = GameObject.FindGameObjectsWithTag("Player");
             
             _healthController = GetComponent<BossHealthController>();
-            _healthController.Init(OnDeath, OnProtect, countSpawns);
+            _healthController.Init(OnDeath, OnProtect);
             
             _moveHash = Animator.StringToHash("Walk");
             _lightAttackHash = Animator.StringToHash("LightAttack");
@@ -83,18 +87,27 @@ namespace Features.AI.Boss
             _protectHash = Animator.StringToHash("IsProtect");
             _deathHash = Animator.StringToHash("Die");
             _spawnEnemyHash = Animator.StringToHash("SpawnEnemy");
-            
+            OnProtect();
             StartCoroutine(HeavyAttack());
         }
-        
+
         public void Update()
         {
+            CheckEnemies();
             _canAttack = Physics.CheckSphere(transform.position, attackRange, playerMask);
-
+            
+            if (_canAttack && !heavyAttacked && !isProtected)
+            {
+                StartCoroutine(LightAttack());
+            }
+            else if (!_canAttack && !heavyAttacked && !isProtected)
+            {
+                _targetPlayer = FindPlayer();
+                MoveToPlayer(_targetPlayer);
+            }
+            
             // if (!_canAttack && !_isProtect)
             // {
-            //     _targetPlayer = FindPlayer();
-            //     MoveToPlayer(_targetPlayer);
             // }
             // else if (_canAttack && !_isProtect)
             // {
@@ -102,9 +115,27 @@ namespace Features.AI.Boss
             // }
         }
 
+        public int countDeadEnemy;
+        private void CheckEnemies()
+        {
+            if (isProtected)
+            {
+                countDeadEnemy = 0;
+                for (int i = 0; i < enemyList.Count; i++)
+                {
+                    if (enemyList[i] == null)
+                        countDeadEnemy++;
+                }
+                if (countDeadEnemy == (meleeSpawnPoint.Count + rangeSpawnPoint.Count))
+                {
+                    StartCoroutine(StopProtect());
+                }
+            }
+        }
+        
         private int FindPlayer()
         {
-            float minDistance = -1;
+            float minDistance = Single.MaxValue;
             int playerIndex = -1;
             for (int i = 0; i < players.Length; i++)
             {
@@ -117,105 +148,148 @@ namespace Features.AI.Boss
 
             return playerIndex;
         }
-        
+
         private void MoveToPlayer(int targetPlayer)
         {
-            // if (!_isMove)
-            // {
-                _isMove = true;
+            if(!_animator.GetBool(_moveHash))
                 _animator.SetBool(_moveHash, true);
-                //_navMeshAgent.destination = players[targetPlayer].transform.position;
-                _navMeshAgent.SetDestination(players[targetPlayer].transform.position);
-            //}
+            if(!moveSound.isPlaying)
+                moveSound.Play();
+
+            transform.LookAt(players[targetPlayer].transform);
+            _navMeshAgent.SetDestination(players[targetPlayer].transform.position);
         }
 
         private IEnumerator LightAttack()
         {
-            //_isMove = false;
-            _canAttack = false;
-            _canHeavyAttack = false;
-            _canMove = false;
+            moveSound.Stop();
+
             _animator.SetBool(_moveHash, false);
-            _animator.SetTrigger(_lightAttackHash);
-            weapon.SetActive(true);
-            yield return new WaitForSeconds(lightAttackDuration);
-            weapon.SetActive(false);
-            yield return new WaitForSeconds(lightAttackDelay);
-            _canAttack = true;
-            _canHeavyAttack = true;
-            _canMove = true;
+            transform.LookAt(players[_targetPlayer].transform);
+            _navMeshAgent.SetDestination(transform.position);
+            
+            if (!alreadyAttacked)
+            {
+                alreadyAttacked = true;
+                
+                lightAttackSound.Stop();
+                if(!lightAttackSound.isPlaying)
+                    lightAttackSound.Play();
+                _animator.SetTrigger(_lightAttackHash);
+                weapon.SetActive(true);
+                yield return new WaitForSeconds(lightAttackDuration);
+                weapon.SetActive(false);
+                yield return new WaitForSeconds(lightAttackCooldown);
+                alreadyAttacked = false;
+            }
         }
         
         private IEnumerator HeavyAttack()
         {
-            while (!_isDead)
+            while (true)
             {
-                yield return new WaitForSeconds(heavyAttackTimer);
-                // if(_isProtect) continue;
-                // if (_canHeavyAttack)
-                // {
+                if (!isProtected)
+                {
+                    moveSound.Stop();
+                    lightAttackSound.Stop();
+                    
+                    yield return new WaitForSeconds(heavyAttackTimer);
+
+                    heavyAttacked = true;
                     _animator.SetBool(_moveHash, false);
-                    _navMeshAgent.speed = 0;
-                    //_isMove = false;
-                    _canMove = false;
-                    _canAttack = false;
-                    _canHeavyAttack = false;
+                    _navMeshAgent.SetDestination(transform.position);
                     _animator.SetTrigger(_heavyAttackHash);
+                    if(!heavyAttackSound.isPlaying)
+                        heavyAttackSound.Play();
+
                     yield return new WaitForSeconds(heavyAttackDelay);
                     //_audio.Play();
                     heavyAttack.SetActive(true);
                     yield return new WaitForSeconds(heavyAttackWaitAfterSpawn);
                     heavyAttack.SetActive(false);
-                    _canMove = true;
-                    _canHeavyAttack = true;
-                    _navMeshAgent.speed = speed;
-                //}
+                    heavyAttacked = false;
+                }
+                else
+                {
+                    yield return null;
+                }
             }
         }
         
         
-        private IEnumerator OnProtect()
+        private void OnProtect()
         {
+            StartCoroutine(Protect());
+        }
+
+        private IEnumerator Protect()
+        {
+            moveSound.Stop();
+            isProtected = true;
             _animator.SetBool(_moveHash, false);
-            //_isMove = false;
-            _canHeavyAttack = false;
+            _navMeshAgent.speed = 0;
+            //_navMeshAgent.SetDestination(transform.position);
+            
             _animator.SetTrigger(_spawnEnemyHash);
+            // if(!spawnEnemySound.isPlaying)
+            //     spawnEnemySound.Play();
+
             yield return new WaitForSeconds(spawnDelay);
             
             for (int i = 0; i < meleeSpawnPoint.Count; i++)
             {
-                enemyList.Add(
-                    Instantiate(meleeEnemy, meleeSpawnPoint[i].position, Quaternion.identity)
+                try
+                {
+                    enemyList.Add(
+                        Instantiate(meleeEnemy, meleeSpawnPoint[i].position, Quaternion.identity)
                     );
+                }
+                catch (Exception e)
+                {
+                    Debug.Log(e.Message);
+                }
                 //TODO: add init check enemy count script 
             }
 
             for (int i = 0; i < rangeSpawnPoint.Count; i++)
             {
-                enemyList.Add(
-                    Instantiate(rangeEnemy, rangeSpawnPoint[i].position, Quaternion.identity)
-                );
+                try
+                {
+                    enemyList.Add(
+                        Instantiate(rangeEnemy, rangeSpawnPoint[i].position, Quaternion.identity)
+                    );
+                }catch (Exception e)
+                {
+                    Debug.Log(e.Message);
+                }
+
                 //TODO: add init check enemy count script
             }
             
-            _animator.SetBool(_protectHash, true);
-            _healthController.enabled = false;
+            if(!_animator.GetBool(_protectHash))
+            {
+                _animator.SetBool(_protectHash, true);
+                
+            }
+            _healthController.OnProtect(isProtected);
         }
 
+        private IEnumerator StopProtect()
+        {
+            moveSound.Stop();
+            _animator.SetBool(_protectHash, false);
+            yield return new WaitForSeconds(endProtectTime);
+            isProtected = false;
+            _healthController.OnProtect(isProtected);
+            _navMeshAgent.speed = speed;
+        }
+        
         private void OnDeath()
         {
+            moveSound.Stop();
             _animator.SetBool(_moveHash, false);
             _animator.SetBool(_protectHash, false);
-            _isDead = true;
-            StartCoroutine(Death());
-        }
-
-        private IEnumerator Death()
-        {
-            _animator.SetTrigger(_deathHash);
-            yield return new WaitForSeconds(deathDuration);
-            //activate disolve model
-            Destroy(gameObject);
+            enemyDestroyer.Activate();
         }
         
         private void OnDrawGizmosSelected()
