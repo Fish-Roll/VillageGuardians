@@ -10,6 +10,7 @@ namespace Features.Attack.Girl
     {
         [SerializeField] private float delay;
         [SerializeField] private float delayReset;
+        [SerializeField] private Transform targetRotation;
         
         private Animator _animator;
         private int _attackHash;
@@ -33,7 +34,7 @@ namespace Features.Attack.Girl
             
             _animator.SetTrigger(_attackHash);
             yield return waitDelay;
-            var GO = Instantiate(projectile, spawnPosition.position, Quaternion.identity);
+            var GO = Instantiate(projectile, spawnPosition.position, targetRotation.rotation);
             var moveDirection = _inputSignatory.GetMouseHitVector();
             GO.GetComponent<Fireball>().Init(moveDirection);
             yield return new WaitForSeconds(delayReset);

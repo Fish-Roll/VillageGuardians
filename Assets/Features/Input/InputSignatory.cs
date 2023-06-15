@@ -5,6 +5,7 @@ using Features.Health;
 using Features.Interaction;
 using Features.Movement;
 using Features.Rage;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -165,9 +166,16 @@ namespace Features.Input
         public Vector3 GetMouseHitVector()
         {
             //camera.ViewportToWorldPoint(camera.rect.center);
-            var ray = camera.ScreenPointToRay(Mouse.current.position.ReadValue());
-            Vector3 vec = new Vector3(ray.direction.x / 10, ray.direction.y, ray.direction.z / 10);
-            return vec; //ray;
+            //var ray = camera.ScreenPointToRay(Mouse.current.position.ReadValue());
+            //Vector3 vec = new Vector3(ray.direction.x / 10, ray.direction.y, ray.direction.z / 10);
+            Ray ray = camera.ViewportPointToRay(new Vector3(0.75f, 0.5f, 0));
+            RaycastHit hit;
+            Debug.Log("ViewportPointToRay: " + ray.direction + " " + ray.origin + " " + ray.GetPoint(100));
+            if (Physics.Raycast(ray, out hit))
+            {
+                Debug.Log("Hit: " + hit.distance + " " + hit.transform.name);
+            }
+            return ray.direction;
         }
     }
 }

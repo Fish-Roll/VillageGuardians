@@ -29,7 +29,7 @@ namespace Features.Attack.Weapon
 
         private void Move()
         {
-            transform.Translate(_moveDirection * Time.deltaTime * speed, Space.Self);
+            transform.Translate(Vector3.forward * speed * Time.deltaTime);
         }
     
         private void OnTriggerEnter(Collider other)
