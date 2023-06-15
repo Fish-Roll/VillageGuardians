@@ -41,6 +41,11 @@ namespace Features.TagsGame
             }
         }
 
+        public void Lift(GameObject gm)
+        {
+            
+        }
+
         public void Interact()
         {
             _onInteract.Invoke(this);

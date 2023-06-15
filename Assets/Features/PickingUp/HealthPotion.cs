@@ -33,5 +33,10 @@ namespace Features.PickingUp
             _staminaController.Accumulate(staminaValue);
             Destroy(gameObject);
         }
+
+        public void Lift(GameObject gm)
+        {
+            
+        }
     }
 }

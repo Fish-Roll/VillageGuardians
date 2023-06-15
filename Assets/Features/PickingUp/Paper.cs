@@ -1,16 +1,33 @@
-﻿using System.Collections;
+﻿using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace Features.PickingUp
 {
     public class Paper : MonoBehaviour, ILifted
     {
-        [SerializeField] private GameObject paperWindow;
+        [SerializeField] private List<GameObject> paperWindow;
+        [SerializeField] private string textNote;
+        [SerializeField] private List<Text> text;
         
         public void Lift()
         {
-            paperWindow.SetActive(true);
+        }
+
+        public void Lift(GameObject gm)
+        {
+            if (gm.name == "KeyboardBoy" || gm.name == "GamepadBoy")
+            {
+                text[0].text = textNote;
+                paperWindow[0].SetActive(true);
+            }
+            else if (gm.name == "KeyboardGirl" || gm.name == "GamepadGirl")
+            {
+                text[1].text = textNote;
+                paperWindow[1].SetActive(true);
+            }
             Destroy(gameObject, 0.5f);
+
         }
     }
 }

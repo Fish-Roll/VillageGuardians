@@ -10,6 +10,7 @@ namespace Features.PickingUp
             if(other.TryGetComponent(out ILifted lifted))
             {
                 lifted.Lift();
+                lifted.Lift(gameObject);
             }
         }
     }
