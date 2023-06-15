@@ -54,12 +54,11 @@ namespace Features.Interaction
                 }
                 else if (_interactable.GetType() == typeof(Knuckle))
                 {
+                    _inputSignatory.IsMoving = false;
+                    _inputSignatory.IsDashing = false;
+
                     if (gameObject.name == "KeyboardBoy" || gameObject.name == "GamepadBoy")
                     {
-                        _inputSignatory.IsMoving = false;
-                        _inputSignatory.IsDashing = false;
-
-                        Transform parent = transform;
                         modelTransform.SetParent(null);
                         transform.SetParent(modelTransform);
                         gameObject.transform.localPosition = Vector3.zero;
@@ -78,6 +77,7 @@ namespace Features.Interaction
                     }
                     else
                     {
+                        animator.SetTrigger(_knuckleHash);
                         yield return new WaitForSeconds(pushDuration);
                         _inputSignatory.isInteracting = false;
                     }

@@ -14,8 +14,8 @@ namespace Features.TagsGame
         [SerializeField] private float waitTimeOpenGates;
         
         private bool _canPlay;
-        private const ushort c_horizontalMoveLimit = 3;
-        private const ushort c_verticalMoveLimit = 1;
+        private const ushort c_horizontalMoveLimit = 1;
+        private const ushort c_verticalMoveLimit = 3;
 
         private void Start()
         {
@@ -115,11 +115,11 @@ namespace Features.TagsGame
             List<Knuckle> knuckles = new List<Knuckle>();
             if (emptyPoint + c_horizontalMoveLimit < points.Count)
                 knuckles.Add(points[emptyPoint + c_horizontalMoveLimit].Knuckle);
-            if (emptyPoint - c_horizontalMoveLimit > 0)
+            if (emptyPoint - c_horizontalMoveLimit >= 0)
                 knuckles.Add(points[emptyPoint - c_horizontalMoveLimit].Knuckle);
             if (emptyPoint + c_verticalMoveLimit < points.Count)
                 knuckles.Add(points[emptyPoint + c_verticalMoveLimit].Knuckle);
-            if (emptyPoint - c_verticalMoveLimit > 0)
+            if (emptyPoint - c_verticalMoveLimit >= 0)
                 knuckles.Add(points[emptyPoint - c_verticalMoveLimit].Knuckle);
             return knuckles;
         }
