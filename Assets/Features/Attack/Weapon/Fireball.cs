@@ -11,7 +11,6 @@ namespace Features.Attack.Weapon
         [SerializeField] private float lifetime;
         
         private Vector3 _moveDirection;
-        private bool _hasDamage;
         
         private void Start()
         {
@@ -31,14 +30,11 @@ namespace Features.Attack.Weapon
         {
             transform.Translate(Vector3.forward * speed * Time.deltaTime);
         }
-    
+
         private void OnTriggerEnter(Collider other)
         {
-            if (TryGetComponent(out EnemyBaseHealthController health) && !_hasDamage)
-            {
+            if (other.TryGetComponent(out EnemyBaseHealthController health))
                 health.Damage(damage);
-                _hasDamage = true;
-            }
             Destroy(gameObject);
         }
 

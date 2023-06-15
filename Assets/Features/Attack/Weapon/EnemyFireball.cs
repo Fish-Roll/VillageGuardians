@@ -36,7 +36,7 @@ namespace Features.Attack.Weapon
     
         private void OnTriggerEnter(Collider other)
         {
-            if (TryGetComponent(out PlayerHealthController health))
+            if (other.TryGetComponent(out PlayerHealthController health))
                 health.Damage(damage);
             Destroy(gameObject);
         }
