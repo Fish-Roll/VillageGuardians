@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections;
+using Features.Attack.Abstract;
+using Features.Attack.Boy;
 using Features.Health;
 using Features.Input;
 using Features.Movement.Abstract;
@@ -21,6 +23,7 @@ namespace Features.Movement
 
         
         //private Health.Health _health;
+        private BaseMeleeAttack _heavyMeleeAttack;
         private InputSignatory _inputSignatory;
         private Rigidbody _rb;
         private Vector3 _moveDirection;
@@ -38,6 +41,7 @@ namespace Features.Movement
             // HealthPotion.OnHealByPotion += HealByPotion;
             
             //_health = GetComponent<Health.Health>();
+            _heavyMeleeAttack = GetComponent<BaseMeleeAttack>();
             movement = GetComponent<BasePlayerMovement>();
             _rb = GetComponent<Rigidbody>();
             
@@ -51,23 +55,16 @@ namespace Features.Movement
             _cameraMovement.Init(camera);
             movement.Init(_rb, animator, _inputSignatory);
         }
-
-        private void HealByPotion()
-        {
-            StartCoroutine(UseParticleForHeal());
-        }
-
-        private IEnumerator UseParticleForHeal()
-        {
-            //_particleSystem.Play();
-            yield return new WaitForSeconds(2);
-            //_particleSystem.Stop();
-        }
+        
         
         private void LateUpdate()
         {
             transform.rotation = _cameraMovement.RotateCamera(_inputSignatory.LookDirection, transform.rotation, _inputSignatory.IsMoving);
-            RotatePlayer();
+            
+            if (!_inputSignatory.IsDashing && _inputSignatory.IsMoving &&
+                (_moveDirection.x != 0 || _moveDirection.z != 0)
+                && !_inputSignatory.isHeavyAttacked)
+                RotatePlayer();
         }
 
         private void Update()
@@ -84,7 +81,9 @@ namespace Features.Movement
         {
             _rb.velocity = new Vector3(_rb.velocity.x, -10, _rb.velocity.z);
             
-            if (!_inputSignatory.IsDashing)
+            if (!_inputSignatory.IsDashing && _inputSignatory.IsMoving &&
+                (_moveDirection.x != 0 || _moveDirection.z != 0)
+                && !_inputSignatory.isHeavyAttacked)
             {
                 animator.SetBool(_walkHash, true);
                 movement.Move(_moveDirection);
@@ -105,17 +104,5 @@ namespace Features.Movement
             }
         }
 
-        private void OnDeath()
-        {
-            animator.SetTrigger(_isDead);
-            this.enabled = false;
-            _inputSignatory.enabled = false;
-        }
-        
-        private void OnRevive()
-        {
-            animator.SetTrigger(_isReviveing);
-            this.enabled = true;
-        }
     }
 }

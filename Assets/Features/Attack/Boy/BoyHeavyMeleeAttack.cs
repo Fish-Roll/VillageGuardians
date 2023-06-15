@@ -16,8 +16,11 @@ namespace Features.Attack.Boy
         [SerializeField] private GameObject particleSystem;
         [SerializeField] private float staminaSub;
         [SerializeField] private StaminaController staminaController;
-
-        //TODO: Добавить вычитание выносливости
+        
+        [SerializeField] private GameObject attackCollider;
+        [SerializeField] private Transform spawnPosition;
+        
+        [SerializeField] private InputSignatory _inputSignatory;
         private GameObject _oldParent;
         private Animator _animator;
         private int _attackHash;
@@ -39,20 +42,26 @@ namespace Features.Attack.Boy
 
             staminaController.Subtract(staminaSub);
             
+            _inputSignatory.IsMoving = false;
+            _inputSignatory.IsDashing = false;
+
             _newParent.transform.SetParent(null);
             gameObject.transform.SetParent(_newParent.transform);
-            
+            gameObject.transform.localPosition = Vector3.zero;
+
             _animator.SetTrigger(_attackHash);
 
             yield return waitDelay;
-            particleSystem.SetActive(true);
+
+            //particleSystem.SetActive(true);
             weapon.SetActive(true);
             yield return waitDuration;
             
             _oldParent.transform.SetParent(null);
             _newParent.transform.SetParent(_oldParent.transform);
-            
-            particleSystem.SetActive(false);
+            _newParent.transform.localPosition = new Vector3(0,0,0);
+
+            //particleSystem.SetActive(false);
             
             ResetAttack();
         }
@@ -61,6 +70,7 @@ namespace Features.Attack.Boy
         {
             weapon.SetActive(false);
             BaseAttackController.canAttack = true;
+            _inputSignatory.isHeavyAttacked = false;
         }
     }
 }

@@ -32,7 +32,8 @@ namespace Features.Input
         private MoveController _moveController;
         private BaseAttackController _attackController;
         //private PlayerHealthController _healthController;
-        
+        public bool isHeavyAttacked;
+        public bool isInteracting;
         public MoveController MoveController => _moveController;
         public BaseAttackController AttackController => _attackController;
 
@@ -107,7 +108,6 @@ namespace Features.Input
         public void OnDash(InputAction.CallbackContext obj)
         {
             if (IsDashing) return;
-            IsDashing = true;
             StartCoroutine(_moveController.movement.Dash(_moveDirection));
         }
         
@@ -153,8 +153,11 @@ namespace Features.Input
 
         public void OnHeavyAttack(InputAction.CallbackContext obj)
         {
-            if(!IsAiming && !IsDashing && !IsMoving)
+            if (!IsAiming && !IsDashing && !IsMoving && !isHeavyAttacked && !isInteracting)
+            {
+                isHeavyAttacked = true;
                 _attackController.HandleAttack((int)AttackType.HeavyAttack);
+            }
         }
         
         public void ConvertInputDirectionToMove(Vector2 inputMoveDirection)

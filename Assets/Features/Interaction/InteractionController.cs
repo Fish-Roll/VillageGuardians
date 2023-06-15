@@ -40,8 +40,8 @@ namespace Features.Interaction
                     
                     transform.SetParent(null);
                     modelTransform.SetParent(transform);
-                    Vector3 poss = transform.transform.position;
-                    modelTransform.position = new Vector3(poss.x, 0f, poss.z);
+                    // Vector3 poss = transform.transform.position;
+                    // modelTransform.position = new Vector3(poss.x, 0f, poss.z);
                 }
 
                 _interactable.Interact();
