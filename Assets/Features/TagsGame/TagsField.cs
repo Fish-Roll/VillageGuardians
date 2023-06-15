@@ -16,6 +16,7 @@ namespace Features.TagsGame
         private bool _canPlay;
         private const ushort c_horizontalMoveLimit = 1;
         private const ushort c_verticalMoveLimit = 3;
+        public bool CanPlay => _canPlay;
 
         private void Start()
         {
