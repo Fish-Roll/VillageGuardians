@@ -954,7 +954,7 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 40.05
+  m_Radius: 17.05
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &7924311680530135302
 MonoBehaviour:
@@ -1491,14 +1491,14 @@ MonoBehaviour:
   enemyHealthController: {fileID: 1466761819566938211}
   droppedHealthPotion: {fileID: 7200927917085466066, guid: a84a636a35a83fe408bd4b3d8c2b8058,
     type: 3}
-  findPlayerRadius: 40
+  findPlayerRadius: 17
   playerMask:
     serializedVersion: 2
     m_Bits: 64
   detectionCollider: {fileID: 7924311680530135302}
   playerDetected: 0
   player: {fileID: 0}
-  projectile: {fileID: 2194860832766859992, guid: d92598a1a06fb574cb11a63550ee984d,
+  projectile: {fileID: 2194860832766859992, guid: dec03bc1c46df6c47ad301b917d1ddc0,
     type: 3}
   spawnPosition: {fileID: 8788928833476701395}
   attackCooldown: 2
@@ -1525,7 +1525,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 20e2a5287b1d43f092e5751567d15669, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 20
+  maxHealth: 40
   currentHealth: 0
 --- !u!114 &1466761819566938211
 MonoBehaviour:

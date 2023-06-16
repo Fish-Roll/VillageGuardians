@@ -10,7 +10,7 @@ namespace Features.Rage
         [SerializeField] private float subtractValue;
         [SerializeField] private float tick;
         [SerializeField] private Animator animator;
-        
+        private RageEffect _rageEffect;
         private WaitForSeconds _tickWait;
         private RageView _rageView;
         private bool _activated;
@@ -21,7 +21,7 @@ namespace Features.Rage
         private void Awake()
         {
             _rageHash = Animator.StringToHash("Rage");
-            
+            _rageEffect = GetComponent<RageEffect>();
             _rageView = GetComponent<RageView>();
             _rageView.RageSlider.maxValue = rageModel.RageMaxValue;
             _rageView.RageSlider.value = rageModel.RageValue;
@@ -51,6 +51,7 @@ namespace Features.Rage
             
             _activated = true;
             animator.SetTrigger(_rageHash);
+            StartCoroutine(_rageEffect.ActivateEffect());
             StartCoroutine(Activate());
             
             return true;
@@ -65,7 +66,7 @@ namespace Features.Rage
                 
                 yield return _tickWait;
             }
-
+            StartCoroutine(_rageEffect.DisableEffect());
             _activated = false;
         }
     }

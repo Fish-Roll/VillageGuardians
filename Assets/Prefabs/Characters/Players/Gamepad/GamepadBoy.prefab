@@ -1614,7 +1614,7 @@ SkinnedMeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 25044019a38204f0aa1531bdffdee76b, type: 2}
+  - {fileID: 2100000, guid: 449d7b35cdc634412ac99c15ce2e1091, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -2563,6 +2563,7 @@ GameObject:
   - component: {fileID: 7703534008556110981}
   - component: {fileID: 7931313797509887419}
   - component: {fileID: 3350500873423675057}
+  - component: {fileID: 7726109101468495748}
   m_Layer: 6
   m_Name: GamepadBoy
   m_TagString: Player
@@ -2651,6 +2652,8 @@ MonoBehaviour:
   lookAt: {fileID: 7769057981789415099}
   animator: {fileID: 3097275952727858939}
   interactionController: {fileID: 1075264581744616974}
+  pauseMenu: {fileID: 0}
+  paper: {fileID: 0}
   isHeavyAttacked: 0
   isInteracting: 0
   <IsDashing>k__BackingField: 0
@@ -2755,6 +2758,8 @@ MonoBehaviour:
   healParticle: {fileID: 2878135914294928973}
   animator: {fileID: 3097275952727858939}
   reviveHealth: 100
+  deathWindow: {fileID: 0}
+  deathWindowObject: {fileID: 0}
 --- !u!114 &662814245808007754
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2912,6 +2917,23 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   stamina:
     maxStamina: 200
+--- !u!114 &7726109101468495748
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7769057980912797054}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4b34957774594cd3b94296c1336ec300, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Mesh: {fileID: 5903948854074255608}
+  disolveRate: 0.0125
+  refreshRate: 0.025
+  dieParticles: {fileID: 3834677586027102163, guid: 4de1e2ad49fb80e47a213606deadb64e,
+    type: 3}
 --- !u!1 &7769057981789415100
 GameObject:
   m_ObjectHideFlags: 0

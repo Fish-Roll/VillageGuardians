@@ -12,7 +12,7 @@ namespace Features.UI
 
         [SerializeField] private Transform leftSprite;
         [SerializeField] private Transform rightSprite;
-
+        [SerializeField] private AudioSource audioSource;
         private Vector3 _spritePos = new Vector3();
         
         private bool _boyControl;
@@ -30,6 +30,7 @@ namespace Features.UI
 
         public void ChangeControl()
         {
+            audioSource.Play();
             girlControl = !girlControl;
             _boyControl = !_boyControl;
             
