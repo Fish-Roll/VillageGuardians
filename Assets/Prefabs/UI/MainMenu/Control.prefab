@@ -93,7 +93,7 @@ GameObject:
   - component: {fileID: 2885295867226953994}
   - component: {fileID: 2885295867226953993}
   m_Layer: 5
-  m_Name: FindLobby
+  m_Name: Control
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

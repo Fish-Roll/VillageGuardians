@@ -1,3 +1,4 @@
+using System;
 using Cinemachine;
 using Features.Attack;
 using Features.Attack.Abstract;
@@ -22,7 +23,9 @@ namespace Features.Input
         
         [SerializeField] private Animator animator;
         [SerializeField] private InteractionController interactionController;
-
+        [SerializeField] private GameObject pauseMenu;
+        [SerializeField] private GameObject paper;
+        private bool _isPaused;
         [Space(5)] 
         private PlayerInput _playerInput;
         //private InputActions _inputActions;
@@ -80,6 +83,8 @@ namespace Features.Input
             _playerInput.actions["LightAttack"].performed += OnLightAttack;
             _playerInput.actions["HeavyAttack"].performed += OnHeavyAttack;
             _playerInput.actions["UltimateAttack"].performed += OnUltimateAttack;
+
+            _playerInput.actions["Pause"].performed += OnPause;
         }
 
         public void OnDisable()
@@ -96,6 +101,8 @@ namespace Features.Input
             _playerInput.actions["LightAttack"].performed -= OnLightAttack;
             _playerInput.actions["HeavyAttack"].performed -= OnHeavyAttack;
             _playerInput.actions["UltimateAttack"].performed -= OnUltimateAttack;
+            
+            _playerInput.actions["Pause"].performed -= OnPause;
         }
         
         public void OnWalk(InputAction.CallbackContext obj)
@@ -179,6 +186,49 @@ namespace Features.Input
                 Debug.Log("Hit: " + hit.distance + " " + hit.transform.name);
             }
             return ray.direction;
+        }
+
+        // private void Update()
+        // {
+        //     if (_playerInput.actions["Pause"].IsPressed())
+        //     {
+        //         Pause();
+        //     }
+        // }
+
+        public void OnPause(InputAction.CallbackContext obj)
+        {
+            if (paper.activeSelf)
+            {
+                ClosePaper();
+            }
+            else
+            {
+                Pause();
+            }
+        }
+
+        private void ClosePaper()
+        {
+            paper.SetActive(false);
+        }
+        
+        private void Pause()
+        {
+            if (!_isPaused)
+            {
+                _isPaused = true;
+                Time.timeScale = 0;
+                pauseMenu.SetActive(true);
+                Cursor.lockState = CursorLockMode.None;
+            }
+            else
+            {
+                _isPaused = false;
+                Time.timeScale = 1;
+                pauseMenu.SetActive(false);
+                Cursor.lockState = CursorLockMode.Locked;
+            }
         }
     }
 }

@@ -107,6 +107,15 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Pause"",
+                    ""type"": ""Button"",
+                    ""id"": ""c589736d-364f-4af3-84a5-c60c57751a3c"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -384,6 +393,39 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
                     ""action"": ""ChangePlayer"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""41c30cee-a1ef-49e7-b0be-639fac990c41"",
+                    ""path"": ""<Keyboard>/escape"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard"",
+                    ""action"": ""Pause"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""fe9fa18b-569f-4e4c-9921-2c518cf21e11"",
+                    ""path"": ""<XInputController>/start"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""Pause"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""119d37a9-22a3-4935-8b37-089e02056076"",
+                    ""path"": ""<DualShockGamepad>/start"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""Pause"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -429,6 +471,7 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
         m_Controls_Interact = m_Controls.FindAction("Interact", throwIfNotFound: true);
         m_Controls_Aim = m_Controls.FindAction("Aim", throwIfNotFound: true);
         m_Controls_ChangePlayer = m_Controls.FindAction("ChangePlayer", throwIfNotFound: true);
+        m_Controls_Pause = m_Controls.FindAction("Pause", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -497,6 +540,7 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
     private readonly InputAction m_Controls_Interact;
     private readonly InputAction m_Controls_Aim;
     private readonly InputAction m_Controls_ChangePlayer;
+    private readonly InputAction m_Controls_Pause;
     public struct ControlsActions
     {
         private @InputActions m_Wrapper;
@@ -510,6 +554,7 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
         public InputAction @Interact => m_Wrapper.m_Controls_Interact;
         public InputAction @Aim => m_Wrapper.m_Controls_Aim;
         public InputAction @ChangePlayer => m_Wrapper.m_Controls_ChangePlayer;
+        public InputAction @Pause => m_Wrapper.m_Controls_Pause;
         public InputActionMap Get() { return m_Wrapper.m_Controls; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -546,6 +591,9 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
                 @ChangePlayer.started -= m_Wrapper.m_ControlsActionsCallbackInterface.OnChangePlayer;
                 @ChangePlayer.performed -= m_Wrapper.m_ControlsActionsCallbackInterface.OnChangePlayer;
                 @ChangePlayer.canceled -= m_Wrapper.m_ControlsActionsCallbackInterface.OnChangePlayer;
+                @Pause.started -= m_Wrapper.m_ControlsActionsCallbackInterface.OnPause;
+                @Pause.performed -= m_Wrapper.m_ControlsActionsCallbackInterface.OnPause;
+                @Pause.canceled -= m_Wrapper.m_ControlsActionsCallbackInterface.OnPause;
             }
             m_Wrapper.m_ControlsActionsCallbackInterface = instance;
             if (instance != null)
@@ -577,6 +625,9 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
                 @ChangePlayer.started += instance.OnChangePlayer;
                 @ChangePlayer.performed += instance.OnChangePlayer;
                 @ChangePlayer.canceled += instance.OnChangePlayer;
+                @Pause.started += instance.OnPause;
+                @Pause.performed += instance.OnPause;
+                @Pause.canceled += instance.OnPause;
             }
         }
     }
@@ -610,5 +661,6 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
         void OnInteract(InputAction.CallbackContext context);
         void OnAim(InputAction.CallbackContext context);
         void OnChangePlayer(InputAction.CallbackContext context);
+        void OnPause(InputAction.CallbackContext context);
     }
 }
