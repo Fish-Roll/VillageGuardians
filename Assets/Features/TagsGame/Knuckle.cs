@@ -11,7 +11,7 @@ namespace Features.TagsGame
         [SerializeField] private ushort id;
         [SerializeField] private float time;
         [SerializeField] private GameObject particle;
-        
+        [SerializeField] private AudioSource takeKnuckleSound;
         public int Id => id;
         
         private Action<Knuckle> _onInteract;
@@ -35,6 +35,7 @@ namespace Features.TagsGame
         {
             if (!lifted)
             {
+                takeKnuckleSound.Play();
                 lifted = true;
                 particle.SetActive(false);
                 _onLift.Invoke(gameObject);

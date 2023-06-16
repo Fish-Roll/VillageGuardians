@@ -10,12 +10,14 @@ namespace Features
         /// если duration < 0, ворота открыты перманентно 
         /// </summary>
         [SerializeField] private float duration;
+        [SerializeField] private AudioSource openGateSound;
 
         [SerializeField] private Vector3 endAngle;
         [SerializeField] private Transform lever;
 
         private void Start()
         {
+            openGateSound.Play();
             StartCoroutine(RotateCoroutine(endAngle, duration));
         }
 

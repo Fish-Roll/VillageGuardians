@@ -7,6 +7,8 @@ namespace Features.Attack.Boy
     public class BoyLightMeleeAttack : BaseMeleeAttack
     {
         [SerializeField] private float duration;
+
+        [SerializeField] private AudioSource attackSound;
         //[SerializeField] private ParticleSystem attackEffect;
         
         private Animator _animator;
@@ -22,6 +24,8 @@ namespace Features.Attack.Boy
         {
             var wait = new WaitForSeconds(duration);
             BaseAttackController.canAttack = false;
+            if(!attackSound.isPlaying)
+                attackSound.Play();
             _animator.SetTrigger(_attackHash);
             //attackEffect.Play();
             weapon.SetActive(true);

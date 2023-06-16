@@ -26,5 +26,6 @@ public class PauseMenuScript : MonoBehaviour
     public void Close(GameObject window)
     {
         window.SetActive(false);
+        Time.timeScale = 1;
     }
 }

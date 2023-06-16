@@ -13,10 +13,9 @@ namespace Features.Attack.Boy
         [SerializeField] private float duration;
         [SerializeField] private float delay;
         [SerializeField] private GameObject _newParent;
-        [SerializeField] private GameObject particleSystem;
         [SerializeField] private float staminaSub;
         [SerializeField] private StaminaController staminaController;
-        
+        [SerializeField] private AudioSource attackSound;
         [SerializeField] private InputSignatory _inputSignatory;
         private GameObject _oldParent;
         private Animator _animator;
@@ -41,6 +40,9 @@ namespace Features.Attack.Boy
             
             _inputSignatory.IsMoving = false;
             _inputSignatory.IsDashing = false;
+            
+            if(!attackSound.isPlaying)
+                attackSound.Play();
 
             _newParent.transform.SetParent(null);
             gameObject.transform.SetParent(_newParent.transform);

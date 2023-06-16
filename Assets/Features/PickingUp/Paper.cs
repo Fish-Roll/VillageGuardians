@@ -9,13 +9,14 @@ namespace Features.PickingUp
         [SerializeField] private List<GameObject> paperWindow;
         [SerializeField] private string textNote;
         [SerializeField] private List<Text> text;
-        
+        [SerializeField] private AudioSource getPaperSound;
         public void Lift()
         {
         }
 
         public void Lift(GameObject gm)
         {
+            getPaperSound.Play();
             if (gm.name == "KeyboardBoy" || gm.name == "GamepadBoy")
             {
                 text[0].text = textNote;

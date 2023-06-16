@@ -29,7 +29,6 @@ namespace Features.AI.Boss
         
         [Header("Movement")]
         [SerializeField] private float speed;
-        [SerializeField] private AudioSource moveSound;
         [SerializeField] private EnemyDestroyer enemyDestroyer;
         
         private int _targetPlayer;
@@ -153,8 +152,6 @@ namespace Features.AI.Boss
         {
             if(!_animator.GetBool(_moveHash))
                 _animator.SetBool(_moveHash, true);
-            if(!moveSound.isPlaying)
-                moveSound.Play();
 
             transform.LookAt(players[targetPlayer].transform);
             _navMeshAgent.SetDestination(players[targetPlayer].transform.position);
@@ -162,7 +159,6 @@ namespace Features.AI.Boss
 
         private IEnumerator LightAttack()
         {
-            moveSound.Stop();
 
             _animator.SetBool(_moveHash, false);
             transform.LookAt(players[_targetPlayer].transform);
@@ -190,7 +186,6 @@ namespace Features.AI.Boss
             {
                 if (!isProtected)
                 {
-                    moveSound.Stop();
                     lightAttackSound.Stop();
                     
                     yield return new WaitForSeconds(heavyAttackTimer);
@@ -224,7 +219,6 @@ namespace Features.AI.Boss
 
         private IEnumerator Protect()
         {
-            moveSound.Stop();
             isProtected = true;
             _animator.SetBool(_moveHash, false);
             _navMeshAgent.speed = 0;
@@ -276,7 +270,6 @@ namespace Features.AI.Boss
 
         private IEnumerator StopProtect()
         {
-            moveSound.Stop();
             _animator.SetBool(_protectHash, false);
             yield return new WaitForSeconds(endProtectTime);
             isProtected = false;
@@ -286,7 +279,6 @@ namespace Features.AI.Boss
         
         private void OnDeath()
         {
-            moveSound.Stop();
             _animator.SetBool(_moveHash, false);
             _animator.SetBool(_protectHash, false);
             enemyDestroyer.Activate();

@@ -8,7 +8,7 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: BoyMaterial
-  m_Shader: {fileID: -6465566751694194690, guid: f08259d2c08054718bd27b0d6cd3a025,
+  m_Shader: {fileID: -6465566751694194690, guid: 15021573f7d02d848980f97c70c7e5d6,
     type: 3}
   m_ValidKeywords: []
   m_InvalidKeywords: []
@@ -48,7 +48,7 @@ Material:
     - _DisolveScale: 40
     - _DisolveWidth: 0.05
     - _DisolweWidth02: 0.02
-    - _GlowIntensity: 1
+    - _GlowIntensity: 0
     - _GlowStrength: 2.5
     - _Metalic: 0
     - _NormalStrength: 0.5

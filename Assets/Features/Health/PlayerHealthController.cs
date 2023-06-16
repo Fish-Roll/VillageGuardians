@@ -11,6 +11,9 @@ namespace Features.Health
         [SerializeField] private ParticleSystem healParticle;
         [SerializeField] private Animator animator;
         
+        [SerializeField] private AudioSource deathSound;
+        [SerializeField] private AudioSource reviveSound;
+        
         [SerializeField] private float reviveHealth;
         [SerializeField] private DeathWindow deathWindow;
         [SerializeField] private GameObject deathWindowObject;
@@ -65,6 +68,10 @@ namespace Features.Health
             _inputSignatory.MoveDirection = Vector3.zero;
 
             animator.SetLayerWeight(1, 0);
+            
+            if(!deathSound.isPlaying)
+                deathSound.Play();
+            
             animator.SetTrigger(_deathHash);
             _inputSignatory.IsAiming = false;
             _inputSignatory.IsMoving = false;
@@ -79,6 +86,8 @@ namespace Features.Health
         {
             deathWindow.deadCount--;
             _isDead = false;
+            if(!reviveSound.isPlaying)
+                reviveSound.Play();
             animator.SetTrigger(_reviveHash);
             _inputSignatory.enabled = true;
         }

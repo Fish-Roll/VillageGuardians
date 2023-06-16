@@ -11,6 +11,10 @@ namespace Features.Movement.Boy
     public class BoyMovement : BasePlayerMovement
     {
         [SerializeField] private Transform newDashParent;
+        
+        [SerializeField] private AudioSource moveSound;
+        [SerializeField] private AudioSource dashSound;
+        
         private BoyHeavyMeleeAttack _heavyMeleeAttack;
 
         private int _dodgeHash;
@@ -36,6 +40,8 @@ namespace Features.Movement.Boy
         {
             float verticalMovement = rb.velocity.y;
             Vector3 moveDirection = direction.normalized * moveSpeed;
+            if (!moveSound.isPlaying)
+                moveSound.Play();
             rb.velocity = new Vector3(moveDirection.x, verticalMovement, moveDirection.z);
         }
 
@@ -44,6 +50,7 @@ namespace Features.Movement.Boy
         
         public override IEnumerator Dash(Vector3 direction)
         {
+            moveSound.Stop();
             //moveController.enabled = false;
             if (!inputSignatory.isHeavyAttacked)
             {
@@ -51,7 +58,8 @@ namespace Features.Movement.Boy
 
                 inputSignatory.IsMoving = false;
                 inputSignatory.IsDashing = true;
-
+                dashSound.Play();
+                
                 newDashParent.SetParent(null);
                 gameObject.transform.SetParent(newDashParent);
                 gameObject.transform.localPosition = Vector3.zero;

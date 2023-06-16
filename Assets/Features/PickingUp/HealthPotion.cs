@@ -10,7 +10,7 @@ namespace Features.PickingUp
     {
         [SerializeField] private float healValue;
         [SerializeField] private float staminaValue;
-        
+        [SerializeField] private AudioSource getPotionSound;
         private PlayerHealthController _playerHealth;
         private StaminaController _staminaController;
         
@@ -29,6 +29,7 @@ namespace Features.PickingUp
 
         public void Lift()
         {
+            getPotionSound.Play();
             _playerHealth.Heal(healValue);
             _staminaController.Accumulate(staminaValue);
             Destroy(gameObject);

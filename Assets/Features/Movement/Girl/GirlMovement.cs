@@ -11,6 +11,9 @@ namespace Features.Movement.Girl
         [SerializeField] private float dashSpeed;
         [SerializeField] private Material newMaterials;
         [SerializeField] private SkinnedMeshRenderer[] oldMaterials;
+        [SerializeField] private ParticleSystem particleSystem;
+        [SerializeField] private AudioSource dashSound;
+        [SerializeField] private AudioSource moveSound;
         public override void Init(Rigidbody rb, Animator animator, InputSignatory inputSignatory)
         {
             this.rb = rb;
@@ -22,27 +25,36 @@ namespace Features.Movement.Girl
         {
             float verticalMovement = rb.velocity.y;
             Vector3 moveDirection = direction.normalized * moveSpeed;
+            if (!moveSound.isPlaying)
+                moveSound.Play();
             rb.velocity = new Vector3(moveDirection.x, verticalMovement, moveDirection.z);
         }
         
         public override IEnumerator Dash(Vector3 direction)
         {
-            float currentTime = 0;
-            //playerModel.SetActive(false);
-            rb.AddForce(playerModel.transform.forward * dashSpeed, ForceMode.Impulse);
-            Material materials = oldMaterials[0].material;
-            for (int i = 0; i < oldMaterials.Length; i++)
+            moveSound.Stop();
+            if (!inputSignatory.IsDashing)
             {
-                oldMaterials[i].material = newMaterials;
+                inputSignatory.IsDashing = true;
+                particleSystem.Play();
+                dashSound.Play();
+
+                rb.AddForce(playerModel.transform.forward * dashSpeed, ForceMode.Impulse);
+                Material materials = oldMaterials[0].material;
+                for (int i = 0; i < oldMaterials.Length; i++)
+                {
+                    oldMaterials[i].material = newMaterials;
+                }
+
+                yield return new WaitForSeconds(dashDuration);
+                for (int i = 0; i < oldMaterials.Length; i++)
+                {
+                    oldMaterials[i].material = materials;
+                }
+
+                inputSignatory.IsDashing = false;
+                yield return null;
             }
-            yield return new WaitForSeconds(dashDuration);
-            for (int i = 0; i < oldMaterials.Length; i++)
-            {
-                oldMaterials[i].material = materials;
-            }
-            // playerModel.SetActive(true);
-            inputSignatory.IsDashing = false;
-            yield return null;
         }
     }
 }

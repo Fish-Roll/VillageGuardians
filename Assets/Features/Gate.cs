@@ -12,7 +12,7 @@ namespace Features
         [SerializeField] private float duration;
         [SerializeField] private Vector3 endAngle;
         [SerializeField] private Transform lever;
-
+        [SerializeField] private AudioSource openGateSound;
         [SerializeField] private float durationClose;
         [SerializeField] private Vector3 endCloseAngle;
 
@@ -23,6 +23,8 @@ namespace Features
         {
             _close = false;
             _open = true;
+            if(!openGateSound.isPlaying)
+                openGateSound.Play();
             StartCoroutine(RotateCoroutine(endAngle, duration));
         }
         

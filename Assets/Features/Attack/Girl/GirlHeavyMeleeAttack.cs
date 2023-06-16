@@ -13,7 +13,7 @@ namespace Features.Attack.Girl
         [SerializeField] private float staminaSub;
         [SerializeField] private StaminaController staminaController;
         [SerializeField] private InputSignatory inputSignatory;
-
+        [SerializeField] private AudioSource fireFlowSound;
         private Animator _animator;
         private int _attackHash;
         private int _idleAttackHash;
@@ -34,14 +34,16 @@ namespace Features.Attack.Girl
             staminaController.Subtract(staminaSub);
             inputSignatory.IsMoving = false;
             inputSignatory.IsDashing = false;
-
             _animator.SetTrigger(_attackHash);
             yield return waitDelay;
-            
+            fireFlowSound.Play();
+
             _animator.SetBool(_idleAttackHash, true);
             weapon.SetActive(true);
             
             yield return waitDuration;
+            fireFlowSound.Stop();
+
             inputSignatory.isHeavyAttacked = false;
             ResetAttack();
         }

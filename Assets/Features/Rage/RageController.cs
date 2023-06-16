@@ -57,16 +57,22 @@ namespace Features.Rage
             return true;
         }
 
+        private bool deactivated;
         private IEnumerator Activate()
         {
+            deactivated = false;
             while (rageModel.RageValue > 0)
             {
                 rageModel.Subtract(subtractValue);
                 _rageView.RageSlider.value = rageModel.RageValue;
-                
+                if (rageModel.RageValue <= 10 && !deactivated)
+                {
+                    deactivated = true;
+                    StartCoroutine(_rageEffect.DisableEffect());
+                }
+
                 yield return _tickWait;
             }
-            StartCoroutine(_rageEffect.DisableEffect());
             _activated = false;
         }
     }
