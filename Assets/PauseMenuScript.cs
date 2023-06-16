@@ -16,6 +16,12 @@ public class PauseMenuScript : MonoBehaviour
     {
         SceneManager.LoadSceneAsync("Main Menu");
     }
+
+    public void Continue(GameObject window)
+    {
+        Time.timeScale = 1;
+        window.SetActive(false);
+    }
     
     public void Close(GameObject window)
     {

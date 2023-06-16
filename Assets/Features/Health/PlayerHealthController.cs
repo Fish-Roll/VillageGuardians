@@ -12,8 +12,9 @@ namespace Features.Health
         [SerializeField] private Animator animator;
         
         [SerializeField] private float reviveHealth;
-
-
+        [SerializeField] private DeathWindow deathWindow;
+        [SerializeField] private GameObject deathWindowObject;
+        
         private HealthView _healthView;
         private bool _isDead;
         private int _deathHash;
@@ -60,6 +61,7 @@ namespace Features.Health
         private void OnDeath()
         {
             _isDead = true;
+            deathWindow.deadCount++;
             _inputSignatory.MoveDirection = Vector3.zero;
 
             animator.SetLayerWeight(1, 0);
@@ -69,10 +71,13 @@ namespace Features.Health
             _inputSignatory.IsDashing = false;
             
             _inputSignatory.enabled = false;
+            if (deathWindow.deadCount == 2)
+                deathWindowObject.SetActive(true);
         }
 
         private void OnRevive()
         {
+            deathWindow.deadCount--;
             _isDead = false;
             animator.SetTrigger(_reviveHash);
             _inputSignatory.enabled = true;
