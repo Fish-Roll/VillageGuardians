@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -12,6 +13,20 @@ public class MenuButtons : MonoBehaviour
     [SerializeField] private GameObject control;
     [SerializeField] private GameObject mainMenu;
     [SerializeField] private AudioSource buttonAudio;
+    [SerializeField] private GameObject teachMenu;
+    private void OnEnable()
+    {
+        Cursor.lockState = CursorLockMode.None;
+    }
+
+    public void OpenTeachMenu()
+    {
+        buttonAudio.Play();
+        mainMenu.SetActive(false);
+        findLobby.SetActive(false);
+        teachMenu.SetActive(true);
+    }
+    
     public void OpenGameScene()
     {
         buttonAudio.Play();
@@ -44,4 +59,5 @@ public class MenuButtons : MonoBehaviour
         window.SetActive(false);
         mainMenu.SetActive(true);
     }
+    
 }

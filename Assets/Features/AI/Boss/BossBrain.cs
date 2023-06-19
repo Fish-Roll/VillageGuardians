@@ -5,6 +5,7 @@ using Features.AI.Enemy;
 using Features.Health;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.SceneManagement;
 
 namespace Features.AI.Boss
 {

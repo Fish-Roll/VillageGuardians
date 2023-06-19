@@ -2144,7 +2144,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   weapon: {fileID: 6184345313342386097}
   duration: 0.5
-  attackSound: {fileID: 0}
+  attackSound: {fileID: 5268169468558850189}
 --- !u!114 &315117172964156720
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2163,7 +2163,7 @@ MonoBehaviour:
   _newParent: {fileID: 4759769443134241008}
   staminaSub: 40
   staminaController: {fileID: 1954852184016435322}
-  attackSound: {fileID: 0}
+  attackSound: {fileID: 14866770612664970}
   _inputSignatory: {fileID: 6813775180197225357}
 --- !u!114 &8466389102686609308
 MonoBehaviour:
@@ -2249,6 +2249,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   healthSlider: {fileID: 0}
+  healthSlider2: {fileID: 0}
 --- !u!114 &5151169605733871914
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2309,6 +2310,7 @@ MonoBehaviour:
   leverDuration: 0.7
   supportDuration: 0.5
   pushDuration: 0.5
+  interactionPromptWindow: {fileID: 0}
 --- !u!114 &4611535049408809165
 MonoBehaviour:
   m_ObjectHideFlags: 0

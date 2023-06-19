@@ -5042,7 +5042,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 7
-  damage: 10
+  damage: 25
   lifetime: 10
 --- !u!82 &-4040081406397161705
 AudioSource:

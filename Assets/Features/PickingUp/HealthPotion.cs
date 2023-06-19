@@ -33,7 +33,7 @@ namespace Features.PickingUp
             _playerHealth.Heal(healValue);
             _staminaController.Accumulate(staminaValue);
             gameObject.GetComponent<MeshRenderer>().enabled = false;
-            Destroy(gameObject, 0.5f);
+            Destroy(gameObject, 0.45f);
         }
 
         public void Lift(GameObject gm)

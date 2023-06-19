@@ -29,7 +29,7 @@ namespace Features.PickingUp
             }
 
             gameObject.GetComponent<MeshRenderer>().enabled = false;
-            Destroy(gameObject, 0.5f);
+            Destroy(gameObject, 0.45f);
 
         }
     }

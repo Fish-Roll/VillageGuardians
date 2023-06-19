@@ -1,11 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class DisolveEnemy : MonoBehaviour
 {
     [SerializeField] public SkinnedMeshRenderer Mesh;
-
+    [SerializeField] private bool isBoss;
     private Material[] Materials;
     public float disolveRate = 0.0125f;
     public float refreshRate = 0.025f;
@@ -33,6 +34,14 @@ public class DisolveEnemy : MonoBehaviour
                 yield return new WaitForSeconds(refreshRate);
             }
         }
-        Destroy(gameObject);
+
+        if (!isBoss)
+        {
+            Destroy(gameObject);
+        }
+        else
+        {
+            SceneManager.LoadScene("Cutscene_2");
+        }
     }
 }

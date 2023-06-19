@@ -21,6 +21,8 @@ namespace Features.Health
             
             _healthView.HealthSlider.maxValue = _enemyHealth.MaxHealth;
             _healthView.HealthSlider.value = _enemyHealth.CurrentHealth;
+            _healthView.HealthSlider2.maxValue = _enemyHealth.MaxHealth;
+            _healthView.HealthSlider2.value = _enemyHealth.CurrentHealth;
             
             //_enemyHealth.Init(OnDeath);
         }

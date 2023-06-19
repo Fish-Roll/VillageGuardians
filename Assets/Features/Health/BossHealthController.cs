@@ -28,6 +28,8 @@ namespace Features.Health
             _bossHealth.Init(onDeath);
             _healthView.HealthSlider.maxValue = _bossHealth.MaxHealth;
             _healthView.HealthSlider.value = _bossHealth.CurrentHealth;
+            _healthView.HealthSlider2.maxValue = _bossHealth.MaxHealth;
+            _healthView.HealthSlider2.value = _bossHealth.CurrentHealth;
             this.onProtect = onProtect;
         }
 
