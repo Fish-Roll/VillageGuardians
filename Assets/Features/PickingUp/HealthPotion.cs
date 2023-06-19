@@ -32,7 +32,8 @@ namespace Features.PickingUp
             getPotionSound.Play();
             _playerHealth.Heal(healValue);
             _staminaController.Accumulate(staminaValue);
-            Destroy(gameObject);
+            gameObject.GetComponent<MeshRenderer>().enabled = false;
+            Destroy(gameObject, 0.5f);
         }
 
         public void Lift(GameObject gm)

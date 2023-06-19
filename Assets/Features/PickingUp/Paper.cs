@@ -27,6 +27,8 @@ namespace Features.PickingUp
                 text[1].text = textNote;
                 paperWindow[1].SetActive(true);
             }
+
+            gameObject.GetComponent<MeshRenderer>().enabled = false;
             Destroy(gameObject, 0.5f);
 
         }
