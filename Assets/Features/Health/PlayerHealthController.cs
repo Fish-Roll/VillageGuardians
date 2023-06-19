@@ -63,6 +63,7 @@ namespace Features.Health
 
         private void OnDeath()
         {
+            if (_isDead) return;
             _isDead = true;
             deathWindow.deadCount++;
             _inputSignatory.MoveDirection = Vector3.zero;
@@ -84,6 +85,7 @@ namespace Features.Health
 
         private void OnRevive()
         {
+            if (!_isDead) return;
             deathWindow.deadCount--;
             _isDead = false;
             if(!reviveSound.isPlaying)

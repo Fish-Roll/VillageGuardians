@@ -24,8 +24,7 @@ namespace Features.Attack.Boy
         {
             var wait = new WaitForSeconds(duration);
             BaseAttackController.canAttack = false;
-            if(!attackSound.isPlaying)
-                attackSound.Play();
+            attackSound.Play();
             _animator.SetTrigger(_attackHash);
             //attackEffect.Play();
             weapon.SetActive(true);
@@ -35,7 +34,7 @@ namespace Features.Attack.Boy
         
         protected override void ResetAttack()
         {
-            //attackEffect.Stop();
+            attackSound.Stop();
             weapon.SetActive(false);
             BaseAttackController.canAttack = true;
         }

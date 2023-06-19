@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 1566415063692680623}
   - component: {fileID: 5844243667513747393}
   - component: {fileID: 2099830076793069108}
-  m_Layer: 10
+  m_Layer: 15
   m_Name: Value
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -88,8 +88,9 @@ GameObject:
   - component: {fileID: 3559772985664204436}
   - component: {fileID: 6219010267844186300}
   - component: {fileID: 3190384554975237509}
-  m_Layer: 10
-  m_Name: Canvas
+  - component: {fileID: 3223811129453464652}
+  m_Layer: 15
+  m_Name: HealthViewCamera2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -177,6 +178,20 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
+--- !u!114 &3223811129453464652
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3835207791671479568}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 424b9f9024dce2548ab0391c34c367cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cameraName: Main Camera_2
+  camera: {fileID: 0}
 --- !u!1 &7119060863984738047
 GameObject:
   m_ObjectHideFlags: 0
@@ -187,7 +202,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5468878048575343266}
   - component: {fileID: 502910204998297058}
-  m_Layer: 10
+  m_Layer: 15
   m_Name: HealthBar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -278,7 +293,7 @@ GameObject:
   - component: {fileID: 8630643246934929330}
   - component: {fileID: 5300905769369328403}
   - component: {fileID: 6602076515230096108}
-  m_Layer: 10
+  m_Layer: 15
   m_Name: Border
   m_TagString: Untagged
   m_Icon: {fileID: 0}

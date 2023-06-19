@@ -37,6 +37,7 @@ namespace Features.Health
             if (_isDead || _isProtected) return;
             _bossHealth.Damage(value);
             _healthView.HealthSlider.value = _bossHealth.CurrentHealth;
+            _healthView.HealthSlider2.value = _bossHealth.CurrentHealth;
             if (_bossHealth.CurrentHealth <= _bossHealth.MaxHealth/2 && !_alreadyProtected)
             {
                 _alreadyProtected = true;

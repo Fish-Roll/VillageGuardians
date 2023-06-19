@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections;
+using System.Collections.Generic;
 using Features.Input;
 using Features.TagsGame;
 using UnityEngine;
@@ -14,6 +15,8 @@ namespace Features.Interaction
         [SerializeField] private float supportDuration;
         [SerializeField] private float pushDuration;
 
+        [SerializeField] private GameObject interactionPromptWindow;
+        
         private InputSignatory _inputSignatory;
         private IInteractable _interactable;
         private int _reviveHash;
@@ -91,6 +94,7 @@ namespace Features.Interaction
         {
             if(other.TryGetComponent<IInteractable>(out var interactable))
             {
+                interactionPromptWindow.SetActive(true);
                 _interactable = interactable;
             }
         }
@@ -98,7 +102,10 @@ namespace Features.Interaction
         public void OnTriggerExit(Collider other)
         {
             if (other.TryGetComponent<IInteractable>(out var interactable))
+            {
+                interactionPromptWindow.SetActive(false);
                 _interactable = null;
+            }
         }
         
         

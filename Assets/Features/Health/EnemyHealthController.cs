@@ -35,6 +35,7 @@ namespace Features.Health
             if (_isDead) return;
             _enemyHealth.Damage(value);
             _healthView.HealthSlider.value = _enemyHealth.CurrentHealth;
+            _healthView.HealthSlider2.value = _enemyHealth.CurrentHealth;
         }
     }
 }

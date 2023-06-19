@@ -22,6 +22,7 @@ namespace Features.Rage
         {
             _rageHash = Animator.StringToHash("Rage");
             _rageEffect = GetComponent<RageEffect>();
+            _rageEffect.Init(ref _activated);
             _rageView = GetComponent<RageView>();
             _rageView.RageSlider.maxValue = rageModel.RageMaxValue;
             _rageView.RageSlider.value = rageModel.RageValue;
@@ -51,29 +52,26 @@ namespace Features.Rage
             
             _activated = true;
             animator.SetTrigger(_rageHash);
-            StartCoroutine(_rageEffect.ActivateEffect());
             StartCoroutine(Activate());
             
             return true;
         }
 
-        private bool deactivated;
         private IEnumerator Activate()
         {
-            deactivated = false;
+            var active = StartCoroutine(_rageEffect.ActivateEffect());
             while (rageModel.RageValue > 0)
             {
                 rageModel.Subtract(subtractValue);
                 _rageView.RageSlider.value = rageModel.RageValue;
-                if (rageModel.RageValue <= 10 && !deactivated)
-                {
-                    deactivated = true;
-                    StartCoroutine(_rageEffect.DisableEffect());
-                }
-
                 yield return _tickWait;
             }
+            StopCoroutine(active);
+
+            StartCoroutine(_rageEffect.DisableEffect());
+            yield return new WaitForSeconds(1f);
             _activated = false;
+
         }
     }
 }

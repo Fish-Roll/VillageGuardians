@@ -28,4 +28,9 @@ public class PauseMenuScript : MonoBehaviour
         window.SetActive(false);
         Time.timeScale = 1;
     }
+
+    public void BlockCursor()
+    {
+        Cursor.lockState = CursorLockMode.Locked;
+    }
 }

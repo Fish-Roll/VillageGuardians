@@ -27,7 +27,7 @@ namespace Features.Movement
         private InputSignatory _inputSignatory;
         private Rigidbody _rb;
         private Vector3 _moveDirection;
-
+        private PlayerHealthController _healthController;
         private int _walkHash;
         private int _isDead;
         private int _isReviveing;
@@ -44,7 +44,7 @@ namespace Features.Movement
             _heavyMeleeAttack = GetComponent<BaseMeleeAttack>();
             movement = GetComponent<BasePlayerMovement>();
             _rb = GetComponent<Rigidbody>();
-            
+            _healthController = GetComponent<PlayerHealthController>();
             _rb.freezeRotation = true;
             //_health.Init(OnDeath, OnRevive);
         }
@@ -64,7 +64,8 @@ namespace Features.Movement
             if (!_inputSignatory.IsDashing && _inputSignatory.IsMoving &&
                 (_moveDirection.x != 0 || _moveDirection.z != 0)
                 && !_inputSignatory.isHeavyAttacked
-                && !_inputSignatory.isInteracting)
+                && !_inputSignatory.isInteracting
+                && !_healthController.IsDead)
                 RotatePlayer();
         }
 
@@ -85,7 +86,8 @@ namespace Features.Movement
             if (!_inputSignatory.IsDashing && _inputSignatory.IsMoving &&
                 (_moveDirection.x != 0 || _moveDirection.z != 0)
                 && !_inputSignatory.isHeavyAttacked
-                && !_inputSignatory.isInteracting)
+                && !_inputSignatory.isInteracting
+                && !_healthController.IsDead)
             {
                 animator.SetBool(_walkHash, true);
                 movement.Move(_moveDirection);
