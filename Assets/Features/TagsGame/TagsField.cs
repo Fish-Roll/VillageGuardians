@@ -41,7 +41,7 @@ namespace Features.TagsGame
         {
             if (knuckleObject.TryGetComponent<Knuckle>(out var knuckle))
             {
-                int pointIndex = GetRandomFreePointIndex();
+                int pointIndex = GetPointForKnuckle(knuckle);
                 points[pointIndex].Knuckle = knuckle;
                 points[pointIndex].Knuckle.InitInteract(TryMove);
                 MoveToPoint(points[pointIndex]);
@@ -49,6 +49,31 @@ namespace Features.TagsGame
             }
         }
 
+        private int GetPointForKnuckle(Knuckle knuckle)
+        {
+            switch (knuckle.Id)
+            {
+                case 0:
+                    return 0;
+                case 1:
+                    return 1;
+                case 2:
+                    return 2;
+                case 3:
+                    return 3;
+                case 4:
+                    return 4;
+                case 5:
+                    return 6;
+                case 6:
+                    return 7;
+                case 7:
+                    return 8;
+            }
+
+            return -1;
+        }
+        
         private int GetRandomFreePointIndex()
         {
             var freePoints = new List<int>();

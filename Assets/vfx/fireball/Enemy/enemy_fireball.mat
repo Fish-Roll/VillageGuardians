@@ -39,7 +39,7 @@ Material:
     - _QueueOffset: -1
     - _buttom_color_hight: 0.1
     m_Colors:
-    - _Color: {r: 6.8831816, g: 1.2252784, b: 0.1081128, a: 1}
+    - _Color: {r: 6.8831816, g: 0, b: 0.1081128, a: 1}
     - _color_2: {r: 6.9666467, g: 0.37221456, b: 0.029271415, a: 0}
   m_BuildTextureStacks: []
 --- !u!114 &1231124053693539538

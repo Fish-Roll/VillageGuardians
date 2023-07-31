@@ -14,17 +14,28 @@ public class MenuButtons : MonoBehaviour
     [SerializeField] private GameObject mainMenu;
     [SerializeField] private AudioSource buttonAudio;
     [SerializeField] private GameObject teachMenu;
+    [SerializeField] private GameObject continueButton;
     private void OnEnable()
     {
         Cursor.lockState = CursorLockMode.None;
     }
 
+    public void LoadNewScene()
+    {
+        SceneManager.LoadScene("Level_1 1_3");
+    }
+    
     public void OpenTeachMenu()
     {
         buttonAudio.Play();
         mainMenu.SetActive(false);
         findLobby.SetActive(false);
         teachMenu.SetActive(true);
+    }
+
+    public void RemoveSave()
+    {
+        Destroy(continueButton);
     }
     
     public void OpenGameScene()

@@ -9,7 +9,7 @@ namespace Features.UI
         /// if true == keyboard
         /// </summary>
         [SerializeField] private bool girlControl;
-
+        [SerializeField] private AudioSource pushSound;
         [SerializeField] private Transform leftSprite;
         [SerializeField] private Transform rightSprite;
         private Vector3 _spritePos = new Vector3();
@@ -29,6 +29,7 @@ namespace Features.UI
 
         public void ChangeControl()
         {
+            pushSound.Play();
             girlControl = !girlControl;
             _boyControl = !_boyControl;
             
